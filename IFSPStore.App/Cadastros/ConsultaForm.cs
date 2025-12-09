@@ -1,25 +1,25 @@
-﻿using ConsultorioIFSP.Domain.Base;
-using IFSPStore.App.Base;
+﻿using ConsultaIFSP.App.Base;
+using ConsultorioIFSP.Domain.Base;
 
-namespace IFSPStore.App.Cadastros
+namespace ConsultorioIFSP.App.Cadastros
 {
-    // A classe ConsultaProdutoForm herda de BaseForm, mas ignora métodos de edição/salvamento.
-    public partial class ConsultaProdutoForm : BaseForm
+    // A classe ConsultaForm herda de BaseForm, focada apenas em listagem/filtragem.
+    public partial class ConsultaForm : BaseForm
     {
         private readonly IBaseService<Product> _productService;
-        private readonly IBaseService<Category> _categoryService;
+        private private readonly IBaseService<Category> _categoryService;
 
         private List<ProductModel>? products;
 
-        // Construtor: Injeção de dependência dos serviços necessários
-        public ConsultaProdutoForm(IBaseService<Product> productService, IBaseService<Category> categoryService)
+        // Construtor: Injeção de dependência dos serviços.
+        public ConsultaForm(IBaseService<Product> productService, IBaseService<Category> categoryService)
         {
             _productService = productService;
             _categoryService = categoryService;
             InitializeComponent();
 
             loadCombo();
-            // Carrega a grade com todos os dados na inicialização.
+            // Carrega a grade com os dados iniciais.
             CarregaGrid();
         }
 
@@ -31,15 +31,15 @@ namespace IFSPStore.App.Cadastros
 
             var categories = _categoryService.Get<CategoryModel>().ToList();
 
-            // Adiciona a opção "Todas as Categorias" no início da lista para o filtro
+            // Adiciona a opção "Todas as Categorias" no início
             categories.Insert(0, new CategoryModel { Id = 0, Name = "Todas" });
 
             cboCategory.DataSource = categories;
-            cboCategory.SelectedIndex = 0; // Seleciona "Todas" como padrão.
+            cboCategory.SelectedIndex = 0; // Padrão: Todas
         }
 
         // -----------------------------------------------------------------
-        // Métodos de Ação (Consulta)
+        // Métodos de Consulta
         // -----------------------------------------------------------------
 
         // Método principal sobrescrito que coleta os filtros e carrega a grade.
@@ -47,8 +47,7 @@ namespace IFSPStore.App.Cadastros
         {
             try
             {
-                // 1. Coleta e sanitiza os Filtros da Tela (Assumindo txtId, txtName, cboCategory)
-
+                // 1. Coleta e sanitiza os Filtros da Tela
                 int? idFiltro = null;
                 if (int.TryParse(txtId.Text, out int id) && id > 0)
                 {
@@ -58,7 +57,6 @@ namespace IFSPStore.App.Cadastros
                 string nomeFiltro = txtName.Text.Trim();
 
                 int? idCategoriaFiltro = null;
-                // Aplica filtro de categoria somente se um ID > 0 for selecionado
                 if (cboCategory.SelectedValue != null &&
                     int.TryParse(cboCategory.SelectedValue.ToString(), out int idCat) &&
                     idCat > 0)
@@ -77,8 +75,6 @@ namespace IFSPStore.App.Cadastros
                 {
                     dataGridViewList.Columns["IdCategory"]!.Visible = false;
                 }
-
-                // Opcional: lblStatus.Text = $"Encontrados {products.Count} registros.";
             }
             catch (Exception ex)
             {
@@ -89,7 +85,7 @@ namespace IFSPStore.App.Cadastros
         // Realiza a filtragem dos dados usando Linq
         private IEnumerable<ProductModel> BuscarProdutosFiltrados(int? id, string nome, int? idCategory)
         {
-            // Busca a lista de produtos, incluindo o objeto Category (usado para o filtro e exibição)
+            // Busca a lista de produtos, incluindo o objeto Category
             var query = _productService.Get<ProductModel>(new[] { "Category" }).AsQueryable();
 
             if (id.HasValue)
@@ -99,8 +95,8 @@ namespace IFSPStore.App.Cadastros
 
             if (!string.IsNullOrEmpty(nome))
             {
-                // Filtra por nome, verificando se contém a string inserida
-                query = query.Where(p => p.Name.Contains(nome));
+                // Filtra por nome (case-insensitive para melhor usabilidade)
+                query = query.Where(p => p.Name.ToLower().Contains(nome.ToLower()));
             }
 
             if (idCategory.HasValue)
@@ -115,41 +111,27 @@ namespace IFSPStore.App.Cadastros
         // Sobrescrita e Desabilitação de Métodos de CRUD
         // -----------------------------------------------------------------
 
-        // Desabilita o método Save
-        protected override void Save()
-        {
-            // Não faz nada, pois é um formulário de consulta.
-        }
-
-        // Desabilita o método Delete
-        protected override void Delete(int id)
-        {
-            // Não faz nada, pois é um formulário de consulta.
-        }
-
-        // Desabilita o método loadList (ou adapte para abrir edição, se for o caso)
-        protected override void loadList(DataGridViewRow? linha)
-        {
-            // Não preenche os campos do formulário (que neste contexto seriam campos de edição).
-        }
+        protected override void Save() { } // Desabilitado
+        protected override void Delete(int id) { } // Desabilitado
+        protected override void loadList(DataGridViewRow? linha) { } // Desabilitado
 
         // -----------------------------------------------------------------
-        // Manipuladores de Eventos (Assumidos no Designer)
+        // Manipuladores de Eventos (Associados no Designer)
         // -----------------------------------------------------------------
 
-        // Este método deve ser associado ao Click do botão de Consultar/Filtrar
+        // Método associado ao Click do botão de Consultar/Filtrar
         private void btnConsultar_Click(object sender, EventArgs e)
         {
             CarregaGrid();
         }
 
-        // Opcional: Método para Limpar os campos de filtro e recarregar
+        // Método para Limpar os campos de filtro e recarregar
         private void btnLimparFiltros_Click(object sender, EventArgs e)
         {
             txtId.Clear();
             txtName.Clear();
             cboCategory.SelectedIndex = 0; // Volta para "Todas"
-            CarregaGrid(); // Recarrega a grade sem filtros
+            CarregaGrid();
         }
     }
 }

@@ -1,16 +1,16 @@
-﻿namespace IFSPStore.App.Cadastros
+﻿namespace ConsultorioIFSP.App.Cadastros
 {
     partial class PacienteForm
     {
         /// <summary>
-        /// Required designer variable.
+        /// Variável de designer necessária.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Clean up any resources being used.
+        /// Limpar os recursos que estão sendo usados.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">true se for necessário descartar os recursos gerenciados; caso contrário, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,489 +20,289 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Código gerado pelo Windows Form Designer
 
         /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// Método necessário para suporte ao Designer - não modifique 
+        /// o conteúdo deste método com o editor de código.
         /// </summary>
         private void InitializeComponent()
         {
-            txtSaleDate = new ReaLTaiizor.Controls.MaterialMaskedTextBox();
-            cboUser = new ReaLTaiizor.Controls.MaterialComboBox();
-            txtId = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            cboCustomer = new ReaLTaiizor.Controls.MaterialComboBox();
-            groupBoxItens = new GroupBox();
-            btnExcluir = new ReaLTaiizor.Controls.MaterialButton();
-            cboCategory = new ReaLTaiizor.Controls.MaterialComboBox();
-            txtQuantity = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            dataGridViewItens = new DataGridView();
-            btnAdd = new ReaLTaiizor.Controls.MaterialButton();
-            txtTotalPrice = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            txtPrice = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            txtSaleUnit = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            cboProduct = new ReaLTaiizor.Controls.MaterialComboBox();
-            lblQtdItens = new ReaLTaiizor.Controls.MaterialLabel();
-            lblTotalPrice = new ReaLTaiizor.Controls.MaterialLabel();
-            tabControlRegister.SuspendLayout();
-            tabPage1.SuspendLayout();
-            groupBoxItens.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewItens).BeginInit();
-            SuspendLayout();
+            this.tabControlCadastro = new System.Windows.Forms.TabControl();
+            this.tabPageCadastro = new System.Windows.Forms.TabPage();
+            this.txtTelefone = new System.Windows.Forms.TextBox();
+            this.lblTelefone = new System.Windows.Forms.Label();
+            this.txtDataNascimento = new System.Windows.Forms.TextBox();
+            this.lblDataNascimento = new System.Windows.Forms.Label();
+            this.txtSexo = new System.Windows.Forms.TextBox();
+            this.lblSexo = new System.Windows.Forms.Label();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.lblEmail = new System.Windows.Forms.Label();
+            // REMOVIDOS: txtPassword e txtLogin
+            this.txtNome = new System.Windows.Forms.TextBox();
+            this.lblNome = new System.Windows.Forms.Label();
+            this.txtId = new System.Windows.Forms.TextBox();
+            this.lblId = new System.Windows.Forms.Label();
+            this.tabPageConsulta = new System.Windows.Forms.TabPage();
+            this.dataGridViewConsulta = new System.Windows.Forms.DataGridView();
+            this.btnLimparFiltros = new System.Windows.Forms.Button();
+            this.btnConsultar = new System.Windows.Forms.Button();
+            this.txtEmailFilter = new System.Windows.Forms.TextBox();
+            this.lblEmailFiltro = new System.Windows.Forms.Label();
+            this.txtNomeFilter = new System.Windows.Forms.TextBox();
+            this.lblNomeFiltro = new System.Windows.Forms.Label();
+            this.tabControlCadastro.SuspendLayout();
+            this.tabPageCadastro.SuspendLayout();
+            this.tabPageConsulta.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConsulta)).BeginInit();
+            this.SuspendLayout();
             // 
-            // tabPage2
+            // tabControlCadastro
             // 
-            tabPage2.Size = new Size(790, 597);
+            this.tabControlCadastro.Controls.Add(this.tabPageCadastro);
+            this.tabControlCadastro.Controls.Add(this.tabPageConsulta);
+            this.tabControlCadastro.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlCadastro.Location = new System.Drawing.Point(0, 0);
+            this.tabControlCadastro.Name = "tabControlCadastro";
+            this.tabControlCadastro.SelectedIndex = 0;
+            this.tabControlCadastro.Size = new System.Drawing.Size(800, 600);
+            this.tabControlCadastro.TabIndex = 0;
             // 
-            // tabControlRegister
+            // tabPageCadastro
             // 
-            tabControlRegister.Size = new Size(798, 632);
+            this.tabPageCadastro.Controls.Add(this.txtTelefone);
+            this.tabPageCadastro.Controls.Add(this.lblTelefone);
+            this.tabPageCadastro.Controls.Add(this.txtDataNascimento);
+            this.tabPageCadastro.Controls.Add(this.lblDataNascimento);
+            this.tabPageCadastro.Controls.Add(this.txtSexo);
+            this.tabPageCadastro.Controls.Add(this.lblSexo);
+            this.tabPageCadastro.Controls.Add(this.txtEmail);
+            this.tabPageCadastro.Controls.Add(this.lblEmail);
+            // txtLogin e txtPassword removidos
+            this.tabPageCadastro.Controls.Add(this.txtNome);
+            this.tabPageCadastro.Controls.Add(this.lblNome);
+            this.tabPageCadastro.Controls.Add(this.txtId);
+            this.tabPageCadastro.Controls.Add(this.lblId);
+            this.tabPageCadastro.Location = new System.Drawing.Point(4, 25);
+            this.tabPageCadastro.Name = "tabPageCadastro";
+            this.tabPageCadastro.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageCadastro.Size = new System.Drawing.Size(792, 571);
+            this.tabPageCadastro.TabIndex = 0;
+            this.tabPageCadastro.Text = "Cadastro";
+            this.tabPageCadastro.UseVisualStyleBackColor = true;
             // 
-            // tabPage1
+            // lblId
             // 
-            tabPage1.Controls.Add(lblTotalPrice);
-            tabPage1.Controls.Add(lblQtdItens);
-            tabPage1.Controls.Add(groupBoxItens);
-            tabPage1.Controls.Add(cboCustomer);
-            tabPage1.Controls.Add(txtId);
-            tabPage1.Controls.Add(cboUser);
-            tabPage1.Controls.Add(txtSaleDate);
-            tabPage1.Size = new Size(790, 597);
-            tabPage1.Controls.SetChildIndex(txtSaleDate, 0);
-            tabPage1.Controls.SetChildIndex(cboUser, 0);
-            tabPage1.Controls.SetChildIndex(txtId, 0);
-            tabPage1.Controls.SetChildIndex(cboCustomer, 0);
-            tabPage1.Controls.SetChildIndex(groupBoxItens, 0);
-            tabPage1.Controls.SetChildIndex(lblQtdItens, 0);
-            tabPage1.Controls.SetChildIndex(lblTotalPrice, 0);
-            // 
-            // txtSaleDate
-            // 
-            txtSaleDate.AllowPromptAsInput = true;
-            txtSaleDate.AnimateReadOnly = false;
-            txtSaleDate.AsciiOnly = false;
-            txtSaleDate.BackgroundImageLayout = ImageLayout.None;
-            txtSaleDate.BeepOnError = false;
-            txtSaleDate.CutCopyMaskFormat = MaskFormat.IncludeLiterals;
-            txtSaleDate.Depth = 0;
-            txtSaleDate.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            txtSaleDate.HidePromptOnLeave = false;
-            txtSaleDate.HideSelection = true;
-            txtSaleDate.Hint = "Sale Date";
-            txtSaleDate.InsertKeyMode = InsertKeyMode.Default;
-            txtSaleDate.LeadingIcon = null;
-            txtSaleDate.Location = new Point(6, 6);
-            txtSaleDate.Mask = "99/99/9999";
-            txtSaleDate.MaxLength = 32767;
-            txtSaleDate.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
-            txtSaleDate.Name = "txtSaleDate";
-            txtSaleDate.PasswordChar = '\0';
-            txtSaleDate.PrefixSuffixText = null;
-            txtSaleDate.PromptChar = '_';
-            txtSaleDate.ReadOnly = false;
-            txtSaleDate.RejectInputOnFirstFailure = false;
-            txtSaleDate.ResetOnPrompt = true;
-            txtSaleDate.ResetOnSpace = true;
-            txtSaleDate.RightToLeft = RightToLeft.No;
-            txtSaleDate.SelectedText = "";
-            txtSaleDate.SelectionLength = 0;
-            txtSaleDate.SelectionStart = 0;
-            txtSaleDate.ShortcutsEnabled = true;
-            txtSaleDate.Size = new Size(353, 48);
-            txtSaleDate.SkipLiterals = true;
-            txtSaleDate.TabIndex = 3;
-            txtSaleDate.TabStop = false;
-            txtSaleDate.Text = "  /  /";
-            txtSaleDate.TextAlign = HorizontalAlignment.Left;
-            txtSaleDate.TextMaskFormat = MaskFormat.IncludeLiterals;
-            txtSaleDate.TrailingIcon = null;
-            txtSaleDate.UseSystemPasswordChar = false;
-            txtSaleDate.ValidatingType = null;
-            // 
-            // cboUser
-            // 
-            cboUser.AutoResize = false;
-            cboUser.BackColor = Color.FromArgb(255, 255, 255);
-            cboUser.Depth = 0;
-            cboUser.DrawMode = DrawMode.OwnerDrawVariable;
-            cboUser.DropDownHeight = 174;
-            cboUser.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboUser.DropDownWidth = 121;
-            cboUser.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
-            cboUser.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            cboUser.FormattingEnabled = true;
-            cboUser.Hint = "User";
-            cboUser.IntegralHeight = false;
-            cboUser.ItemHeight = 43;
-            cboUser.Location = new Point(365, 7);
-            cboUser.MaxDropDownItems = 4;
-            cboUser.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
-            cboUser.Name = "cboUser";
-            cboUser.Size = new Size(281, 49);
-            cboUser.StartIndex = 0;
-            cboUser.TabIndex = 4;
+            this.lblId.AutoSize = true;
+            this.lblId.Location = new System.Drawing.Point(20, 30);
+            this.lblId.Name = "lblId";
+            this.lblId.Size = new System.Drawing.Size(25, 17);
+            this.lblId.Text = "ID:";
             // 
             // txtId
             // 
-            txtId.AnimateReadOnly = false;
-            txtId.AutoCompleteMode = AutoCompleteMode.None;
-            txtId.AutoCompleteSource = AutoCompleteSource.None;
-            txtId.BackgroundImageLayout = ImageLayout.None;
-            txtId.CharacterCasing = CharacterCasing.Normal;
-            txtId.Depth = 0;
-            txtId.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            txtId.HideSelection = true;
-            txtId.Hint = "Id";
-            txtId.LeadingIcon = null;
-            txtId.Location = new Point(652, 7);
-            txtId.MaxLength = 32767;
-            txtId.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
-            txtId.Name = "txtId";
-            txtId.PasswordChar = '\0';
-            txtId.PrefixSuffixText = null;
-            txtId.ReadOnly = false;
-            txtId.RightToLeft = RightToLeft.No;
-            txtId.SelectedText = "";
-            txtId.SelectionLength = 0;
-            txtId.SelectionStart = 0;
-            txtId.ShortcutsEnabled = true;
-            txtId.Size = new Size(132, 48);
-            txtId.TabIndex = 5;
-            txtId.TabStop = false;
-            txtId.TextAlign = HorizontalAlignment.Left;
-            txtId.TrailingIcon = null;
-            txtId.UseSystemPasswordChar = false;
+            this.txtId.Location = new System.Drawing.Point(140, 27);
+            this.txtId.Name = "txtId";
+            this.txtId.ReadOnly = true;
+            this.txtId.Size = new System.Drawing.Size(100, 22);
+            this.txtId.TabIndex = 0;
             // 
-            // cboCustomer
+            // lblNome
             // 
-            cboCustomer.AutoResize = false;
-            cboCustomer.BackColor = Color.FromArgb(255, 255, 255);
-            cboCustomer.Depth = 0;
-            cboCustomer.DrawMode = DrawMode.OwnerDrawVariable;
-            cboCustomer.DropDownHeight = 174;
-            cboCustomer.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboCustomer.DropDownWidth = 121;
-            cboCustomer.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
-            cboCustomer.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            cboCustomer.FormattingEnabled = true;
-            cboCustomer.Hint = "Customer";
-            cboCustomer.IntegralHeight = false;
-            cboCustomer.ItemHeight = 43;
-            cboCustomer.Location = new Point(6, 60);
-            cboCustomer.MaxDropDownItems = 4;
-            cboCustomer.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
-            cboCustomer.Name = "cboCustomer";
-            cboCustomer.Size = new Size(778, 49);
-            cboCustomer.StartIndex = 0;
-            cboCustomer.TabIndex = 6;
+            this.lblNome.AutoSize = true;
+            this.lblNome.Location = new System.Drawing.Point(20, 60);
+            this.lblNome.Name = "lblNome";
+            this.lblNome.Size = new System.Drawing.Size(49, 17);
+            this.lblNome.Text = "Nome:";
             // 
-            // groupBoxItens
+            // txtNome
             // 
-            groupBoxItens.Controls.Add(btnExcluir);
-            groupBoxItens.Controls.Add(cboCategory);
-            groupBoxItens.Controls.Add(txtQuantity);
-            groupBoxItens.Controls.Add(dataGridViewItens);
-            groupBoxItens.Controls.Add(btnAdd);
-            groupBoxItens.Controls.Add(txtTotalPrice);
-            groupBoxItens.Controls.Add(txtPrice);
-            groupBoxItens.Controls.Add(txtSaleUnit);
-            groupBoxItens.Controls.Add(cboProduct);
-            groupBoxItens.Location = new Point(6, 115);
-            groupBoxItens.Name = "groupBoxItens";
-            groupBoxItens.Size = new Size(778, 428);
-            groupBoxItens.TabIndex = 7;
-            groupBoxItens.TabStop = false;
-            groupBoxItens.Text = "SaleItens";
+            this.txtNome.Location = new System.Drawing.Point(140, 57);
+            this.txtNome.Name = "txtNome";
+            this.txtNome.Size = new System.Drawing.Size(300, 22);
+            this.txtNome.TabIndex = 1;
             // 
-            // btnExcluir
+            // lblEmail
             // 
-            btnExcluir.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            btnExcluir.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
-            btnExcluir.Depth = 0;
-            btnExcluir.HighEmphasis = true;
-            btnExcluir.Icon = null;
-            btnExcluir.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            btnExcluir.Location = new Point(707, 85);
-            btnExcluir.Margin = new Padding(4, 6, 4, 6);
-            btnExcluir.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            btnExcluir.Name = "btnExcluir";
-            btnExcluir.NoAccentTextColor = Color.Empty;
-            btnExcluir.Size = new Size(64, 36);
-            btnExcluir.TabIndex = 8;
-            btnExcluir.Text = "-";
-            btnExcluir.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
-            btnExcluir.UseAccentColor = false;
-            btnExcluir.UseVisualStyleBackColor = true;
-            btnExcluir.Click += btnExcluir_Click;
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Location = new System.Drawing.Point(20, 90);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(46, 17);
+            this.lblEmail.Text = "Email:";
             // 
-            // cboCategory
+            // txtEmail
             // 
-            cboCategory.AutoResize = false;
-            cboCategory.BackColor = Color.FromArgb(255, 255, 255);
-            cboCategory.Depth = 0;
-            cboCategory.DrawMode = DrawMode.OwnerDrawVariable;
-            cboCategory.DropDownHeight = 174;
-            cboCategory.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboCategory.DropDownWidth = 121;
-            cboCategory.Enabled = false;
-            cboCategory.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
-            cboCategory.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            cboCategory.FormattingEnabled = true;
-            cboCategory.Hint = "Category";
-            cboCategory.IntegralHeight = false;
-            cboCategory.ItemHeight = 43;
-            cboCategory.Location = new Point(6, 75);
-            cboCategory.MaxDropDownItems = 4;
-            cboCategory.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
-            cboCategory.Name = "cboCategory";
-            cboCategory.Size = new Size(238, 49);
-            cboCategory.StartIndex = 0;
-            cboCategory.TabIndex = 7;
+            this.txtEmail.Location = new System.Drawing.Point(140, 87);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(300, 22);
+            this.txtEmail.TabIndex = 2;
             // 
-            // txtQuantity
+            // lblSexo
             // 
-            txtQuantity.AnimateReadOnly = false;
-            txtQuantity.AutoCompleteMode = AutoCompleteMode.None;
-            txtQuantity.AutoCompleteSource = AutoCompleteSource.None;
-            txtQuantity.BackgroundImageLayout = ImageLayout.None;
-            txtQuantity.CharacterCasing = CharacterCasing.Normal;
-            txtQuantity.Depth = 0;
-            txtQuantity.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            txtQuantity.HideSelection = true;
-            txtQuantity.Hint = "Quantity";
-            txtQuantity.LeadingIcon = null;
-            txtQuantity.Location = new Point(250, 76);
-            txtQuantity.MaxLength = 32767;
-            txtQuantity.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
-            txtQuantity.Name = "txtQuantity";
-            txtQuantity.PasswordChar = '\0';
-            txtQuantity.PrefixSuffixText = null;
-            txtQuantity.ReadOnly = false;
-            txtQuantity.RightToLeft = RightToLeft.No;
-            txtQuantity.SelectedText = "";
-            txtQuantity.SelectionLength = 0;
-            txtQuantity.SelectionStart = 0;
-            txtQuantity.ShortcutsEnabled = true;
-            txtQuantity.Size = new Size(222, 48);
-            txtQuantity.TabIndex = 6;
-            txtQuantity.TabStop = false;
-            txtQuantity.TextAlign = HorizontalAlignment.Left;
-            txtQuantity.TrailingIcon = null;
-            txtQuantity.UseSystemPasswordChar = false;
-            txtQuantity.KeyPress += txtQuantity_KeyPress;
-            txtQuantity.Leave += txtQuantity_Leave_1;
+            this.lblSexo.AutoSize = true;
+            this.lblSexo.Location = new System.Drawing.Point(20, 120);
+            this.lblSexo.Name = "lblSexo";
+            this.lblSexo.Size = new System.Drawing.Size(43, 17);
+            this.lblSexo.Text = "Sexo:";
             // 
-            // dataGridViewItens
+            // txtSexo
             // 
-            dataGridViewItens.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewItens.Location = new Point(6, 130);
-            dataGridViewItens.MultiSelect = false;
-            dataGridViewItens.Name = "dataGridViewItens";
-            dataGridViewItens.ReadOnly = true;
-            dataGridViewItens.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewItens.Size = new Size(766, 276);
-            dataGridViewItens.TabIndex = 5;
+            this.txtSexo.Location = new System.Drawing.Point(140, 117);
+            this.txtSexo.Name = "txtSexo";
+            this.txtSexo.Size = new System.Drawing.Size(100, 22);
+            this.txtSexo.TabIndex = 3;
             // 
-            // btnAdd
+            // lblDataNascimento
             // 
-            btnAdd.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            btnAdd.Density = ReaLTaiizor.Controls.MaterialButton.MaterialButtonDensity.Default;
-            btnAdd.Depth = 0;
-            btnAdd.HighEmphasis = true;
-            btnAdd.Icon = null;
-            btnAdd.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            btnAdd.Location = new Point(707, 25);
-            btnAdd.Margin = new Padding(4, 6, 4, 6);
-            btnAdd.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            btnAdd.Name = "btnAdd";
-            btnAdd.NoAccentTextColor = Color.Empty;
-            btnAdd.Size = new Size(64, 36);
-            btnAdd.TabIndex = 4;
-            btnAdd.Text = "+";
-            btnAdd.Type = ReaLTaiizor.Controls.MaterialButton.MaterialButtonType.Contained;
-            btnAdd.UseAccentColor = false;
-            btnAdd.UseVisualStyleBackColor = true;
-            btnAdd.Click += btnAdd_Click;
+            this.lblDataNascimento.AutoSize = true;
+            this.lblDataNascimento.Location = new System.Drawing.Point(20, 150);
+            this.lblDataNascimento.Name = "lblDataNascimento";
+            this.lblDataNascimento.Size = new System.Drawing.Size(117, 17);
+            this.lblDataNascimento.Text = "Data Nascimento:";
             // 
-            // txtTotalPrice
+            // txtDataNascimento
             // 
-            txtTotalPrice.AnimateReadOnly = false;
-            txtTotalPrice.AutoCompleteMode = AutoCompleteMode.None;
-            txtTotalPrice.AutoCompleteSource = AutoCompleteSource.None;
-            txtTotalPrice.BackgroundImageLayout = ImageLayout.None;
-            txtTotalPrice.CharacterCasing = CharacterCasing.Normal;
-            txtTotalPrice.Depth = 0;
-            txtTotalPrice.Enabled = false;
-            txtTotalPrice.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            txtTotalPrice.HideSelection = true;
-            txtTotalPrice.Hint = "Total Price";
-            txtTotalPrice.LeadingIcon = null;
-            txtTotalPrice.Location = new Point(478, 76);
-            txtTotalPrice.MaxLength = 32767;
-            txtTotalPrice.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
-            txtTotalPrice.Name = "txtTotalPrice";
-            txtTotalPrice.PasswordChar = '\0';
-            txtTotalPrice.PrefixSuffixText = null;
-            txtTotalPrice.ReadOnly = false;
-            txtTotalPrice.RightToLeft = RightToLeft.No;
-            txtTotalPrice.SelectedText = "";
-            txtTotalPrice.SelectionLength = 0;
-            txtTotalPrice.SelectionStart = 0;
-            txtTotalPrice.ShortcutsEnabled = true;
-            txtTotalPrice.Size = new Size(212, 48);
-            txtTotalPrice.TabIndex = 3;
-            txtTotalPrice.TabStop = false;
-            txtTotalPrice.TextAlign = HorizontalAlignment.Left;
-            txtTotalPrice.TrailingIcon = null;
-            txtTotalPrice.UseSystemPasswordChar = false;
+            this.txtDataNascimento.Location = new System.Drawing.Point(140, 147);
+            this.txtDataNascimento.Name = "txtDataNascimento";
+            this.txtDataNascimento.Size = new System.Drawing.Size(150, 22);
+            this.txtDataNascimento.TabIndex = 4;
+            this.txtDataNascimento.Text = "01/01/2000"; // Sugestão de formato
             // 
-            // txtPrice
+            // lblTelefone
             // 
-            txtPrice.AnimateReadOnly = false;
-            txtPrice.AutoCompleteMode = AutoCompleteMode.None;
-            txtPrice.AutoCompleteSource = AutoCompleteSource.None;
-            txtPrice.BackgroundImageLayout = ImageLayout.None;
-            txtPrice.CharacterCasing = CharacterCasing.Normal;
-            txtPrice.Depth = 0;
-            txtPrice.Enabled = false;
-            txtPrice.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            txtPrice.HideSelection = true;
-            txtPrice.Hint = "Price";
-            txtPrice.LeadingIcon = null;
-            txtPrice.Location = new Point(478, 24);
-            txtPrice.MaxLength = 32767;
-            txtPrice.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
-            txtPrice.Name = "txtPrice";
-            txtPrice.PasswordChar = '\0';
-            txtPrice.PrefixSuffixText = null;
-            txtPrice.ReadOnly = false;
-            txtPrice.RightToLeft = RightToLeft.No;
-            txtPrice.SelectedText = "";
-            txtPrice.SelectionLength = 0;
-            txtPrice.SelectionStart = 0;
-            txtPrice.ShortcutsEnabled = true;
-            txtPrice.Size = new Size(212, 48);
-            txtPrice.TabIndex = 2;
-            txtPrice.TabStop = false;
-            txtPrice.TextAlign = HorizontalAlignment.Left;
-            txtPrice.TrailingIcon = null;
-            txtPrice.UseSystemPasswordChar = false;
-            txtPrice.Leave += txtQuantity_Leave;
+            this.lblTelefone.AutoSize = true;
+            this.lblTelefone.Location = new System.Drawing.Point(20, 180);
+            this.lblTelefone.Name = "lblTelefone";
+            this.lblTelefone.Size = new System.Drawing.Size(68, 17);
+            this.lblTelefone.Text = "Telefone:";
             // 
-            // txtSaleUnit
+            // txtTelefone
             // 
-            txtSaleUnit.AnimateReadOnly = false;
-            txtSaleUnit.AutoCompleteMode = AutoCompleteMode.None;
-            txtSaleUnit.AutoCompleteSource = AutoCompleteSource.None;
-            txtSaleUnit.BackgroundImageLayout = ImageLayout.None;
-            txtSaleUnit.CharacterCasing = CharacterCasing.Normal;
-            txtSaleUnit.Depth = 0;
-            txtSaleUnit.Enabled = false;
-            txtSaleUnit.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            txtSaleUnit.HideSelection = true;
-            txtSaleUnit.Hint = "SaleUnit";
-            txtSaleUnit.LeadingIcon = null;
-            txtSaleUnit.Location = new Point(250, 22);
-            txtSaleUnit.MaxLength = 32767;
-            txtSaleUnit.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
-            txtSaleUnit.Name = "txtSaleUnit";
-            txtSaleUnit.PasswordChar = '\0';
-            txtSaleUnit.PrefixSuffixText = null;
-            txtSaleUnit.ReadOnly = false;
-            txtSaleUnit.RightToLeft = RightToLeft.No;
-            txtSaleUnit.SelectedText = "";
-            txtSaleUnit.SelectionLength = 0;
-            txtSaleUnit.SelectionStart = 0;
-            txtSaleUnit.ShortcutsEnabled = true;
-            txtSaleUnit.Size = new Size(222, 48);
-            txtSaleUnit.TabIndex = 1;
-            txtSaleUnit.TabStop = false;
-            txtSaleUnit.TextAlign = HorizontalAlignment.Left;
-            txtSaleUnit.TrailingIcon = null;
-            txtSaleUnit.UseSystemPasswordChar = false;
+            this.txtTelefone.Location = new System.Drawing.Point(140, 177);
+            this.txtTelefone.Name = "txtTelefone";
+            this.txtTelefone.Size = new System.Drawing.Size(150, 22);
+            this.txtTelefone.TabIndex = 5;
             // 
-            // cboProduct
+            // tabPageConsulta
             // 
-            cboProduct.AutoResize = false;
-            cboProduct.BackColor = Color.FromArgb(255, 255, 255);
-            cboProduct.Depth = 0;
-            cboProduct.DrawMode = DrawMode.OwnerDrawVariable;
-            cboProduct.DropDownHeight = 174;
-            cboProduct.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboProduct.DropDownWidth = 121;
-            cboProduct.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
-            cboProduct.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            cboProduct.FormattingEnabled = true;
-            cboProduct.Hint = "Product";
-            cboProduct.IntegralHeight = false;
-            cboProduct.ItemHeight = 43;
-            cboProduct.Location = new Point(6, 22);
-            cboProduct.MaxDropDownItems = 4;
-            cboProduct.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
-            cboProduct.Name = "cboProduct";
-            cboProduct.Size = new Size(238, 49);
-            cboProduct.StartIndex = 0;
-            cboProduct.TabIndex = 0;
-            cboProduct.SelectedValueChanged += cboProduct_SelectedValueChanged;
+            this.tabPageConsulta.Controls.Add(this.dataGridViewConsulta);
+            this.tabPageConsulta.Controls.Add(this.btnLimparFiltros);
+            this.tabPageConsulta.Controls.Add(this.btnConsultar);
+            this.tabPageConsulta.Controls.Add(this.txtEmailFilter);
+            this.tabPageConsulta.Controls.Add(this.lblEmailFiltro);
+            this.tabPageConsulta.Controls.Add(this.txtNomeFilter);
+            this.tabPageConsulta.Controls.Add(this.lblNomeFiltro);
+            this.tabPageConsulta.Location = new System.Drawing.Point(4, 25);
+            this.tabPageConsulta.Name = "tabPageConsulta";
+            this.tabPageConsulta.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageConsulta.Size = new System.Drawing.Size(792, 571);
+            this.tabPageConsulta.TabIndex = 1;
+            this.tabPageConsulta.Text = "Consulta";
+            this.tabPageConsulta.UseVisualStyleBackColor = true;
             // 
-            // lblQtdItens
+            // dataGridViewConsulta
             // 
-            lblQtdItens.AutoSize = true;
-            lblQtdItens.Depth = 0;
-            lblQtdItens.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
-            lblQtdItens.Location = new Point(12, 524);
-            lblQtdItens.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            lblQtdItens.Name = "lblQtdItens";
-            lblQtdItens.Size = new Size(145, 19);
-            lblQtdItens.TabIndex = 8;
-            lblQtdItens.Text = "Quantity Products: 0";
+            this.dataGridViewConsulta.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewConsulta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewConsulta.Location = new System.Drawing.Point(3, 90);
+            this.dataGridViewConsulta.Name = "dataGridViewConsulta";
+            this.dataGridViewConsulta.RowHeadersWidth = 51;
+            this.dataGridViewConsulta.RowTemplate.Height = 24;
+            this.dataGridViewConsulta.Size = new System.Drawing.Size(786, 478);
+            this.dataGridViewConsulta.TabIndex = 6;
             // 
-            // lblTotalPrice
+            // btnLimparFiltros
             // 
-            lblTotalPrice.AutoSize = true;
-            lblTotalPrice.Depth = 0;
-            lblTotalPrice.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
-            lblTotalPrice.Location = new Point(352, 524);
-            lblTotalPrice.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            lblTotalPrice.Name = "lblTotalPrice";
-            lblTotalPrice.Size = new Size(94, 19);
-            lblTotalPrice.TabIndex = 9;
-            lblTotalPrice.Text = "Total Price: 0";
+            this.btnLimparFiltros.Location = new System.Drawing.Point(680, 48);
+            this.btnLimparFiltros.Name = "btnLimparFiltros";
+            this.btnLimparFiltros.Size = new System.Drawing.Size(100, 30);
+            this.btnLimparFiltros.Text = "Limpar Filtros";
+            this.btnLimparFiltros.UseVisualStyleBackColor = true;
+            this.btnLimparFiltros.Click += new System.EventHandler(this.btnLimparFiltros_Click);
             // 
-            // SaleForm
+            // btnConsultar
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(802, 702);
-            Location = new Point(0, 0);
-            Name = "SaleForm";
-            Text = "Sale ​​registration";
-            tabControlRegister.ResumeLayout(false);
-            tabPage1.ResumeLayout(false);
-            tabPage1.PerformLayout();
-            groupBoxItens.ResumeLayout(false);
-            groupBoxItens.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewItens).EndInit();
-            ResumeLayout(false);
+            this.btnConsultar.Location = new System.Drawing.Point(680, 15);
+            this.btnConsultar.Name = "btnConsultar";
+            this.btnConsultar.Size = new System.Drawing.Size(100, 30);
+            this.btnConsultar.Text = "Consultar";
+            this.btnConsultar.UseVisualStyleBackColor = true;
+            this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
+            // 
+            // txtEmailFilter
+            // 
+            this.txtEmailFilter.Location = new System.Drawing.Point(400, 18);
+            this.txtEmailFilter.Name = "txtEmailFilter";
+            this.txtEmailFilter.Size = new System.Drawing.Size(250, 22);
+            this.txtEmailFilter.TabIndex = 3;
+            // 
+            // lblEmailFiltro
+            // 
+            this.lblEmailFiltro.AutoSize = true;
+            this.lblEmailFiltro.Location = new System.Drawing.Point(330, 21);
+            this.lblEmailFiltro.Name = "lblEmailFiltro";
+            this.lblEmailFiltro.Size = new System.Drawing.Size(46, 17);
+            this.lblEmailFiltro.Text = "Email:";
+            // 
+            // txtNomeFilter
+            // 
+            this.txtNomeFilter.Location = new System.Drawing.Point(120, 18);
+            this.txtNomeFilter.Name = "txtNomeFilter";
+            this.txtNomeFilter.Size = new System.Drawing.Size(180, 22);
+            this.txtNomeFilter.TabIndex = 1;
+            // 
+            // lblNomeFiltro
+            // 
+            this.lblNomeFiltro.AutoSize = true;
+            this.lblNomeFiltro.Location = new System.Drawing.Point(20, 21);
+            this.lblNomeFiltro.Name = "lblNomeFiltro";
+            this.lblNomeFiltro.Size = new System.Drawing.Size(49, 17);
+            this.lblNomeFiltro.Text = "Nome:";
+            // 
+            // PacienteForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 600);
+            this.Controls.Add(this.tabControlCadastro);
+            this.Name = "PacienteForm";
+            this.Text = "Cadastro de Pacientes";
+            this.tabControlCadastro.ResumeLayout(false);
+            this.tabPageCadastro.ResumeLayout(false);
+            this.tabPageCadastro.PerformLayout();
+            this.tabPageConsulta.ResumeLayout(false);
+            this.tabPageConsulta.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConsulta)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
 
-        private ReaLTaiizor.Controls.MaterialComboBox cboUser;
-        private ReaLTaiizor.Controls.MaterialMaskedTextBox txtSaleDate;
-        private ReaLTaiizor.Controls.MaterialComboBox cboCustomer;
-        private ReaLTaiizor.Controls.MaterialTextBoxEdit txtId;
-        private GroupBox groupBoxItens;
-        private ReaLTaiizor.Controls.MaterialButton btnAdd;
-        private ReaLTaiizor.Controls.MaterialTextBoxEdit txtTotalPrice;
-        private ReaLTaiizor.Controls.MaterialTextBoxEdit txtPrice;
-        private ReaLTaiizor.Controls.MaterialTextBoxEdit txtSaleUnit;
-        private ReaLTaiizor.Controls.MaterialComboBox cboProduct;
-        private DataGridView dataGridViewItens;
-        private ReaLTaiizor.Controls.MaterialLabel lblTotalPrice;
-        private ReaLTaiizor.Controls.MaterialLabel lblQtdItens;
-        private ReaLTaiizor.Controls.MaterialTextBoxEdit txtQuantity;
-        private ReaLTaiizor.Controls.MaterialComboBox cboCategory;
-        private ReaLTaiizor.Controls.MaterialButton btnExcluir;
+        private System.Windows.Forms.TabControl tabControlCadastro;
+        private System.Windows.Forms.TabPage tabPageCadastro;
+        private System.Windows.Forms.TabPage tabPageConsulta;
+        private System.Windows.Forms.TextBox txtTelefone;
+        private System.Windows.Forms.Label lblTelefone;
+        private System.Windows.Forms.TextBox txtDataNascimento;
+        private System.Windows.Forms.Label lblDataNascimento;
+        private System.Windows.Forms.TextBox txtSexo;
+        private System.Windows.Forms.Label lblSexo;
+        private System.Windows.Forms.TextBox txtEmail;
+        private System.Windows.Forms.Label lblEmail;
+        private System.Windows.Forms.TextBox txtNome;
+        private System.Windows.Forms.Label lblNome;
+        private System.Windows.Forms.TextBox txtId;
+        private System.Windows.Forms.Label lblId;
+        private System.Windows.Forms.DataGridView dataGridViewConsulta;
+        private System.Windows.Forms.Button btnLimparFiltros;
+        private System.Windows.Forms.Button btnConsultar;
+        private System.Windows.Forms.TextBox txtEmailFilter;
+        private System.Windows.Forms.Label lblEmailFiltro;
+        private System.Windows.Forms.TextBox txtNomeFilter;
+        private System.Windows.Forms.Label lblNomeFiltro;
+        // As variáveis txtLogin e txtPassword foram removidas desta seção
     }
 }

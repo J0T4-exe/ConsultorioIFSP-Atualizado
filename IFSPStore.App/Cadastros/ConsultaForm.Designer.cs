@@ -1,4 +1,4 @@
-﻿namespace IFSPStore.App.Cadastros
+﻿namespace ConsultorioIFSP.App.Cadastros
 {
     partial class ConsultaProdutoForm
     {

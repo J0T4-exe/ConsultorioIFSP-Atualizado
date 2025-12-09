@@ -1,76 +1,75 @@
-﻿using IFSPStore.App.Base;
-using IFSPStore.Domain.Base;
-using IFSPStore.Domain.Entities;
-using IFSPStore.Service.Validator;
-namespace IFSPStore.App.Cadastros
+﻿using ConsultaIFSP.App.Base;
+using ConsultorioIFSP.App.Models;
+using ConsultorioIFSP.Domain.Base;
+using ConsultorioIFSP.Domain.Entities;
+using ConsultorioIFSP.Domain.Validators;
+namespace ConsultorioIFSP.App.Cadastros
 {
+    // Herda a classe base não genérica (BaseForm ou CadastroBase)
     public partial class ReceitaForm : BaseForm
     {
-        private IBaseService<City> _cityService;
-        private List<City> cities;
-        public ReceitaForm(IBaseService<City> cityService)
+        // 1. Serviço e Lista específicos injetados
+        private readonly IBaseService<Receita> _receitaService;
+        private List<ReceitaModel>? receitas;
+
+        // 2. Construtor para Injeção de Dependência
+        public ReceitaForm(IBaseService<Receita> receitaService) : base()
         {
-            _cityService = cityService;
+            _receitaService = receitaService;
             InitializeComponent();
         }
-        private void preencheObject(City city)
-        {
-            city.Name = txtName.Text;
-            city.State = cboDistrict.Text;
-        }
-        protected override void Save()
-        {
-            try
-            {
-                if (IsEditMode)
-                {
-                    if (int.TryParse(txtId.Text, out var id))
-                    {
-                        var city = _cityService.GetById<City>(id);
-                       preencheObject(city);
-                        city = _cityService.Update<City, City, CityValidator>(city);
-                    }
-                }
-                else
-                {
-                    var city = new City();
-                    preencheObject(city);
-                    _cityService.Add<City, City, CityValidator>(city);
 
-                }
-                tabControlRegister.SelectedIndex = 1;
-                CarregaGrid();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, @"IFSP Store",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        protected override void Delete(int id)
+        // Método auxiliar para mapear UI -> Objeto
+        private void PreencheObjeto(Receita receita)
         {
-            try
+            // ATENÇÃO: Os campos txtPeriodo e txtQuantidade são esperados na UI
+
+            // Periodo (DateTime)
+            if (DateTime.TryParse(txtPeriodo.Text, out DateTime periodo))
             {
-                _cityService.Delete(id);
+                receita.Periodo = periodo;
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message, @"IFSP Store",
-                   MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception("Data de Período inválida.");
+            }
+
+            // Quantidade (int)
+            if (int.TryParse(txtQuantidade.Text, out int quantidade))
+            {
+                receita.Quantidade = quantidade;
+            }
+            else
+            {
+                throw new Exception("Quantidade inválida.");
             }
         }
+
         protected override void CarregaGrid()
         {
-            cities = _cityService.Get<City>().ToList();
-            dataGridViewList.DataSource = cities;
-            dataGridViewList.Columns["Name"]!.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            try
+            {
+                // Carrega ReceitaModel para exibição (depende do AutoMapper)
+                receitas = _receitaService.Get<ReceitaModel>().ToList();
+                // Assumindo que o nome da DataGridView é dataGridViewConsulta
+                dataGridViewList.DataSource = receitas;
+
+                // Ajuste de coluna
+                dataGridViewList.Columns["Periodo"]!.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-        protected override void loadList(DataGridViewRow? linha)
+
+        protected override void CarregaRegistro(DataGridViewRow? linha)
         {
-            //aqui deve estar do mesmo jeito que o nome das colunas do datagridview
+            // Mapeia os dados da linha selecionada para os campos do formulário para o modo "Editar"
             txtId.Text = linha?.Cells["Id"].Value.ToString();
-            txtName.Text = linha?.Cells["Name"].Value.ToString();
-            cboDistrict.Text = linha?.Cells["State"].Value.ToString();
+            txtPeriodo.Text = linha?.Cells["Periodo"].Value.ToString();
+            txtQuantidade.Text = linha?.Cells["Quantidade"].Value.ToString();
         }
     }
 }

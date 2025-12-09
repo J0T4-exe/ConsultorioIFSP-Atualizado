@@ -1,96 +1,104 @@
-﻿using IFSPStore.App.Base;
-using IFSPStore.App.Models;
-using IFSPStore.Domain.Base;
-using IFSPStore.Domain.Entities;
-using IFSPStore.Service.Validator;
-using MySqlX.XDevAPI;
+﻿using ConsultaIFSP.App.Base;
+using ConsultorioIFSP.App.Models; // Para MedicoModel
+using ConsultorioIFSP.Domain.Base;
+using ConsultorioIFSP.Domain.Entities;
+using ConsultorioIFSP.Domain.Validators;
 
-namespace IFSPStore.App.Cadastros
+
+namespace ConsultorioIFSP.App.Cadastros
 {
+    // Herda a classe base não genérica
     public partial class MedicoForm : BaseForm
     {
-        private readonly IBaseService<Customer> _customerService;
-        private readonly IBaseService<City> _cityService;
+        // 1. Serviço e Lista específicos injetados
+        private readonly IBaseService<Medico> _medicoService;
+        private List<MedicoModel>? medicos; // Usa MedicoModel para o grid
 
-        private List<CustomerModel>? customers;
-        public MedicoForm(IBaseService<Customer> clienteService, IBaseService<City> cidadeService)
+        // 2. Construtor para Injeção de Dependência
+        public MedicoForm(IBaseService<Medico> medicoService) : base()
         {
-            _customerService = clienteService;
-            _cityService = cidadeService;
+            _medicoService = medicoService;
             InitializeComponent();
-            loadCombo();
         }
-        private void loadCombo()
+
+        // Método auxiliar para mapear UI -> Objeto
+        private void PreencheObjeto(Medico medico)
         {
-            cboCity.ValueMember = "Id";
-            cboCity.DisplayMember = "Name";
-            cboCity.DataSource = _cityService.Get<CityModel>().ToList();
+            // Mapeamento dos campos da UI para a entidade Medico
+            medico.Nome = txtNome.Text;
+            medico.Login = txtLogin.Text;
+            medico.Password = txtPassword.Text;
+            medico.Especialidade = txtEspecialidade.Text;
+            medico.Crm = txtCrm.Text;
+            medico.Telefone = txtTelefone.Text;
         }
-        private void preencheObject(Customer customer)
+
+        // --- Implementação dos Métodos Virtuais de CRUD ---
+
+        protected override void Salvar()
         {
-            customer.Nome = txtName.Text;
-            customer.Address = txtAdress.Text;
-            customer.District = txtDistrict.Text;
-            customer.DocumentId = txtDocument.Text;
-            if (int.TryParse(cboCity.SelectedValue?.ToString(), out var idCity))
-                {
-                //var city = _cityService.GetById<City>(idCategory);
-                customer.CityId = idCity;
-                customer.City = null;
-                }
-        }
-        protected override void Save()
-        {
-            try 
+            try
             {
-                if (IsEditMode)
+                if (IsEditMode) 
                 {
+                    // Update
                     if (int.TryParse(txtId.Text, out var id))
                     {
-                        var customer = _customerService.GetById<Customer>(id);
-                        preencheObject(customer);
-                        _customerService.Update<Customer, Customer, CustomerValidator>(customer);
+                        var medico = _medicoService.GetById<Medico>(id);
+                        PreencheObjeto(medico);
+                        // Chama o serviço de Update com o MedicoValidator
+                        medico = _medicoService.Update<Medico, Medico, MedicoValidator>(medico);
                     }
-                } else
-                {
-                    var customer = new Customer();
-                    preencheObject(customer);
-                    _customerService.Add<Customer, Customer, CustomerValidator>(customer);
                 }
-                CarregaGrid();
+                else
+                {
+                    // Add
+                    var medico = new Medico();
+                    PreencheObjeto(medico);
+                    // Chama o serviço de Add com o MedicoValidator
+                    medico = _medicoService.Add<Medico, Medico, MedicoValidator>(medico);
+                }
+
                 tabControlRegister.SelectedIndex = 1;
+                CarregaGrid();
+                MessageBox.Show("Registro salvo com sucesso!", @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
             catch (Exception ex)
             {
-               MessageBox.Show(ex.Message, "IFSP Store", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        protected override void Delete(int id)
+
+        protected override void Deletar(int id)
         {
-            try 
+            try
             {
-                _customerService.Delete(id);
+                _medicoService.Delete(id);
+                MessageBox.Show("Registro excluído com sucesso!", @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-               MessageBox.Show(ex.Message, "IFSP Store", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         protected override void CarregaGrid()
         {
-            customers = _customerService.Get<CustomerModel>(new[] { "City" }).ToList();
-            dataGridViewList.DataSource = customers;
-            dataGridViewList.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewList.Columns["IdCity"]!.Visible = false;
-        }
-        protected override void loadList(DataGridViewRow? record)
-        {
-           txtId.Text = record!.Cells["Id"].Value.ToString();
-           txtName.Text = record.Cells["Name"].Value.ToString();
-           txtAdress.Text = record.Cells["Address"].Value.ToString();
-           txtDistrict.Text = record.Cells["District"].Value.ToString();
-           txtDocument.Text = record.Cells["Document"].Value?.ToString();
-           cboCity.SelectedValue = record.Cells["IdCity"].Value;
+            try
+            {
+                // Carrega MedicoModel para exibição (depende do AutoMapper)
+                medicos = _medicoService.Get<MedicoModel>().ToList();
+                dataGridViewList.DataSource = medicos;
+
+                // Ajuste de coluna (assumindo dataGridViewConsulta)
+                dataGridViewList.Columns["Nome"]!.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

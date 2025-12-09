@@ -1,4 +1,6 @@
-﻿namespace IFSPStore.App.Cadastros
+﻿using ReaLTaiizor.Controls;
+
+namespace ConsultorioIFSP.App.Cadastros
 {
     partial class ReceitaForm
     {
@@ -28,125 +30,52 @@
         /// </summary>
         private void InitializeComponent()
         {
-            txtName = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            txtId = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            cboDistrict = new ReaLTaiizor.Controls.MaterialComboBox();
-            tabControlRegister.SuspendLayout();
-            tabPage1.SuspendLayout();
-            SuspendLayout();
-            // 
-            // tabPage1
-            // 
-            tabPage1.Controls.Add(cboDistrict);
-            tabPage1.Controls.Add(txtId);
-            tabPage1.Controls.Add(txtName);
-            tabPage1.Controls.SetChildIndex(txtName, 0);
-            tabPage1.Controls.SetChildIndex(txtId, 0);
-            tabPage1.Controls.SetChildIndex(cboDistrict, 0);
-            // 
-            // txtName
-            // 
-            txtName.AnimateReadOnly = false;
-            txtName.AutoCompleteMode = AutoCompleteMode.None;
-            txtName.AutoCompleteSource = AutoCompleteSource.None;
-            txtName.BackgroundImageLayout = ImageLayout.None;
-            txtName.CharacterCasing = CharacterCasing.Normal;
-            txtName.Depth = 0;
-            txtName.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            txtName.HideSelection = true;
-            txtName.Hint = "Name";
-            txtName.LeadingIcon = null;
-            txtName.Location = new Point(6, 6);
-            txtName.MaxLength = 32767;
-            txtName.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
-            txtName.Name = "txtName";
-            txtName.PasswordChar = '\0';
-            txtName.PrefixSuffixText = null;
-            txtName.ReadOnly = false;
-            txtName.RightToLeft = RightToLeft.No;
-            txtName.SelectedText = "";
-            txtName.SelectionLength = 0;
-            txtName.SelectionStart = 0;
-            txtName.ShortcutsEnabled = true;
-            txtName.Size = new Size(550, 48);
-            txtName.TabIndex = 3;
-            txtName.TabStop = false;
-            txtName.TextAlign = HorizontalAlignment.Left;
-            txtName.TrailingIcon = null;
-            txtName.UseSystemPasswordChar = false;
-            // 
-            // txtId
-            // 
-            txtId.AnimateReadOnly = false;
-            txtId.AutoCompleteMode = AutoCompleteMode.None;
-            txtId.AutoCompleteSource = AutoCompleteSource.None;
-            txtId.BackgroundImageLayout = ImageLayout.None;
-            txtId.CharacterCasing = CharacterCasing.Normal;
-            txtId.Depth = 0;
-            txtId.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            txtId.HideSelection = true;
-            txtId.Hint = "Id";
-            txtId.LeadingIcon = null;
-            txtId.Location = new Point(562, 6);
-            txtId.MaxLength = 32767;
-            txtId.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
-            txtId.Name = "txtId";
-            txtId.PasswordChar = '\0';
-            txtId.PrefixSuffixText = null;
-            txtId.ReadOnly = false;
-            txtId.RightToLeft = RightToLeft.No;
-            txtId.SelectedText = "";
-            txtId.SelectionLength = 0;
-            txtId.SelectionStart = 0;
-            txtId.ShortcutsEnabled = true;
-            txtId.Size = new Size(96, 48);
-            txtId.TabIndex = 4;
-            txtId.TabStop = false;
-            txtId.TextAlign = HorizontalAlignment.Left;
-            txtId.TrailingIcon = null;
-            txtId.UseSystemPasswordChar = false;
-            // 
-            // cboDistrict
-            // 
-            cboDistrict.AutoResize = false;
-            cboDistrict.BackColor = Color.FromArgb(255, 255, 255);
-            cboDistrict.Depth = 0;
-            cboDistrict.DrawMode = DrawMode.OwnerDrawVariable;
-            cboDistrict.DropDownHeight = 174;
-            cboDistrict.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboDistrict.DropDownWidth = 121;
-            cboDistrict.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
-            cboDistrict.ForeColor = Color.FromArgb(222, 0, 0, 0);
-            cboDistrict.FormattingEnabled = true;
-            cboDistrict.Hint = "District";
-            cboDistrict.IntegralHeight = false;
-            cboDistrict.ItemHeight = 43;
-            cboDistrict.Items.AddRange(new object[] { "", "SP", "MG", "RJ", "MS", "MT", "RS", "SC", "PR" });
-            cboDistrict.Location = new Point(663, 6);
-            cboDistrict.MaxDropDownItems = 4;
-            cboDistrict.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
-            cboDistrict.Name = "cboDistrict";
-            cboDistrict.Size = new Size(121, 49);
-            cboDistrict.StartIndex = 0;
-            cboDistrict.TabIndex = 5;
-            // 
-            // CityForm
-            // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(806, 556);
-            Location = new Point(0, 0);
-            Name = "CityForm";
-            Text = "City ​​registration";
-            tabControlRegister.ResumeLayout(false);
-            tabPage1.ResumeLayout(false);
-            ResumeLayout(false);
+            this.components = new System.ComponentModel.Container();
+            // Declaração e Inicialização dos componentes necessários para a Receita
+            this.txtId = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            this.txtPeriodo = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            this.txtQuantidade = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Text = "ReceitaForm";
+
+            // txtId 
+            this.txtId.Location = new System.Drawing.Point(10, 10);
+            this.txtId.Size = new System.Drawing.Size(50, 48);
+            this.txtId.Text = "ID";
+            this.txtId.ReadOnly = true;
+            this.txtId.Visible = false;
+
+            // txtPeriodo
+            this.txtPeriodo.Location = new System.Drawing.Point(70, 50);
+            this.txtPeriodo.Size = new System.Drawing.Size(250, 48);
+            this.txtPeriodo.Text = "Período da Receita";
+
+            // txtQuantidade
+            this.txtQuantidade.Location = new System.Drawing.Point(70, 120);
+            this.txtQuantidade.Size = new System.Drawing.Size(250, 48);
+            this.txtQuantidade.Text = "Quantidade (dias/doses)";
+
+            // Adicionar os controles ao formulário.
+            // Para garantir que o BaseForm os encontre, eles devem ser adicionados
+            // a um container que o BaseForm possa iterar (geralmente o TabPage de Cadastro).
+            // Se o BaseForm não expõe o TabPage, adicione diretamente ao ClientSize.
+
+            this.Controls.Add(this.txtId);
+            this.Controls.Add(this.txtPeriodo);
+            this.Controls.Add(this.txtQuantidade);
+
+            this.ResumeLayout(false);
+            this.PerformLayout();
         }
 
         #endregion
 
-        private ReaLTaiizor.Controls.MaterialComboBox cboDistrict;
+        #region Declarações dos Componentes de Receita
         private ReaLTaiizor.Controls.MaterialTextBoxEdit txtId;
-        private ReaLTaiizor.Controls.MaterialTextBoxEdit txtName;
+        private ReaLTaiizor.Controls.MaterialTextBoxEdit txtPeriodo;
+        private ReaLTaiizor.Controls.MaterialTextBoxEdit txtQuantidade;
+        #endregion
     }
 }

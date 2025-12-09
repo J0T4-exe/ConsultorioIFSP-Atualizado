@@ -1,10 +1,10 @@
-﻿using ConsultorioIFSP.App.Models;
+﻿using ConsultaIFSP.App.Base;
+using ConsultorioIFSP.App.Models;
 using ConsultorioIFSP.Domain.Base;
 using ConsultorioIFSP.Domain.Entities; // Importa a entidade Medicamento
 using ConsultorioIFSP.Domain.Validators;
-using IFSPStore.App.Base;
 
-namespace IFSPStore.App.Cadastros
+namespace ConsultorioIFSP.App.Cadastros
 {
     public partial class MedicamentoForm : BaseForm
     {

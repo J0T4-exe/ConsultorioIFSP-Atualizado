@@ -1,4 +1,4 @@
-﻿namespace IFSPStore.App.Base
+﻿namespace ConsultaIFSP.App.Base
 {
     partial class BaseForm
     {
@@ -63,7 +63,6 @@
             tabControlRegister.SelectedIndex = 0;
             tabControlRegister.Size = new Size(798, 485);
             tabControlRegister.TabIndex = 0;
-            tabControlRegister.SelectedIndexChanged += tabControlRegister_SelectedIndexChanged;
             tabControlRegister.Enter += tabPageList_Enter;
             // 
             // tabPage1
@@ -234,7 +233,6 @@
             dataGridViewList.Size = new Size(787, 397);
             dataGridViewList.TabIndex = 3;
             dataGridViewList.DoubleClick += dataGridViewList_CellDoubleClick;
-            dataGridViewList.KeyDown += dataGridViewList_KeyDown;
             // 
             // imageList1
             // 

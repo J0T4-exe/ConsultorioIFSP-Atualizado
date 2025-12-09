@@ -1,6 +1,8 @@
-﻿using ReaLTaiizor.Controls;
+﻿using ConsultorioIFSP.Domain.Entities;
+using ConsultorioIFSP.Domain.Validators;
+using ReaLTaiizor.Controls;
 using ReaLTaiizor.Forms;
-namespace IFSPStore.App.Base
+namespace ConsultaIFSP.App.Base
 {
     public partial class BaseForm : MaterialForm
     {
@@ -16,7 +18,7 @@ namespace IFSPStore.App.Base
         #region Eventos form
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(@"Are you sure cancel?", @"Consultorio IFSP",
+            if (MessageBox.Show(@"Are you sure cancel?", @"IFSP Store",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 ClearFields();
@@ -42,7 +44,7 @@ namespace IFSPStore.App.Base
         {
             if (dataGridViewList.SelectedRows.Count > 0)
             {
-                if (MessageBox.Show(@"Are you sure want delete?", @"Consultorio IFSP",
+                if (MessageBox.Show(@"Are you sure want delete?", @"IFSP Store",
                     MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     int id = (int)dataGridViewList.SelectedRows[0].Cells["Id"].Value;
@@ -52,7 +54,7 @@ namespace IFSPStore.App.Base
             }
             else
             {
-                MessageBox.Show(@"Please, select any row!", @"Consultorio IFSP",
+                MessageBox.Show(@"Please, select any row!", @"IFSP Store",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
@@ -103,7 +105,7 @@ namespace IFSPStore.App.Base
             }
             else
             {
-                MessageBox.Show(@"Please, select any row", @"Consultorio IFSP",
+                MessageBox.Show(@"Please, select any row", @"IFSP Store",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
@@ -127,30 +129,73 @@ namespace IFSPStore.App.Base
         }
 
         #endregion
-            
+
         private void dataGridViewList_CellDoubleClick(object sender, EventArgs e)
         {
             Edit();
         }
-        private void tabControlRegister_SelectedIndexChanged(object sender, EventArgs e)
+
+        // --- Implementação dos Métodos Virtuais de CRUD ---
+
+        protected override void Salvar()
         {
-            if (tabControlRegister.SelectedIndex == 0) 
+            try
             {
-                this.AcceptButton = btnSave;
+                if (IsAlteracao) // IsAlteracao é herdado
+                {
+                    // Update
+                    if (int.TryParse(txtId.Text, out var id))
+                    {
+                        var receita = _receitaService.GetById<Receita>(id);
+                        PreencheObjeto(receita);
+                        // Chama o serviço de Update com o ReceitaValidator
+                        receita = _receitaService.Update<Receita, Receita, ReceitaValidator>(receita);
+                    }
+                }
+                else
+                {
+                    // Add
+                    var receita = new Receita();
+                    PreencheObjeto(receita);
+                    // Chama o serviço de Add com o ReceitaValidator
+                    receita = _receitaService.Add<Receita, Receita, ReceitaValidator>(receita);
+                }
+
+                // tabControlCadastro é herdado e setado para a lista
+                tabControlCadastro.SelectedIndex = 1;
+                CarregaGrid();
+                MessageBox.Show("Registro salvo com sucesso!", @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
-            else 
+            catch (Exception ex)
             {
-                this.AcceptButton = btnNew;
+                MessageBox.Show(ex.Message, @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void dataGridViewList_KeyDown(object sender, KeyEventArgs e)
+        protected override void Deletar(int id)
         {
-            if (e.KeyCode == Keys.Delete)
+            try
             {
-                btnDelete_Click(sender, e);
-                e.Handled = true;
+                _receitaService.Delete(id);
+                MessageBox.Show("Registro excluído com sucesso!", @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        protected override void CarregaRegistro(DataGridViewRow? linha)
+        {
+            // Mapeia os dados da linha selecionada para os campos do formulário para o modo "Editar"
+            txtId.Text = linha?.Cells["Id"].Value.ToString();
+            txtNome.Text = linha?.Cells["Nome"].Value.ToString();
+            txtLogin.Text = linha?.Cells["Login"].Value.ToString();
+            txtPassword.Text = linha?.Cells["Password"].Value.ToString();
+            txtEspecialidade.Text = linha?.Cells["Especialidade"].Value.ToString();
+            txtCrm.Text = linha?.Cells["Crm"].Value.ToString();
+            txtTelefone.Text = linha?.Cells["Telefone"].Value.ToString();
         }
     }
 }
