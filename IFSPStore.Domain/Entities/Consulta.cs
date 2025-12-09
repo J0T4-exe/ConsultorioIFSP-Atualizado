@@ -1,5 +1,4 @@
-﻿using IFSPStore.Domain.Base;
-
+﻿using ConsultorioIFSP.Domain.Base;
 
 namespace ConsultorioIFSP.Domain.Entities
 {

@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace IFSPStore.App.Cadastros
 {
-    public partial class SaleForm : BaseForm
+    public partial class PacienteForm : BaseForm
     {
         private List<SaleItemModel> _saleItems = new List<SaleItemModel>();
         private readonly IBaseService<Sale> _saleService;
@@ -19,7 +19,7 @@ namespace IFSPStore.App.Cadastros
         private readonly IBaseService<Category> _categoryService;
 
         private List<SaleModel>? sales;
-        public SaleForm(IBaseService<Sale> saleService,
+        public PacienteForm(IBaseService<Sale> saleService,
                              IBaseService<User> userService,
                              IBaseService<Customer> customerService,
                              IBaseService<Product> productServic,

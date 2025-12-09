@@ -1,5 +1,4 @@
-﻿using IFSPStore.Domain.Base;
-
+﻿
 namespace ConsultorioIFSP.Domain.Base
 {
     public abstract class BaseEntity<TId> : IBaseEntity

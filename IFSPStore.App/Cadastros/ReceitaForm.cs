@@ -4,11 +4,11 @@ using IFSPStore.Domain.Entities;
 using IFSPStore.Service.Validator;
 namespace IFSPStore.App.Cadastros
 {
-    public partial class CityForm : BaseForm
+    public partial class ReceitaForm : BaseForm
     {
         private IBaseService<City> _cityService;
         private List<City> cities;
-        public CityForm(IBaseService<City> cityService)
+        public ReceitaForm(IBaseService<City> cityService)
         {
             _cityService = cityService;
             InitializeComponent();

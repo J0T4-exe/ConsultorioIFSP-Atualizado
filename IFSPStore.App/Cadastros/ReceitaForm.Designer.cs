@@ -1,6 +1,6 @@
 ﻿namespace IFSPStore.App.Cadastros
 {
-    partial class CityForm
+    partial class ReceitaForm
     {
         /// <summary>
         /// Required designer variable.

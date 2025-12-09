@@ -16,7 +16,7 @@ namespace IFSPStore.App.Base
         #region Eventos form
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(@"Are you sure cancel?", @"IFSP Store",
+            if (MessageBox.Show(@"Are you sure cancel?", @"Consultorio IFSP",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 ClearFields();
@@ -42,7 +42,7 @@ namespace IFSPStore.App.Base
         {
             if (dataGridViewList.SelectedRows.Count > 0)
             {
-                if (MessageBox.Show(@"Are you sure want delete?", @"IFSP Store",
+                if (MessageBox.Show(@"Are you sure want delete?", @"Consultorio IFSP",
                     MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     int id = (int)dataGridViewList.SelectedRows[0].Cells["Id"].Value;
@@ -52,7 +52,7 @@ namespace IFSPStore.App.Base
             }
             else
             {
-                MessageBox.Show(@"Please, select any row!", @"IFSP Store",
+                MessageBox.Show(@"Please, select any row!", @"Consultorio IFSP",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
@@ -103,7 +103,7 @@ namespace IFSPStore.App.Base
             }
             else
             {
-                MessageBox.Show(@"Please, select any row", @"IFSP Store",
+                MessageBox.Show(@"Please, select any row", @"Consultorio IFSP",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 

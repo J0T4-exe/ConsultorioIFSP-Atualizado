@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
-using IFSPStore.Domain.Base;
-using IFSPStore.Domain.Entities;
-using IFSPStore.Repository.Context;
+using ConsultorioIFSP.Domain.Base;
+using ConsultorioIFSP.Domain.Entities;
+using ConsultorioIFSP.Domain.Validators;
+using ConsultorioIFSP.Repository.Mapping;
+using ConsultorioIFSPContext;
 using IFSPStore.Service.Service;
-using IFSPStore.Service.Validator;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
 using System.Text.Json;
 
-namespace IFSPStore.Test
+namespace ConsultorioIFSP.Test
 {
     [TestClass]
     public class ServiceTest
@@ -19,10 +20,10 @@ namespace IFSPStore.Test
         {
             services = new ServiceCollection();
             services.AddDbContext<MySqlContext>();
-            services.AddScoped<IBaseRepository<User>, IBaseRepository<User>>();
-            services.AddScoped<IBaseService<User>, BaseService<User>>();
+            services.AddScoped<IBaseRepository<Medico>, IBaseRepository<Medico>>();
+            services.AddScoped<IBaseService<Medico>, BaseService<Medico>>();
             services.AddSingleton(
-                new MapperConfiguration (config => { config.CreateMap<User, User>(); }, 
+                new MapperConfiguration (config => { config.CreateMap<Medico, Medico>(); }, 
                 NullLoggerFactory.Instance).CreateMapper());
             return services.BuildServiceProvider();
         }
@@ -31,13 +32,13 @@ namespace IFSPStore.Test
         void TestUserService()
         {
             var serviceProvider = ConfigureService();
-            var _userService = serviceProvider.GetService<IBaseService<User>>();
-            var user = new User
+            var _medicoService = serviceProvider.GetService<IBaseService<Medico>>();
+            var medico = new Medico
             {
-                Name = "murilo",
+                Nome = "murilo",
                 Password = "123"
             };
-            var result = _userService.Add<User, User, UserValidator>(user);
+            var result = _medicoService.Add<Medico, Medico, MedicoValidator>(medico);
             Console.WriteLine(JsonSerializer.Serialize(result));
         }
     }

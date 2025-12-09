@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using ConsultorioIFSP.Domain.Base;
 using FluentValidation;
-namespace IFSPStore.Service.Service
+namespace ConsultorioIFSP.Service.Service
 {
     public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : IBaseEntity
     {

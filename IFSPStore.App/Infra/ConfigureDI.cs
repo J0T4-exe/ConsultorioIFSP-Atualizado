@@ -1,12 +1,8 @@
 ﻿using AutoMapper;
+using ConsultorioIFSP.Domain.Base;
+using ConsultorioIFSP.Repository.Repository;
+using ConsultorioIFSPContext;
 using IFSPStore.App.Cadastros;
-using IFSPStore.App.Models;
-using IFSPStore.App.Outros;
-using IFSPStore.Domain.Base;
-using IFSPStore.Domain.Entities;
-using IFSPStore.Repository.Context;
-using IFSPStore.Repository.Repository;
-using IFSPStore.Service.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -51,10 +47,10 @@ namespace IFSPStore.App.Infra
             //Formularios
             services.AddTransient<Login, Login>();
             services.AddTransient<CategoryForm, CategoryForm>();
-            services.AddTransient<CityForm, CityForm>();
-            services.AddTransient<CustomerForm, CustomerForm>();
-            services.AddTransient<ProductForm, ProductForm>();
-            services.AddTransient<SaleForm, SaleForm>();
+            services.AddTransient<ReceitaForm, ReceitaForm>();
+            services.AddTransient<MedicoForm, MedicoForm>();
+            services.AddTransient<MedicamentoForm, MedicamentoForm>();
+            services.AddTransient<PacienteForm, PacienteForm>();
             services.AddTransient<UserForm, UserForm>();
             services.AddTransient<HelpForm, HelpForm>();
 

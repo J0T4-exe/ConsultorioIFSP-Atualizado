@@ -1,6 +1,6 @@
 ﻿namespace IFSPStore.App.Cadastros
 {
-    partial class SaleForm
+    partial class PacienteForm
     {
         /// <summary>
         /// Required designer variable.

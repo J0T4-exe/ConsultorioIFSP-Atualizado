@@ -2,7 +2,7 @@
 using ConsultorioIFSPContext;
 using Microsoft.EntityFrameworkCore;
 
-namespace IFSPStore.Repository.Repository
+namespace ConsultorioIFSP.Repository.Repository
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity<int>
     {

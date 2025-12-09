@@ -1,7 +1,7 @@
+using ConsultorioIFSP.Domain.Entities;
 using IFSPStore.App.Cadastros;
 using IFSPStore.App.Infra;
 using IFSPStore.App.Outros;
-using IFSPStore.Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using ReaLTaiizor.Forms;
 
@@ -9,7 +9,7 @@ namespace IFSPStore.App
 {
     public partial class MainForm : MaterialForm
     {
-        public static User? User { get; set; }
+        public static Medico? Medico { get; set; }
         public MainForm()
         {
             InitializeComponent();
@@ -26,7 +26,7 @@ namespace IFSPStore.App
                 }
                 else
                 {
-                    lblUser.Text = $"Usuário: {User?.Name}";
+                    lblUser.Text = $"Usuário: {Medico?.Nome}";
                 }
             }
         }
@@ -36,25 +36,20 @@ namespace IFSPStore.App
         }
         void productToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            showForm<ProductForm>();
+            showForm<MedicamentoForm>();
         }
         private void customerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            showForm<CustomerForm>();
+            showForm<MedicoForm>();
         }
         private void saleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            showForm<SaleForm>();
+            showForm<PacienteForm>();
         }
         private void cityToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            showForm<CityForm>();
+            showForm<ReceitaForm>();
         }
-        private void userToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            showForm<UserForm>();
-        }
-
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -70,11 +65,6 @@ namespace IFSPStore.App
             {
                 this.ActiveMdiChild.Close();
             }
-        }
-
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            showForm<HelpForm>();
         }
 
         private void showForm<TFormulario>() where TFormulario : MaterialForm

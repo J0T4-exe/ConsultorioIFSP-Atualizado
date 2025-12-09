@@ -7,13 +7,13 @@ using MySqlX.XDevAPI;
 
 namespace IFSPStore.App.Cadastros
 {
-    public partial class CustomerForm : BaseForm
+    public partial class MedicoForm : BaseForm
     {
         private readonly IBaseService<Customer> _customerService;
         private readonly IBaseService<City> _cityService;
 
         private List<CustomerModel>? customers;
-        public CustomerForm(IBaseService<Customer> clienteService, IBaseService<City> cidadeService)
+        public MedicoForm(IBaseService<Customer> clienteService, IBaseService<City> cidadeService)
         {
             _customerService = clienteService;
             _cityService = cidadeService;
