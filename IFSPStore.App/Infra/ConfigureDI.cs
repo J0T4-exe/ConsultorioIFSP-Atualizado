@@ -52,7 +52,6 @@ namespace IFSPStore.App.Infra
             services.AddTransient<MedicamentoForm, MedicamentoForm>();
             services.AddTransient<PacienteForm, PacienteForm>();
             services.AddTransient<UserForm, UserForm>();
-            services.AddTransient<HelpForm, HelpForm>();
 
             services.AddSingleton(
                 new MapperConfiguration(config => {

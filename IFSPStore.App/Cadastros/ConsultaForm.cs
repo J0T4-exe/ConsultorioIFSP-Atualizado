@@ -1,67 +1,64 @@
 ﻿using ConsultorioIFSP.Domain.Base;
 using IFSPStore.App.Base;
 
-
 namespace IFSPStore.App.Cadastros
 {
-    // A classe agora foca em consultar e exibir dados, não em edição ou salvamento.
+    // A classe ConsultaProdutoForm herda de BaseForm, mas ignora métodos de edição/salvamento.
     public partial class ConsultaProdutoForm : BaseForm
     {
         private readonly IBaseService<Product> _productService;
-        private readonly IBaseService<Category> _categoryService; // Mantido para carregar o ComboBox de filtros
+        private readonly IBaseService<Category> _categoryService;
 
-        // Lista de produtos para a grade.
         private List<ProductModel>? products;
 
-        // Os controles de filtro (txtId, cboCategory, etc.) são esperados no Designer.
-        // O controle de resultados (dataGridViewList) também é esperado.
-
+        // Construtor: Injeção de dependência dos serviços necessários
         public ConsultaProdutoForm(IBaseService<Product> productService, IBaseService<Category> categoryService)
         {
             _productService = productService;
             _categoryService = categoryService;
             InitializeComponent();
 
-            // Carrega os dados da grade e o ComboBox ao iniciar.
             loadCombo();
+            // Carrega a grade com todos os dados na inicialização.
             CarregaGrid();
-
-            // Configurações de UI: um formulário de consulta geralmente começa na aba de lista.
-            // tabControlRegister.SelectedIndex = 0; // Se você tiver abas
         }
 
+        // Carrega o ComboBox de filtro com as categorias
         private void loadCombo()
         {
-            // O combo box é usado aqui como um filtro de Categoria.
             cboCategory.ValueMember = "Id";
             cboCategory.DisplayMember = "Name";
 
-            // Adiciona uma opção "Todos" no início do ComboBox de filtro
             var categories = _categoryService.Get<CategoryModel>().ToList();
-            categories.Insert(0, new CategoryModel { Id = 0, Name = "Todas as Categorias" });
+
+            // Adiciona a opção "Todas as Categorias" no início da lista para o filtro
+            categories.Insert(0, new CategoryModel { Id = 0, Name = "Todas" });
 
             cboCategory.DataSource = categories;
+            cboCategory.SelectedIndex = 0; // Seleciona "Todas" como padrão.
         }
 
         // -----------------------------------------------------------------
-        // Métodos de Consulta/Filtro
+        // Métodos de Ação (Consulta)
         // -----------------------------------------------------------------
 
-        // Adaptação da função CarregaGrid para aceitar filtros.
+        // Método principal sobrescrito que coleta os filtros e carrega a grade.
         protected override void CarregaGrid()
         {
-            // Este método será chamado na inicialização e pelo botão 'Consultar'.
             try
             {
-                // 1. Coleta os Filtros da Tela
+                // 1. Coleta e sanitiza os Filtros da Tela (Assumindo txtId, txtName, cboCategory)
+
                 int? idFiltro = null;
-                if (int.TryParse(txtId.Text, out int id))
+                if (int.TryParse(txtId.Text, out int id) && id > 0)
                 {
                     idFiltro = id;
                 }
 
+                string nomeFiltro = txtName.Text.Trim();
+
                 int? idCategoriaFiltro = null;
-                // Verifica se há um SelectedValue e se ele não é a opção "Todas as Categorias" (Id=0)
+                // Aplica filtro de categoria somente se um ID > 0 for selecionado
                 if (cboCategory.SelectedValue != null &&
                     int.TryParse(cboCategory.SelectedValue.ToString(), out int idCat) &&
                     idCat > 0)
@@ -69,30 +66,19 @@ namespace IFSPStore.App.Cadastros
                     idCategoriaFiltro = idCat;
                 }
 
-                // **Filtro de Status/Ativo:** // Assumindo que você tem RadioButtons: rbAtivoSim, rbAtivoNao, rbAtivoTodos
-                bool? ativoFiltro = null;
-                if (rbAtivoSim.Checked)
-                {
-                    ativoFiltro = true;
-                }
-                else if (rbAtivoNao.Checked)
-                {
-                    ativoFiltro = false;
-                }
-                // Se rbAtivoTodos estiver checado, 'ativoFiltro' permanece 'null', buscando todos.
-
-                // 2. Chama a função de busca com os filtros
-                products = BuscarProdutos(idFiltro, idCategoriaFiltro, ativoFiltro).ToList();
+                // 2. Executa a busca filtrada
+                products = BuscarProdutosFiltrados(idFiltro, nomeFiltro, idCategoriaFiltro).ToList();
 
                 // 3. Exibe Resultados
                 dataGridViewList.DataSource = products;
 
-                // Esconde a coluna de ID de Categoria, se ela existir no ProductModel
-                dataGridViewList.Columns["IdCategory"]!.Visible = false;
+                // Oculta colunas de IDs internos
+                if (dataGridViewList.Columns.Contains("IdCategory"))
+                {
+                    dataGridViewList.Columns["IdCategory"]!.Visible = false;
+                }
 
-                // Opcional: Exibir uma mensagem de status.
-                // lblStatus.Text = $"Encontrados {products.Count} registros.";
-
+                // Opcional: lblStatus.Text = $"Encontrados {products.Count} registros.";
             }
             catch (Exception ex)
             {
@@ -100,21 +86,21 @@ namespace IFSPStore.App.Cadastros
             }
         }
 
-        // Método que realiza a filtragem na memória (se a lista for pequena) ou chama um método filtrado do serviço.
-        private IEnumerable<ProductModel> BuscarProdutos(int? id, int? idCategory, bool? ativo)
+        // Realiza a filtragem dos dados usando Linq
+        private IEnumerable<ProductModel> BuscarProdutosFiltrados(int? id, string nome, int? idCategory)
         {
-            // Idealmente, esta busca deveria ser feita no banco de dados (no serviço): 
-            // return _productService.Get<ProductModel>(p => p.Id == id && p.CategoryId == idCategory && p.Active == ativo);
-
-            // Para simplificar e demonstrar a lógica no Form, simulamos a busca completa e filtramos.
-            // Atenção: Este método é ineficiente para grandes volumes de dados!
-            var todosProdutos = _productService.Get<ProductModel>(new[] { "Category" });
-
-            var query = todosProdutos.AsQueryable();
+            // Busca a lista de produtos, incluindo o objeto Category (usado para o filtro e exibição)
+            var query = _productService.Get<ProductModel>(new[] { "Category" }).AsQueryable();
 
             if (id.HasValue)
             {
                 query = query.Where(p => p.Id == id.Value);
+            }
+
+            if (!string.IsNullOrEmpty(nome))
+            {
+                // Filtra por nome, verificando se contém a string inserida
+                query = query.Where(p => p.Name.Contains(nome));
             }
 
             if (idCategory.HasValue)
@@ -122,48 +108,48 @@ namespace IFSPStore.App.Cadastros
                 query = query.Where(p => p.Category.Id == idCategory.Value);
             }
 
-            // Assumindo que ProductModel tem uma propriedade 'IsActive' ou similar
-            // if (ativo.HasValue)
-            // {
-            //     query = query.Where(p => p.IsActive == ativo.Value);
-            // }
-
-            return query.ToList();
+            return query;
         }
 
         // -----------------------------------------------------------------
-        // Sobrescrita de Métodos de Ação (Apenas para Reverter a Ação Padrão)
+        // Sobrescrita e Desabilitação de Métodos de CRUD
         // -----------------------------------------------------------------
 
-        // O método Save não é necessário em um formulário de consulta, por isso ele pode ser removido 
-        // ou deixar vazio se for exigido pela BaseForm.
-        // protected override void Save() { /* Não faz nada */ }
-
-        // O método Delete não é necessário em um formulário de consulta.
-        // protected override void Delete(int id) { /* Não faz nada */ }
-
-        // O loadList só é útil se a consulta permitir dar dois cliques para abrir a edição,
-        // mas em um formulário puro de consulta, ele é desnecessário.
-        // protected override void loadList(DataGridViewRow? linha) { /* Não faz nada */ }
-
-        // -----------------------------------------------------------------
-        // Manipuladores de Eventos (Botões)
-        // -----------------------------------------------------------------
-
-        // Você precisará de um botão no seu designer (btnFiltrar ou btnConsultar)
-        private void btnFiltrar_Click(object sender, EventArgs e)
+        // Desabilita o método Save
+        protected override void Save()
         {
-            CarregaGrid(); // Chama o método de filtro principal
+            // Não faz nada, pois é um formulário de consulta.
         }
 
-        // Você precisará de um botão para limpar (btnLimparFiltros)
+        // Desabilita o método Delete
+        protected override void Delete(int id)
+        {
+            // Não faz nada, pois é um formulário de consulta.
+        }
+
+        // Desabilita o método loadList (ou adapte para abrir edição, se for o caso)
+        protected override void loadList(DataGridViewRow? linha)
+        {
+            // Não preenche os campos do formulário (que neste contexto seriam campos de edição).
+        }
+
+        // -----------------------------------------------------------------
+        // Manipuladores de Eventos (Assumidos no Designer)
+        // -----------------------------------------------------------------
+
+        // Este método deve ser associado ao Click do botão de Consultar/Filtrar
+        private void btnConsultar_Click(object sender, EventArgs e)
+        {
+            CarregaGrid();
+        }
+
+        // Opcional: Método para Limpar os campos de filtro e recarregar
         private void btnLimparFiltros_Click(object sender, EventArgs e)
         {
             txtId.Clear();
-            cboCategory.SelectedIndex = 0; // Volta para "Todas as Categorias"
-            // rbAtivoTodos.Checked = true; // Se usar RadioButtons
+            txtName.Clear();
+            cboCategory.SelectedIndex = 0; // Volta para "Todas"
             CarregaGrid(); // Recarrega a grade sem filtros
         }
-
     }
 }
