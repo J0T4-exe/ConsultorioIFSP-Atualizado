@@ -37,10 +37,16 @@ namespace ConsultorioIFSP.App.Cadastros
             tabPage1.SuspendLayout();
             SuspendLayout();
             // 
+            // tabControlRegister
+            // 
+            tabControlRegister.Location = new Point(6, 69);
+            tabControlRegister.Size = new Size(915, 407);
+            // 
             // tabPage1
             // 
             tabPage1.Controls.Add(txtPeriodo);
             tabPage1.Controls.Add(txtId);
+            tabPage1.Size = new Size(907, 372);
             tabPage1.Controls.SetChildIndex(txtId, 0);
             tabPage1.Controls.SetChildIndex(txtPeriodo, 0);
             // 
@@ -52,7 +58,7 @@ namespace ConsultorioIFSP.App.Cadastros
             txtId.BackgroundImageLayout = ImageLayout.None;
             txtId.CharacterCasing = CharacterCasing.Normal;
             txtId.Depth = 0;
-            txtId.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtId.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtId.HideSelection = true;
             txtId.LeadingIcon = null;
             txtId.Location = new Point(7, 7);
@@ -84,7 +90,7 @@ namespace ConsultorioIFSP.App.Cadastros
             txtPeriodo.BackgroundImageLayout = ImageLayout.None;
             txtPeriodo.CharacterCasing = CharacterCasing.Normal;
             txtPeriodo.Depth = 0;
-            txtPeriodo.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtPeriodo.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtPeriodo.HideSelection = true;
             txtPeriodo.LeadingIcon = null;
             txtPeriodo.Location = new Point(63, 7);
@@ -115,7 +121,7 @@ namespace ConsultorioIFSP.App.Cadastros
             txtQuantidade.BackgroundImageLayout = ImageLayout.None;
             txtQuantidade.CharacterCasing = CharacterCasing.Normal;
             txtQuantidade.Depth = 0;
-            txtQuantidade.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtQuantidade.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtQuantidade.HideSelection = true;
             txtQuantidade.LeadingIcon = null;
             txtQuantidade.Location = new Point(70, 120);
@@ -142,7 +148,7 @@ namespace ConsultorioIFSP.App.Cadastros
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(927, 724);
+            ClientSize = new Size(922, 482);
             Controls.Add(txtQuantidade);
             Location = new Point(0, 0);
             Name = "ReceitaForm";

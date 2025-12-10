@@ -1,15 +1,13 @@
 ﻿using ConsultorioIFSP.Domain.Base;
 using ConsultorioIFSP.Domain.Entities;
-using ConsultorioIFSP.App.Models;
 using ConsultorioIFSP.Domain.Validators;
 using ReaLTaiizor.Forms;
-using System.Data;
 
 namespace ConsultorioIFSP.App.Outros
 {
     public partial class Login : MaterialForm
     {
-        private readonly IBaseService<Medico> _medicoService; 
+        private readonly IBaseService<Medico> _medicoService;
 
         public Login(IBaseService<Medico> medicoService)
         {
@@ -18,7 +16,6 @@ namespace ConsultorioIFSP.App.Outros
             this.AcceptButton = btnLogin;
             checkValidUser(); 
         }
-
         public Login()
         {
             InitializeComponent();
@@ -52,19 +49,20 @@ namespace ConsultorioIFSP.App.Outros
 
         private void checkValidUser()
         {
-            if (!medicos.Any(u => u.Login == "admin"))
+            var medicosCadastrados = _medicoService.Get<Medico>().ToList();
+
+            if (!medicosCadastrados.Any(u => u.Login == "admin"))
             {
                 var medico = new Medico
                 {
                     Login = "admin",
                     Password = "admin99",
                     Nome = "Administrator do sistema",
-                    Crm = "99999",
-
+                    Crm = "99999", 
                     Telefone = "11999998888",
                     Especialidade = "Administracao",
-
                 };
+
                 _medicoService.Add<Medico, Medico, MedicoValidator>(medico);
             }
         }

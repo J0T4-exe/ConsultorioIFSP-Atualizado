@@ -35,18 +35,26 @@
             tabPage1.SuspendLayout();
             SuspendLayout();
             // 
+            // tabPage2
+            // 
+            tabPage2.Margin = new Padding(3, 5, 3, 5);
+            tabPage2.Padding = new Padding(3, 5, 3, 5);
+            tabPage2.Size = new Size(1034, 828);
+            // 
+            // tabControlRegister
+            // 
+            tabControlRegister.Location = new Point(6, 70);
+            tabControlRegister.Margin = new Padding(3, 5, 3, 5);
+            tabControlRegister.Size = new Size(1021, 467);
+            // 
             // tabPage1
             // 
             tabPage1.Controls.Add(txtNomeGenerico);
             tabPage1.Controls.Add(txtId);
             tabPage1.Controls.Add(txtName);
-            // Removendo referências a antigos campos de Produto/Venda
-            // tabPage1.Controls.Remove(txtQuantity);
-            // tabPage1.Controls.Remove(cboCategory);
-            // tabPage1.Controls.Remove(txtSaleDate);
-            // tabPage1.Controls.Remove(txtPrice);
-            // tabPage1.Controls.Remove(txtSaleUnit);
-
+            tabPage1.Margin = new Padding(3, 5, 3, 5);
+            tabPage1.Padding = new Padding(3, 5, 3, 5);
+            tabPage1.Size = new Size(1013, 432);
             tabPage1.Controls.SetChildIndex(txtName, 0);
             tabPage1.Controls.SetChildIndex(txtId, 0);
             tabPage1.Controls.SetChildIndex(txtNomeGenerico, 0);
@@ -63,7 +71,8 @@
             txtName.HideSelection = true;
             txtName.Hint = "Nome do Medicamento";
             txtName.LeadingIcon = null;
-            txtName.Location = new Point(6, 6);
+            txtName.Location = new Point(7, 8);
+            txtName.Margin = new Padding(3, 4, 3, 4);
             txtName.MaxLength = 32767;
             txtName.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
             txtName.Name = "txtName";
@@ -75,7 +84,7 @@
             txtName.SelectionLength = 0;
             txtName.SelectionStart = 0;
             txtName.ShortcutsEnabled = true;
-            txtName.Size = new Size(597, 48);
+            txtName.Size = new Size(682, 48);
             txtName.TabIndex = 3;
             txtName.TabStop = false;
             txtName.TextAlign = HorizontalAlignment.Left;
@@ -94,7 +103,8 @@
             txtId.HideSelection = true;
             txtId.Hint = "Id";
             txtId.LeadingIcon = null;
-            txtId.Location = new Point(609, 6);
+            txtId.Location = new Point(696, 8);
+            txtId.Margin = new Padding(3, 4, 3, 4);
             txtId.MaxLength = 32767;
             txtId.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
             txtId.Name = "txtId";
@@ -106,7 +116,7 @@
             txtId.SelectionLength = 0;
             txtId.SelectionStart = 0;
             txtId.ShortcutsEnabled = true;
-            txtId.Size = new Size(176, 48);
+            txtId.Size = new Size(201, 48);
             txtId.TabIndex = 4;
             txtId.TabStop = false;
             txtId.TextAlign = HorizontalAlignment.Left;
@@ -125,7 +135,8 @@
             txtNomeGenerico.HideSelection = true;
             txtNomeGenerico.Hint = "Nome Genérico";
             txtNomeGenerico.LeadingIcon = null;
-            txtNomeGenerico.Location = new Point(6, 60);
+            txtNomeGenerico.Location = new Point(7, 80);
+            txtNomeGenerico.Margin = new Padding(3, 4, 3, 4);
             txtNomeGenerico.MaxLength = 32767;
             txtNomeGenerico.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
             txtNomeGenerico.Name = "txtNomeGenerico";
@@ -137,7 +148,7 @@
             txtNomeGenerico.SelectionLength = 0;
             txtNomeGenerico.SelectionStart = 0;
             txtNomeGenerico.ShortcutsEnabled = true;
-            txtNomeGenerico.Size = new Size(779, 48);
+            txtNomeGenerico.Size = new Size(890, 48);
             txtNomeGenerico.TabIndex = 5;
             txtNomeGenerico.TabStop = false;
             txtNomeGenerico.TextAlign = HorizontalAlignment.Left;
@@ -146,11 +157,13 @@
             // 
             // MedicamentoForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(810, 562);
+            ClientSize = new Size(1029, 540);
             Location = new Point(0, 0);
+            Margin = new Padding(3, 5, 3, 5);
             Name = "MedicamentoForm";
+            Padding = new Padding(3, 113, 3, 5);
             Text = "Cadastro de Medicamento";
             tabControlRegister.ResumeLayout(false);
             tabPage1.ResumeLayout(false);

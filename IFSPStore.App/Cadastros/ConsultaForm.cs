@@ -8,7 +8,6 @@ namespace ConsultorioIFSP.App.Cadastros
 {
     public partial class ConsultaForm : BaseForm
     {
-        // 1. Serviços específicos injetados
         private readonly IBaseService<Consulta> _consultaService;
         private readonly IBaseService<Medico> _medicoService;
         private readonly IBaseService<Paciente> _pacienteService;

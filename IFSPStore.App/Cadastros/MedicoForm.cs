@@ -1,22 +1,23 @@
 ﻿using ConsultorioIFSP.App.Base;
-using ConsultorioIFSP.App.Models;
+using ConsultorioIFSP.App.Models; // Mantido, mas não será usado para a lista
 using ConsultorioIFSP.Domain.Base;
 using ConsultorioIFSP.Domain.Entities;
 using ConsultorioIFSP.Domain.Validators;
 
 namespace ConsultorioIFSP.App.Cadastros
 {
-    // Renomeado para MedicoForm e herda de BaseForm
     public partial class MedicoForm : BaseForm
     {
         private readonly IBaseService<Medico> _medicoService;
-        private List<MedicoModel>? medicos;
+
+        // CORREÇÃO: Variável da lista alterada de MedicoModel para a entidade Medico
+        // (Isso resolve o erro "medicos não existe")
+        private List<Medico>? medicos;
+
         public MedicoForm(IBaseService<Medico> medicoService)
         {
             _medicoService = medicoService;
             InitializeComponent();
-
-            txtRegistrationDate.Text = DateTime.Now.ToString("g");
         }
 
         private void PreencheObjetoEntidade(Medico medico)
@@ -68,7 +69,7 @@ namespace ConsultorioIFSP.App.Cadastros
         {
             try
             {
-                _medicoService.Delete(id); // Usa o serviço de Medico
+                _medicoService.Delete(id);
                 CarregaGrid();
             }
             catch (Exception ex)
@@ -79,31 +80,23 @@ namespace ConsultorioIFSP.App.Cadastros
 
         protected override void CarregaGrid()
         {
-            // Busca MedicoModel
-            medicos = _medicoService.Get<MedicoModel>().ToList();
+            // CORREÇÃO: Tipo da busca alterado de MedicoModel para a entidade Medico
+            medicos = _medicoService.Get<Medico>().ToList();
+
             dataGridViewList.DataSource = medicos;
+
+            // As colunas devem ser referenciadas pelo nome das propriedades na entidade Medico
             dataGridViewList.Columns["Password"]!.Visible = false;
             dataGridViewList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         protected override void loadList(DataGridViewRow? linha)
         {
-            // Este método carrega os campos na UI.
-
             txtId.Text = linha?.Cells["Id"].Value?.ToString() ?? string.Empty;
             txtName.Text = linha?.Cells["Name"].Value?.ToString() ?? string.Empty;
             txtEmail.Text = linha?.Cells["Email"].Value?.ToString() ?? string.Empty;
             txtLogin.Text = linha?.Cells["Login"].Value?.ToString() ?? string.Empty;
             txtPassword.Text = linha?.Cells["Password"].Value?.ToString() ?? string.Empty;
-
-            // Campos de Data
-            txtRegistrationDate.Text = DateTime.TryParse(linha?.Cells["RegisterDate"].Value?.ToString(), out var dataC)
-                ? dataC.ToString("g")
-                : string.Empty;
-
-            txtLastLogin.Text = DateTime.TryParse(linha?.Cells["LoginDate"].Value?.ToString(), out var dataL)
-                ? dataL.ToString("g")
-                : string.Empty;
 
         }
     }

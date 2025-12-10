@@ -30,11 +30,17 @@ namespace ConsultorioIFSP.App.Cadastros
             tabPage1.SuspendLayout();
             SuspendLayout();
             // 
+            // tabControlRegister
+            // 
+            tabControlRegister.Location = new Point(6, 65);
+            tabControlRegister.Size = new Size(886, 420);
+            // 
             // tabPage1
             // 
             tabPage1.Controls.Add(txtHorario);
             tabPage1.Controls.Add(txtDataConsulta);
             tabPage1.Controls.Add(txtId);
+            tabPage1.Size = new Size(878, 385);
             tabPage1.Controls.SetChildIndex(txtId, 0);
             tabPage1.Controls.SetChildIndex(txtDataConsulta, 0);
             tabPage1.Controls.SetChildIndex(txtHorario, 0);
@@ -47,7 +53,7 @@ namespace ConsultorioIFSP.App.Cadastros
             txtId.BackgroundImageLayout = ImageLayout.None;
             txtId.CharacterCasing = CharacterCasing.Normal;
             txtId.Depth = 0;
-            txtId.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtId.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtId.HideSelection = true;
             txtId.LeadingIcon = null;
             txtId.Location = new Point(7, 7);
@@ -79,7 +85,7 @@ namespace ConsultorioIFSP.App.Cadastros
             txtDataConsulta.BackgroundImageLayout = ImageLayout.None;
             txtDataConsulta.CharacterCasing = CharacterCasing.Normal;
             txtDataConsulta.Depth = 0;
-            txtDataConsulta.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtDataConsulta.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtDataConsulta.HideSelection = true;
             txtDataConsulta.LeadingIcon = null;
             txtDataConsulta.Location = new Point(63, 7);
@@ -110,7 +116,7 @@ namespace ConsultorioIFSP.App.Cadastros
             txtHorario.BackgroundImageLayout = ImageLayout.None;
             txtHorario.CharacterCasing = CharacterCasing.Normal;
             txtHorario.Depth = 0;
-            txtHorario.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtHorario.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtHorario.HideSelection = true;
             txtHorario.LeadingIcon = null;
             txtHorario.Location = new Point(280, 7);
@@ -153,7 +159,7 @@ namespace ConsultorioIFSP.App.Cadastros
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(900, 720);
+            ClientSize = new Size(898, 493);
             Controls.Add(cboMedico);
             Controls.Add(cboPaciente);
             Location = new Point(0, 0);

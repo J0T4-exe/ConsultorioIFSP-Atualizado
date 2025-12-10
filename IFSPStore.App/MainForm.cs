@@ -67,6 +67,11 @@ namespace ConsultorioIFSP.App
             }
         }
 
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
         private void showForm<TFormulario>() where TFormulario : MaterialForm
         {
             //fecha todos os forms abertos dentro do mdi

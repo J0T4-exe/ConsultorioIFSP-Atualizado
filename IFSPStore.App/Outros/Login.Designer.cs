@@ -46,7 +46,8 @@
             txtUser.HideSelection = true;
             txtUser.Hint = "User";
             txtUser.LeadingIcon = null;
-            txtUser.Location = new Point(103, 98);
+            txtUser.Location = new Point(118, 131);
+            txtUser.Margin = new Padding(3, 4, 3, 4);
             txtUser.MaxLength = 32767;
             txtUser.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
             txtUser.Name = "txtUser";
@@ -58,7 +59,7 @@
             txtUser.SelectionLength = 0;
             txtUser.SelectionStart = 0;
             txtUser.ShortcutsEnabled = true;
-            txtUser.Size = new Size(342, 48);
+            txtUser.Size = new Size(391, 48);
             txtUser.TabIndex = 0;
             txtUser.TabStop = false;
             txtUser.TextAlign = HorizontalAlignment.Center;
@@ -77,7 +78,8 @@
             txtPassword.HideSelection = true;
             txtPassword.Hint = "Password";
             txtPassword.LeadingIcon = null;
-            txtPassword.Location = new Point(103, 162);
+            txtPassword.Location = new Point(118, 216);
+            txtPassword.Margin = new Padding(3, 4, 3, 4);
             txtPassword.MaxLength = 32767;
             txtPassword.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
             txtPassword.Name = "txtPassword";
@@ -89,7 +91,7 @@
             txtPassword.SelectionLength = 0;
             txtPassword.SelectionStart = 0;
             txtPassword.ShortcutsEnabled = true;
-            txtPassword.Size = new Size(342, 48);
+            txtPassword.Size = new Size(391, 48);
             txtPassword.TabIndex = 1;
             txtPassword.TabStop = false;
             txtPassword.TextAlign = HorizontalAlignment.Center;
@@ -104,8 +106,8 @@
             btnLogin.HighEmphasis = true;
             btnLogin.Icon = null;
             btnLogin.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            btnLogin.Location = new Point(178, 219);
-            btnLogin.Margin = new Padding(4, 6, 4, 6);
+            btnLogin.Location = new Point(203, 292);
+            btnLogin.Margin = new Padding(5, 8, 5, 8);
             btnLogin.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             btnLogin.Name = "btnLogin";
             btnLogin.NoAccentTextColor = Color.Empty;
@@ -125,8 +127,8 @@
             btnCancel.HighEmphasis = true;
             btnCancel.Icon = null;
             btnCancel.IconType = ReaLTaiizor.Controls.MaterialButton.MaterialIconType.Rebase;
-            btnCancel.Location = new Point(301, 219);
-            btnCancel.Margin = new Padding(4, 6, 4, 6);
+            btnCancel.Location = new Point(344, 292);
+            btnCancel.Margin = new Padding(5, 8, 5, 8);
             btnCancel.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
             btnCancel.Name = "btnCancel";
             btnCancel.NoAccentTextColor = Color.Empty;
@@ -140,18 +142,20 @@
             // 
             // Login
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(546, 337);
+            ClientSize = new Size(624, 449);
             Controls.Add(btnCancel);
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
             Controls.Add(txtUser);
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Login";
+            Padding = new Padding(3, 85, 3, 4);
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Login IFSP Store";
+            Text = "Login Consultorio IFSP";
             ResumeLayout(false);
             PerformLayout();
         }

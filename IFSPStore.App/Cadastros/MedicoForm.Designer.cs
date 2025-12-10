@@ -36,9 +36,6 @@
             txtLogin = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
             txtPassword = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
             txtEmail = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            txtRegistrationDate = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            txtLastLogin = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            chkActive = new ReaLTaiizor.Controls.MaterialCheckBox();
             tabControlRegister.SuspendLayout();
             tabPage1.SuspendLayout();
             SuspendLayout();
@@ -51,15 +48,12 @@
             // 
             // tabControlRegister
             // 
-            tabControlRegister.Location = new Point(3, 113);
+            tabControlRegister.Location = new Point(6, 71);
             tabControlRegister.Margin = new Padding(3, 5, 3, 5);
-            tabControlRegister.Size = new Size(1042, 863);
+            tabControlRegister.Size = new Size(910, 578);
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(chkActive);
-            tabPage1.Controls.Add(txtLastLogin);
-            tabPage1.Controls.Add(txtRegistrationDate);
             tabPage1.Controls.Add(txtEmail);
             tabPage1.Controls.Add(txtPassword);
             tabPage1.Controls.Add(txtLogin);
@@ -69,7 +63,7 @@
             tabPage1.Controls.Add(txtName);
             tabPage1.Margin = new Padding(3, 5, 3, 5);
             tabPage1.Padding = new Padding(3, 5, 3, 5);
-            tabPage1.Size = new Size(1034, 828);
+            tabPage1.Size = new Size(902, 543);
             tabPage1.Controls.SetChildIndex(txtName, 0);
             tabPage1.Controls.SetChildIndex(txtId, 0);
             tabPage1.Controls.SetChildIndex(txtCrm, 0);
@@ -77,9 +71,6 @@
             tabPage1.Controls.SetChildIndex(txtLogin, 0);
             tabPage1.Controls.SetChildIndex(txtPassword, 0);
             tabPage1.Controls.SetChildIndex(txtEmail, 0);
-            tabPage1.Controls.SetChildIndex(txtRegistrationDate, 0);
-            tabPage1.Controls.SetChildIndex(txtLastLogin, 0);
-            tabPage1.Controls.SetChildIndex(chkActive, 0);
             // 
             // txtCrm
             // 
@@ -153,8 +144,9 @@
             txtName.BackgroundImageLayout = ImageLayout.None;
             txtName.CharacterCasing = CharacterCasing.Normal;
             txtName.Depth = 0;
-            txtName.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtName.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtName.HideSelection = true;
+            txtName.Hint = "NOME";
             txtName.LeadingIcon = null;
             txtName.Location = new Point(7, 8);
             txtName.Margin = new Padding(3, 4, 3, 4);
@@ -184,8 +176,9 @@
             txtId.BackgroundImageLayout = ImageLayout.None;
             txtId.CharacterCasing = CharacterCasing.Normal;
             txtId.Depth = 0;
-            txtId.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtId.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtId.HideSelection = true;
+            txtId.Hint = "ID";
             txtId.LeadingIcon = null;
             txtId.Location = new Point(711, 8);
             txtId.Margin = new Padding(3, 4, 3, 4);
@@ -215,8 +208,9 @@
             txtLogin.BackgroundImageLayout = ImageLayout.None;
             txtLogin.CharacterCasing = CharacterCasing.Normal;
             txtLogin.Depth = 0;
-            txtLogin.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtLogin.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtLogin.HideSelection = true;
+            txtLogin.Hint = "LOGIN";
             txtLogin.LeadingIcon = null;
             txtLogin.Location = new Point(7, 152);
             txtLogin.Margin = new Padding(3, 4, 3, 4);
@@ -246,8 +240,9 @@
             txtPassword.BackgroundImageLayout = ImageLayout.None;
             txtPassword.CharacterCasing = CharacterCasing.Normal;
             txtPassword.Depth = 0;
-            txtPassword.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtPassword.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtPassword.HideSelection = true;
+            txtPassword.Hint = "PASSWORD";
             txtPassword.LeadingIcon = null;
             txtPassword.Location = new Point(457, 152);
             txtPassword.Margin = new Padding(3, 4, 3, 4);
@@ -277,8 +272,9 @@
             txtEmail.BackgroundImageLayout = ImageLayout.None;
             txtEmail.CharacterCasing = CharacterCasing.Normal;
             txtEmail.Depth = 0;
-            txtEmail.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtEmail.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtEmail.HideSelection = true;
+            txtEmail.Hint = "EMAIL";
             txtEmail.LeadingIcon = null;
             txtEmail.Location = new Point(7, 224);
             txtEmail.Margin = new Padding(3, 4, 3, 4);
@@ -300,87 +296,11 @@
             txtEmail.TrailingIcon = null;
             txtEmail.UseSystemPasswordChar = false;
             // 
-            // txtRegistrationDate
-            // 
-            txtRegistrationDate.AnimateReadOnly = false;
-            txtRegistrationDate.AutoCompleteMode = AutoCompleteMode.None;
-            txtRegistrationDate.AutoCompleteSource = AutoCompleteSource.None;
-            txtRegistrationDate.BackgroundImageLayout = ImageLayout.None;
-            txtRegistrationDate.CharacterCasing = CharacterCasing.Normal;
-            txtRegistrationDate.Depth = 0;
-            txtRegistrationDate.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            txtRegistrationDate.HideSelection = true;
-            txtRegistrationDate.LeadingIcon = null;
-            txtRegistrationDate.Location = new Point(325, 296);
-            txtRegistrationDate.Margin = new Padding(3, 4, 3, 4);
-            txtRegistrationDate.MaxLength = 32767;
-            txtRegistrationDate.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
-            txtRegistrationDate.Name = "txtRegistrationDate";
-            txtRegistrationDate.PasswordChar = '\0';
-            txtRegistrationDate.PrefixSuffixText = null;
-            txtRegistrationDate.ReadOnly = false;
-            txtRegistrationDate.RightToLeft = RightToLeft.No;
-            txtRegistrationDate.SelectedText = "";
-            txtRegistrationDate.SelectionLength = 0;
-            txtRegistrationDate.SelectionStart = 0;
-            txtRegistrationDate.ShortcutsEnabled = true;
-            txtRegistrationDate.Size = new Size(286, 48);
-            txtRegistrationDate.TabIndex = 9;
-            txtRegistrationDate.TabStop = false;
-            txtRegistrationDate.TextAlign = HorizontalAlignment.Left;
-            txtRegistrationDate.TrailingIcon = null;
-            txtRegistrationDate.UseSystemPasswordChar = false;
-            // 
-            // txtLastLogin
-            // 
-            txtLastLogin.AnimateReadOnly = false;
-            txtLastLogin.AutoCompleteMode = AutoCompleteMode.None;
-            txtLastLogin.AutoCompleteSource = AutoCompleteSource.None;
-            txtLastLogin.BackgroundImageLayout = ImageLayout.None;
-            txtLastLogin.CharacterCasing = CharacterCasing.Normal;
-            txtLastLogin.Depth = 0;
-            txtLastLogin.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            txtLastLogin.HideSelection = true;
-            txtLastLogin.LeadingIcon = null;
-            txtLastLogin.Location = new Point(325, 368);
-            txtLastLogin.Margin = new Padding(3, 4, 3, 4);
-            txtLastLogin.MaxLength = 32767;
-            txtLastLogin.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
-            txtLastLogin.Name = "txtLastLogin";
-            txtLastLogin.PasswordChar = '\0';
-            txtLastLogin.PrefixSuffixText = null;
-            txtLastLogin.ReadOnly = false;
-            txtLastLogin.RightToLeft = RightToLeft.No;
-            txtLastLogin.SelectedText = "";
-            txtLastLogin.SelectionLength = 0;
-            txtLastLogin.SelectionStart = 0;
-            txtLastLogin.ShortcutsEnabled = true;
-            txtLastLogin.Size = new Size(286, 48);
-            txtLastLogin.TabIndex = 10;
-            txtLastLogin.TabStop = false;
-            txtLastLogin.TextAlign = HorizontalAlignment.Left;
-            txtLastLogin.TrailingIcon = null;
-            txtLastLogin.UseSystemPasswordChar = false;
-            // 
-            // chkActive
-            // 
-            chkActive.Depth = 0;
-            chkActive.Location = new Point(739, 239);
-            chkActive.Margin = new Padding(0);
-            chkActive.MouseLocation = new Point(-1, -1);
-            chkActive.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.HOVER;
-            chkActive.Name = "chkActive";
-            chkActive.ReadOnly = false;
-            chkActive.Ripple = true;
-            chkActive.Size = new Size(119, 49);
-            chkActive.TabIndex = 11;
-            chkActive.UseAccentColor = false;
-            // 
             // MedicoForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1047, 959);
+            ClientSize = new Size(916, 649);
             Location = new Point(0, 0);
             Margin = new Padding(3, 5, 3, 5);
             Name = "MedicoForm";
@@ -400,15 +320,10 @@
         // Novos controles específicos do Medico
         private ReaLTaiizor.Controls.MaterialTextBoxEdit txtCrm;
         private ReaLTaiizor.Controls.MaterialTextBoxEdit txtEspecialidade;
-
-        // Controles de Usuário (Mantidos)
-        private ReaLTaiizor.Controls.MaterialTextBoxEdit txtLastLogin;
-        private ReaLTaiizor.Controls.MaterialTextBoxEdit txtRegistrationDate;
         private ReaLTaiizor.Controls.MaterialTextBoxEdit txtEmail;
         private ReaLTaiizor.Controls.MaterialTextBoxEdit txtPassword;
         private ReaLTaiizor.Controls.MaterialTextBoxEdit txtLogin;
         private ReaLTaiizor.Controls.MaterialTextBoxEdit txtId;
         private ReaLTaiizor.Controls.MaterialTextBoxEdit txtName;
-        private ReaLTaiizor.Controls.MaterialCheckBox chkActive;
     }
 }
