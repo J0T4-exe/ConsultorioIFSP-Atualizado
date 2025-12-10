@@ -1,79 +1,82 @@
-﻿namespace ConsultorioIFSP.App.Cadastros
+﻿using ReaLTaiizor.Controls;
+using System.Windows.Forms;
+using System.Drawing;
+
+namespace ConsultorioIFSP.App.Cadastros
 {
-    partial class ConsultaProdutoForm
+    partial class ConsultaForm
     {
         private System.ComponentModel.IContainer components = null;
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
         private void InitializeComponent()
         {
-            // Declaração dos objetos (variáveis)
-            this.lblId = new System.Windows.Forms.Label();
-            this.txtId = new System.Windows.Forms.TextBox();
-            this.lblCategory = new System.Windows.Forms.Label();
-            this.cboCategory = new System.Windows.Forms.ComboBox();
-            this.btnConsultar = new System.Windows.Forms.Button();
-            this.dataGridViewList = new System.Windows.Forms.DataGridView();
-            this.PanelFiltros = new System.Windows.Forms.Panel();
+            this.components = new System.ComponentModel.Container();
 
-            // Inicialização e Configuração
-            this.PanelFiltros.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewList)).BeginInit();
-            this.SuspendLayout();
+            // Declaração e Inicialização dos componentes
+            this.txtId = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            this.txtDataConsulta = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            this.txtHorario = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            this.cboMedico = new System.Windows.Forms.ComboBox();
+            this.cboPaciente = new System.Windows.Forms.ComboBox();
 
-            // 
-            // PanelFiltros
-            // 
-            this.PanelFiltros.Controls.Add(this.btnConsultar);
-            this.PanelFiltros.Controls.Add(this.cboCategory);
-            this.PanelFiltros.Controls.Add(this.lblCategory);
-            this.PanelFiltros.Controls.Add(this.txtId);
-            this.PanelFiltros.Controls.Add(this.lblId);
-            // ... (adicionar todos os controles de filtro)
-            this.PanelFiltros.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PanelFiltros.Location = new System.Drawing.Point(0, 0);
-            this.PanelFiltros.Size = new System.Drawing.Size(800, 100);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(900, 500);
+            this.Text = "Agendamento de Consulta";
 
-            // 
-            // btnConsultar
-            // 
-            this.btnConsultar.Location = new System.Drawing.Point(580, 20);
-            this.btnConsultar.Name = "btnConsultar";
-            this.btnConsultar.Size = new System.Drawing.Size(120, 30);
-            this.btnConsultar.Text = "Consultar";
-            // Associa o evento de clique ao método C#
-            this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
+            // --- Configuração dos controles (Posicionamento Básico) ---
 
-            // 
-            // dataGridViewList
-            // 
-            this.dataGridViewList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewList.Location = new System.Drawing.Point(0, 100); // Começa abaixo do painel de filtros
-            this.dataGridViewList.Name = "dataGridViewList";
-            this.dataGridViewList.Size = new System.Drawing.Size(800, 500);
+            this.txtId.Location = new System.Drawing.Point(10, 10);
+            this.txtId.Size = new System.Drawing.Size(50, 48);
+            this.txtId.Text = "ID";
+            this.txtId.ReadOnly = true;
+            this.txtId.Visible = false;
 
-            // 
-            // ConsultaProdutoForm
-            // 
-            this.Controls.Add(this.dataGridViewList);
-            this.Controls.Add(this.PanelFiltros);
-            this.PanelFiltros.ResumeLayout(false);
-            this.PanelFiltros.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewList)).EndInit();
+            this.txtDataConsulta.Location = new System.Drawing.Point(70, 50);
+            this.txtDataConsulta.Size = new System.Drawing.Size(200, 48);
+            this.txtDataConsulta.Text = "Data da Consulta (DD/MM/AAAA)";
+
+            this.txtHorario.Location = new System.Drawing.Point(300, 50);
+            this.txtHorario.Size = new System.Drawing.Size(150, 48);
+            this.txtHorario.Text = "Horário (HH:MM)";
+
+            this.cboMedico.FormattingEnabled = true;
+            this.cboMedico.Location = new System.Drawing.Point(70, 120);
+            this.cboMedico.Size = new System.Drawing.Size(380, 24);
+
+            this.cboPaciente.FormattingEnabled = true;
+            this.cboPaciente.Location = new System.Drawing.Point(70, 190);
+            this.cboPaciente.Size = new System.Drawing.Size(380, 24);
+
+            // Adicionar os controles
+            this.Controls.Add(this.txtId);
+            this.Controls.Add(this.txtDataConsulta);
+            this.Controls.Add(this.txtHorario);
+            this.Controls.Add(this.cboMedico);
+            this.Controls.Add(this.cboPaciente);
+
             this.ResumeLayout(false);
             this.PerformLayout();
         }
 
-        private System.Windows.Forms.Label lblId;
-        private System.Windows.Forms.TextBox txtId;
-        private System.Windows.Forms.Label lblCategory;
-        private System.Windows.Forms.ComboBox cboCategory;
-        private System.Windows.Forms.Button btnConsultar;
-        private System.Windows.Forms.DataGridView dataGridViewList;
-        private System.Windows.Forms.Panel PanelFiltros;
-        private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.Button btnLimparFiltros;
-        // ... (demais variáveis declaradas)
+        #endregion
+
+        #region Declarações dos Componentes de Consulta
+        private ReaLTaiizor.Controls.MaterialTextBoxEdit txtId;
+        private ReaLTaiizor.Controls.MaterialTextBoxEdit txtDataConsulta;
+        private ReaLTaiizor.Controls.MaterialTextBoxEdit txtHorario;
+        private System.Windows.Forms.ComboBox cboMedico;
+        private System.Windows.Forms.ComboBox cboPaciente;
+        #endregion
     }
 }

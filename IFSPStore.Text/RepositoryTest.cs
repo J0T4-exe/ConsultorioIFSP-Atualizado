@@ -1,6 +1,6 @@
 ﻿using ConsultorioIFSP.Domain.Entities;
+using ConsultorioIFSP.Repository.Repository;
 using ConsultorioIFSPContext;
-using IFSPStore.Repository.Repository;
 using System.Text.Json;
 
 namespace ConsultorioIFSP.Test

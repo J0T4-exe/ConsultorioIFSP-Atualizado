@@ -1,6 +1,6 @@
+using ConsultorioIFSP.App.Cadastros;
+using ConsultorioIFSP.App.Infra;
 using ConsultorioIFSP.Domain.Entities;
-using IFSPStore.App.Cadastros;
-using IFSPStore.App.Infra;
 using IFSPStore.App.Outros;
 using Microsoft.Extensions.DependencyInjection;
 using ReaLTaiizor.Forms;
@@ -32,7 +32,7 @@ namespace IFSPStore.App
         }
         private void categorytoolStripMenuItem_Click(object sender, EventArgs e)
         {
-            showForm<CategoryForm>();
+            showForm<ConsultaForm>();
         }
         void productToolStripMenuItem_Click(object sender, EventArgs e)
         {

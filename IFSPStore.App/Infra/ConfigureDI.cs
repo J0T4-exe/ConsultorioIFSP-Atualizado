@@ -2,12 +2,17 @@
 using ConsultorioIFSP.Domain.Base;
 using ConsultorioIFSP.Repository.Repository;
 using ConsultorioIFSPContext;
-using IFSPStore.App.Cadastros;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
+using ConsultorioIFSP.Domain.Entities;
+using ConsultorioIFSP.Service.Service;
+using ConsultorioIFSP.App.Models;
+using ConsultorioIFSP.App.Cadastros;
+using IFSPStore.App.Outros;
 
-namespace IFSPStore.App.Infra
+
+namespace ConsultorioIFSP.App.Infra
 {
     public static class ConfigureDI
     {
@@ -26,60 +31,39 @@ namespace IFSPStore.App.Infra
                     options.LogTo(Console.WriteLine);
                     options.UseMySQL(strCon);
                 });
-            // Repositories
-            services.AddScoped<IBaseRepository<Category>, BaseRepository<Category>>();
-            services.AddScoped<IBaseRepository<User>, BaseRepository<User>>();
-            services.AddScoped<IBaseRepository<City>, BaseRepository<City>>();
-            services.AddScoped<IBaseRepository<Customer>, BaseRepository<Customer>>();
-            services.AddScoped<IBaseRepository<Product>, BaseRepository<Product>>();
-            services.AddScoped<IBaseRepository<Sale>, BaseRepository<Sale>>();
-            services.AddScoped<IBaseRepository<SaleItem>, BaseRepository<SaleItem>>();
 
-            // Services
-            services.AddScoped<IBaseService<Category>, BaseService<Category>>();
-            services.AddScoped<IBaseService<User>, BaseService<User>>();//se der bosta comente isso 03/12
-            services.AddScoped<IBaseService<City>, BaseService<City>>();
-            services.AddScoped<IBaseService<Customer>, BaseService<Customer>>();
-            services.AddScoped<IBaseService<Product>, BaseService<Product>>();
-            services.AddScoped<IBaseService<Sale>, BaseService<Sale>>();
-            services.AddScoped<IBaseService<SaleItem>, BaseService<SaleItem>>();
+            services.AddScoped<IBaseRepository<Medico>, BaseRepository<Medico>>();
+            services.AddScoped<IBaseRepository<Paciente>, BaseRepository<Paciente>>();
+            services.AddScoped<IBaseRepository<Consulta>, BaseRepository<Consulta>>();
+            services.AddScoped<IBaseRepository<Medicamento>, BaseRepository<Medicamento>>();
+            services.AddScoped<IBaseRepository<Receita>, BaseRepository<Receita>>();
 
-            //Formularios
+            services.AddScoped<IBaseService<Medico>, BaseService<Medico>>();
+            services.AddScoped<IBaseService<Paciente>, BaseService<Paciente>>();
+            services.AddScoped<IBaseService<Consulta>, BaseService<Consulta>>();
+            services.AddScoped<IBaseService<Medicamento>, BaseService<Medicamento>>();
+            services.AddScoped<IBaseService<Receita>, BaseService<Receita>>();
+
             services.AddTransient<Login, Login>();
-            services.AddTransient<CategoryForm, CategoryForm>();
             services.AddTransient<ReceitaForm, ReceitaForm>();
             services.AddTransient<MedicoForm, MedicoForm>();
             services.AddTransient<MedicamentoForm, MedicamentoForm>();
             services.AddTransient<PacienteForm, PacienteForm>();
-            services.AddTransient<UserForm, UserForm>();
 
             services.AddSingleton(
                 new MapperConfiguration(config => {
-                    config.CreateMap<Category, CategoryModel>();
-                    config.CreateMap<User, UserModel>();
-                    config.CreateMap<Product, ProductModel>()
-                        .ForMember(d => d.Category, d => d.MapFrom(x => x.Category!.Name))
-                        .ForMember(d => d.IdCategory, d => d.MapFrom(x => x.CategoryId));
-                    config.CreateMap<Customer, CustomerModel>()
-                        .ForMember(d => d.Name, d => d.MapFrom(x => x.Nome))
-                        .ForMember(d => d.Document, d => d.MapFrom(x => x.DocumentId))
-                        .ForMember(d => d.City, d => d.MapFrom(x => x.City!.Name))
-                        .ForMember(d => d.IdCity, d => d.MapFrom(x => x.CityId));
-                    config.CreateMap<City, CityModel>();
-                    config.CreateMap<Sale, SaleModel>()
-                        .ForMember(d => d.User, d => d.MapFrom(x => x.Salesman.Name)) // Mapeia nome do vendedor
-                        .ForMember(d => d.IdUser, d => d.MapFrom(x => x.Salesman!.Id))
-                        .ForMember(d => d.Customer, d => d.MapFrom(x => x.Customer.Nome)) // Mapeia nome do cliente
-                        .ForMember(d => d.IdCustomer, d => d.MapFrom(x => x.Customer!.Id))
-                        .ForMember(d => d.Quantity, d => d.MapFrom(x => x.SaleItens.Sum(s => s.Quantity)));
 
-                    config.CreateMap<User, User>();        
-                    config.CreateMap<Category, Category>(); 
-                    config.CreateMap<Product, Product>();   
-                    config.CreateMap<Customer, Customer>(); 
-                    config.CreateMap<City, City>();         
-                    config.CreateMap<Sale, Sale>();         
-                    config.CreateMap<SaleItem, SaleItem>();
+                    config.CreateMap<Medico, MedicoModel>();
+                    config.CreateMap<Paciente, PacienteModel>();
+                    config.CreateMap<Medicamento, MedicamentoModel>();
+                    config.CreateMap<Receita, ReceitaModel>();
+                    config.CreateMap<Consulta, ConsultaModel>();
+
+                    config.CreateMap<Medico, Medico>();
+                    config.CreateMap<Paciente, Paciente>();
+                    config.CreateMap<Medicamento, Medicamento>();
+                    config.CreateMap<Receita, Receita>();
+                    config.CreateMap<Consulta, Consulta>();
                 },
                 NullLoggerFactory.Instance).CreateMapper());
             serviceProvider = services.BuildServiceProvider();

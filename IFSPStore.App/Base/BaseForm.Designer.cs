@@ -1,4 +1,7 @@
-﻿namespace ConsultaIFSP.App.Base
+﻿using Org.BouncyCastle.Asn1.Crmf;
+using System.Xml.Linq;
+
+namespace IFSPStore.App.Base
 {
     partial class BaseForm
     {

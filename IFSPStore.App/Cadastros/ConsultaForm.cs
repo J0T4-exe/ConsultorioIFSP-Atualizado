@@ -1,137 +1,164 @@
 ﻿using ConsultaIFSP.App.Base;
+using ConsultorioIFSP.App.Models;
 using ConsultorioIFSP.Domain.Base;
+using ConsultorioIFSP.Domain.Entities;
+using ConsultorioIFSP.Domain.Validators;
 
 namespace ConsultorioIFSP.App.Cadastros
 {
-    // A classe ConsultaForm herda de BaseForm, focada apenas em listagem/filtragem.
     public partial class ConsultaForm : BaseForm
     {
-        private readonly IBaseService<Product> _productService;
-        private private readonly IBaseService<Category> _categoryService;
+        // 1. Serviços específicos injetados
+        private readonly IBaseService<Consulta> _consultaService;
+        private readonly IBaseService<Medico> _medicoService;
+        private readonly IBaseService<Paciente> _pacienteService;
+        private List<ConsultaModel>? consultas;
 
-        private List<ProductModel>? products;
-
-        // Construtor: Injeção de dependência dos serviços.
-        public ConsultaForm(IBaseService<Product> productService, IBaseService<Category> categoryService)
+        // 2. Construtor para Injeção de Dependência
+        public ConsultaForm(IBaseService<Consulta> consultaService,
+                            IBaseService<Medico> medicoService,
+                            IBaseService<Paciente> pacienteService) : base()
         {
-            _productService = productService;
-            _categoryService = categoryService;
+            _consultaService = consultaService;
+            _medicoService = medicoService;
+            _pacienteService = pacienteService;
             InitializeComponent();
-
-            loadCombo();
-            // Carrega a grade com os dados iniciais.
-            CarregaGrid();
+            CarregarComboBoxes();
         }
 
-        // Carrega o ComboBox de filtro com as categorias
-        private void loadCombo()
+        private void CarregarComboBoxes()
         {
-            cboCategory.ValueMember = "Id";
-            cboCategory.DisplayMember = "Name";
+            // Carrega médicos
+            var medicos = _medicoService.Get<MedicoModel>().ToList();
+            cboMedico.DataSource = medicos;
+            cboMedico.DisplayMember = "Nome";
+            cboMedico.ValueMember = "Id";
+            cboMedico.SelectedIndex = -1; // Deseleciona
 
-            var categories = _categoryService.Get<CategoryModel>().ToList();
-
-            // Adiciona a opção "Todas as Categorias" no início
-            categories.Insert(0, new CategoryModel { Id = 0, Name = "Todas" });
-
-            cboCategory.DataSource = categories;
-            cboCategory.SelectedIndex = 0; // Padrão: Todas
+            // Carrega pacientes
+            var pacientes = _pacienteService.Get<PacienteModel>().ToList();
+            cboPaciente.DataSource = pacientes;
+            cboPaciente.DisplayMember = "Nome";
+            cboPaciente.ValueMember = "Id";
+            cboPaciente.SelectedIndex = -1;
         }
 
-        // -----------------------------------------------------------------
-        // Métodos de Consulta
-        // -----------------------------------------------------------------
+        private void PreencheObjeto(Consulta consulta)
+        {
+            // Data da Consulta
+            if (!DateTime.TryParse(txtDataConsulta.Text, out DateTime dataConsulta))
+            {
+                throw new Exception("Data da Consulta inválida.");
+            }
+            consulta.DataConsulta = dataConsulta;
 
-        // Método principal sobrescrito que coleta os filtros e carrega a grade.
+            // Horário da Consulta (TimeOnly)
+            if (!TimeOnly.TryParse(txtHorario.Text, out TimeOnly horario))
+            {
+                throw new Exception("Horário inválido. Use o formato HH:MM.");
+            }
+            consulta.Horario = horario;
+
+            // Chaves Estrangeiras
+
+            int medicoId = Convert.ToInt32(cboMedico.SelectedValue);
+            if (medicoId <= 0)
+            {
+                throw new Exception("Selecione um Médico para a consulta.");
+            }
+            consulta.MedicoId = medicoId;
+
+
+            int pacienteId = Convert.ToInt32(cboPaciente.SelectedValue);
+            if (pacienteId <= 0)
+            {
+                throw new Exception("Selecione um Paciente para a consulta.");
+            }
+            consulta.Paciente = pacienteId;
+        }
+
+        protected override void Salvar()
+        {
+            try
+            {
+                if (IsEditMode)
+                {
+                    if (int.TryParse(txtId.Text, out var id))
+                    {
+                        var consulta = _consultaService.GetById<Consulta>(id);
+                        PreencheObjeto(consulta);
+                        _consultaService.Update<Consulta, Consulta, ConsultaValidator>(consulta);
+                    }
+                }
+                else
+                {
+                    var consulta = new Consulta();
+                    PreencheObjeto(consulta);
+                    _consultaService.Add<Consulta, Consulta, ConsultaValidator>(consulta);
+                }
+
+                tabControlRegister.SelectedIndex = 1;
+                CarregaGrid();
+                MessageBox.Show("Registro salvo com sucesso!", @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        protected override void Deletar(int id)
+        {
+            try
+            {
+                _consultaService.Delete(id);
+                MessageBox.Show("Registro excluído com sucesso!", @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         protected override void CarregaGrid()
         {
             try
             {
-                // 1. Coleta e sanitiza os Filtros da Tela
-                int? idFiltro = null;
-                if (int.TryParse(txtId.Text, out int id) && id > 0)
-                {
-                    idFiltro = id;
-                }
+                consultas = _consultaService.Get<ConsultaModel>().ToList();
+                dataGridViewList.DataSource = consultas;
 
-                string nomeFiltro = txtName.Text.Trim();
+                dataGridViewList.Columns["DataConsulta"]!.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
-                int? idCategoriaFiltro = null;
-                if (cboCategory.SelectedValue != null &&
-                    int.TryParse(cboCategory.SelectedValue.ToString(), out int idCat) &&
-                    idCat > 0)
-                {
-                    idCategoriaFiltro = idCat;
-                }
-
-                // 2. Executa a busca filtrada
-                products = BuscarProdutosFiltrados(idFiltro, nomeFiltro, idCategoriaFiltro).ToList();
-
-                // 3. Exibe Resultados
-                dataGridViewList.DataSource = products;
-
-                // Oculta colunas de IDs internos
-                if (dataGridViewList.Columns.Contains("IdCategory"))
-                {
-                    dataGridViewList.Columns["IdCategory"]!.Visible = false;
-                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao carregar/filtrar dados: " + ex.Message, @"IFSP Store", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // Realiza a filtragem dos dados usando Linq
-        private IEnumerable<ProductModel> BuscarProdutosFiltrados(int? id, string nome, int? idCategory)
+        protected override void CarregaRegistro(DataGridViewRow? linha)
         {
-            // Busca a lista de produtos, incluindo o objeto Category
-            var query = _productService.Get<ProductModel>(new[] { "Category" }).AsQueryable();
+            txtId.Text = linha?.Cells["Id"].Value.ToString();
+            txtDataConsulta.Text = linha?.Cells["DataConsulta"].Value.ToString();
 
-            if (id.HasValue)
+            // Tratamento de Horário (TimeOnly ou TimeSpan)
+            if (linha?.Cells["Horario"].Value is TimeOnly horarioTimeOnly)
             {
-                query = query.Where(p => p.Id == id.Value);
+                txtHorario.Text = horarioTimeOnly.ToString("HH\\:mm");
+            }
+            else if (linha?.Cells["Horario"].Value is TimeSpan horarioTimeSpan)
+            {
+                txtHorario.Text = TimeOnly.FromTimeSpan(horarioTimeSpan).ToString("HH\\:mm");
+            }
+            else
+            {
+                txtHorario.Text = linha?.Cells["Horario"].Value?.ToString();
             }
 
-            if (!string.IsNullOrEmpty(nome))
-            {
-                // Filtra por nome (case-insensitive para melhor usabilidade)
-                query = query.Where(p => p.Name.ToLower().Contains(nome.ToLower()));
-            }
-
-            if (idCategory.HasValue)
-            {
-                query = query.Where(p => p.Category.Id == idCategory.Value);
-            }
-
-            return query;
-        }
-
-        // -----------------------------------------------------------------
-        // Sobrescrita e Desabilitação de Métodos de CRUD
-        // -----------------------------------------------------------------
-
-        protected override void Save() { } // Desabilitado
-        protected override void Delete(int id) { } // Desabilitado
-        protected override void loadList(DataGridViewRow? linha) { } // Desabilitado
-
-        // -----------------------------------------------------------------
-        // Manipuladores de Eventos (Associados no Designer)
-        // -----------------------------------------------------------------
-
-        // Método associado ao Click do botão de Consultar/Filtrar
-        private void btnConsultar_Click(object sender, EventArgs e)
-        {
-            CarregaGrid();
-        }
-
-        // Método para Limpar os campos de filtro e recarregar
-        private void btnLimparFiltros_Click(object sender, EventArgs e)
-        {
-            txtId.Clear();
-            txtName.Clear();
-            cboCategory.SelectedIndex = 0; // Volta para "Todas"
-            CarregaGrid();
+            // Carrega os ComboBoxes pelo ValueMember (Id)
+            cboMedico.SelectedValue = linha?.Cells["MedicoId"].Value;
+            cboPaciente.SelectedValue = linha?.Cells["PacienteId"].Value;
         }
     }
 }
