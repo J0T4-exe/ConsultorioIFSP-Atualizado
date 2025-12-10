@@ -1,187 +1,150 @@
-﻿using ConsultaIFSP.App.Base;
-using ConsultorioIFSP.App.Models;
+﻿using ConsultorioIFSP.App.Base;
+using ConsultorioIFSP.App.Models; // Assumindo que PacienteModel está aqui
 using ConsultorioIFSP.Domain.Base;
 using ConsultorioIFSP.Domain.Entities;
-using ConsultorioIFSP.Domain.Validators;
+using ConsultorioIFSP.Domain.Validators; // Assumindo que PacienteValidator está aqui
+
 
 namespace ConsultorioIFSP.App.Cadastros
 {
-    // Herda a classe base não genérica
+    // Classe de formulário específica para Paciente, herdando a estrutura base
     public partial class PacienteForm : BaseForm
     {
-        // 1. Serviço e Lista específicos injetados
         private readonly IBaseService<Paciente> _pacienteService;
-        private List<PacienteModel>? pacientes; // Usa PacienteModel para o grid
+        private List<PacienteModel>? pacientes; // Lista de modelos para o grid (Mude para Paciente se o Model não existir)
 
-        // 2. Construtor para Injeção de Dependência
-        public PacienteForm(IBaseService<Paciente> pacienteService) : base()
+        // Construtor: Injeção de dependência do serviço de Paciente
+        public PacienteForm(IBaseService<Paciente> pacienteService)
         {
             _pacienteService = pacienteService;
             InitializeComponent();
-            CarregaGrid(); // Garante que a grade carregue na inicialização
+
+            // NOTE: txtRegistrationDate não existe na entidade Paciente (usando DataNascimento)
+            // Se você mantiver este campo no designer, ele precisa ser mapeado ou removido.
+            // Vou comentar por enquanto:
+            // txtRegistrationDate.Text = DateTime.Now.ToString("g"); 
         }
 
-        // Método auxiliar para mapear UI -> Objeto
-        private void PreencheObjeto(Paciente paciente)
+        // --------------------------------------------------------------------------------
+        // MÉTODOS DE PREENCHIMENTO E PERSISTÊNCIA
+        // --------------------------------------------------------------------------------
+
+        // Método auxiliar para preencher a entidade Paciente a partir dos TextBoxes
+        private void PreencheObjetoEntidade(Paciente paciente)
         {
-            // Mapeamento dos campos da UI para a entidade Paciente
-            paciente.Nome = txtNome.Text;
+            // Campos baseados na sua entidade Paciente.cs:
+            paciente.Nome = txtName.Text;
             paciente.Email = txtEmail.Text;
-            paciente.Sexo = txtSexo.Text;
             paciente.Telefone = txtTelefone.Text;
 
-            if (DateTime.TryParse(txtDataNascimento.Text, out DateTime dataNascimento))
+            // Campos específicos
+            // Assumindo que você tem um controle para DataNascimento (e.g., dtpDataNascimento)
+            // paciente.DataNascimento = dtpDataNascimento.Value; 
+
+            // Assumindo que você tem um controle para Sexo (e.g., cmbSexo)
+            // paciente.Sexo = cmbSexo.SelectedItem?.ToString() ?? string.Empty; 
+
+            // Se DataNascimento e Sexo vierem de TextBoxes:
+            if (DateTime.TryParse(txtDataNascimento.Text, out var dataNasc))
             {
-                paciente.DataNascimento = dataNascimento;
+                paciente.DataNascimento = dataNasc;
             }
-            else
-            {
-                throw new Exception("Data de Nascimento inválida.");
-            }
+            paciente.Sexo = txtSexo.Text; // Usando txtSexo, se for um TextBox
         }
 
-        // --- Implementação dos Métodos Virtuais de CRUD ---
-
-        protected override void Salvar()
+        // Sobrescreve public virtual void Salvar() na BaseForm
+        protected override void Save()
         {
             try
             {
-                if (IsEditMode) // IsAlteracao é herdado
+                Paciente paciente;
+                if (IsEditMode)
                 {
-                    // Update
+                    // MODO EDIÇÃO
                     if (int.TryParse(txtId.Text, out var id))
                     {
-                        var paciente = _pacienteService.GetById<Paciente>(id);
-                        PreencheObjeto(paciente);
-                        // Chama o serviço de Update com o PacienteValidator
-                        paciente = _pacienteService.Update<Paciente, Paciente, PacienteValidator>(paciente);
+                        paciente = _pacienteService.GetById<Paciente>(id);
+                        if (paciente != null)
+                        {
+                            PreencheObjetoEntidade(paciente);
+                            paciente = _pacienteService.Update<Paciente, Paciente, PacienteValidator>(paciente);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Paciente não encontrado no banco de dados.");
+                        }
                     }
                 }
                 else
                 {
-                    // Add
-                    var paciente = new Paciente();
-                    PreencheObjeto(paciente);
-                    // Chama o serviço de Add com o PacienteValidator
-                    paciente = _pacienteService.Add<Paciente, Paciente, PacienteValidator>(paciente);
+                    // MODO NOVO
+                    paciente = new Paciente();
+                    PreencheObjetoEntidade(paciente);
+                    _pacienteService.Add<Paciente, Paciente, PacienteValidator>(paciente);
                 }
 
-                // Ajuste de UI após salvar
-                // tabControlCadastro é o nome que você usou, vamos mantê-lo.
-                tabControlCadastro.SelectedIndex = 1;
                 CarregaGrid();
-                MessageBox.Show("Registro salvo com sucesso!", @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                tabControlRegister.SelectedIndex = 1;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Consultório IFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        protected override void Deletar(int id)
+        // Sobrescreve public virtual void Deletar(int id) na BaseForm
+        protected override void Delete(int id)
         {
             try
             {
                 _pacienteService.Delete(id);
-                CarregaGrid(); // Recarrega a grade após deletar
-                MessageBox.Show("Registro excluído com sucesso!", @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CarregaGrid();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Consultório IFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // -----------------------------------------------------------------
-        // Método de Consulta (CarregaGrid) - ADAPTADO para Filtros
-        // -----------------------------------------------------------------
-
+        // Sobrescreve public virtual void CarregaGrid() na BaseForm
         protected override void CarregaGrid()
         {
-            try
-            {
-                // 1. Coleta os Filtros da UI (Assumindo txtNomeFilter e txtEmailFilter no designer)
-                string nomeFiltro = txtNomeFilter.Text.Trim();
-                string emailFiltro = txtEmailFilter.Text.Trim();
+            // Busca PacienteModel (ou Paciente, se não houver Model)
+            pacientes = _pacienteService.Get<PacienteModel>().ToList();
+            dataGridViewList.DataSource = pacientes;
 
-                // 2. Executa a busca filtrada
-                pacientes = BuscarPacientesFiltrados(nomeFiltro, emailFiltro).ToList();
-
-                // 3. Exibe os Resultados
-                // O nome da grade no seu código é dataGridViewConsulta
-                dataGridViewConsulta.DataSource = pacientes;
-
-                // Ajuste de coluna
-                if (dataGridViewConsulta.Columns.Contains("Nome"))
-                {
-                    dataGridViewConsulta.Columns["Nome"]!.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            // Campos específicos para ocultar no grid (se existirem no Model)
+            // dataGridViewList.Columns["Sexo"]!.Visible = false; 
+            dataGridViewList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
-        // Método auxiliar para aplicar a lógica de filtragem via Linq
-        private IEnumerable<PacienteModel> BuscarPacientesFiltrados(string nome, string email)
+        // Sobrescreve public virtual void CarregaRegistro(DataGridViewRow? linha) na BaseForm
+        protected override void loadList(DataGridViewRow? linha)
         {
-            // Busca todos os pacientes models
-            var query = _pacienteService.Get<PacienteModel>().AsQueryable();
+            // Este método carrega os campos na UI.
 
-            if (!string.IsNullOrEmpty(nome))
+            txtId.Text = linha?.Cells["Id"].Value?.ToString() ?? string.Empty;
+            txtName.Text = linha?.Cells["Nome"].Value?.ToString() ?? string.Empty;
+            txtEmail.Text = linha?.Cells["Email"].Value?.ToString() ?? string.Empty;
+
+            // Campos específicos do Paciente
+            // Assumindo que você tem um txtTelefone e txtSexo no Designer
+            txtTelefone.Text = linha?.Cells["Telefone"].Value?.ToString() ?? string.Empty;
+            txtSexo.Text = linha?.Cells["Sexo"].Value?.ToString() ?? string.Empty;
+
+            // Tratamento da Data de Nascimento
+            string dataNascString = linha?.Cells["DataNascimento"].Value?.ToString() ?? string.Empty;
+            if (DateTime.TryParse(dataNascString, out var dataNasc))
             {
-                // Filtra por Nome (case-insensitive)
-                query = query.Where(p => p.Nome.ToLower().Contains(nome.ToLower()));
-            }
-
-            if (!string.IsNullOrEmpty(email))
-            {
-                // Filtra por Email (case-insensitive)
-                query = query.Where(p => p.Email.ToLower().Contains(email.ToLower()));
-            }
-
-            return query;
-        }
-
-        protected override void CarregaRegistro(DataGridViewRow? linha)
-        {
-            // Mapeia os dados da linha selecionada para os campos do formulário para o modo "Editar"
-            txtId.Text = linha?.Cells["Id"].Value.ToString();
-            txtNome.Text = linha?.Cells["Nome"].Value.ToString();
-            txtEmail.Text = linha?.Cells["Email"].Value.ToString();
-            txtSexo.Text = linha?.Cells["Sexo"].Value.ToString();
-
-            // Certifique-se de formatar a data corretamente ao carregar
-            if (DateTime.TryParse(linha?.Cells["DataNascimento"].Value?.ToString(), out DateTime dataNasc))
-            {
-                txtDataNascimento.Text = dataNasc.ToString("d"); // Exibe apenas a data (sem hora)
+                txtDataNascimento.Text = dataNasc.ToString("d"); // Formato de data curta
             }
             else
             {
-                txtDataNascimento.Text = linha?.Cells["DataNascimento"].Value?.ToString();
+                txtDataNascimento.Text = string.Empty;
             }
 
-            txtTelefone.Text = linha?.Cells["Telefone"].Value.ToString();
-        }
-
-        // -----------------------------------------------------------------
-        // Manipuladores de Eventos (Botões de Filtro)
-        // -----------------------------------------------------------------
-
-        // Este método deve ser ligado ao Click do botão de consulta no designer (btnConsultar)
-        private void btnConsultar_Click(object sender, EventArgs e)
-        {
-            CarregaGrid();
-        }
-
-        // Este método deve ser ligado ao Click do botão de limpeza no designer (btnLimparFiltros)
-        private void btnLimparFiltros_Click(object sender, EventArgs e)
-        {
-            txtNomeFilter.Clear();
-            txtEmailFilter.Clear();
-            CarregaGrid();
+            // Se você tem campos de Data de Login/Registro herdados do BaseForm (User) que não se aplicam,
+            // você deve removê-los ou ignorá-los no PacienteForm.Designer.cs
         }
     }
 }

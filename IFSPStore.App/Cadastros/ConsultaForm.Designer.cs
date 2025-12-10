@@ -21,52 +21,150 @@ namespace ConsultorioIFSP.App.Cadastros
 
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-
-            // Declaração e Inicialização dos componentes
-            this.txtId = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            this.txtDataConsulta = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            this.txtHorario = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            this.cboMedico = new System.Windows.Forms.ComboBox();
-            this.cboPaciente = new System.Windows.Forms.ComboBox();
-
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(900, 500);
-            this.Text = "Agendamento de Consulta";
-
-            // --- Configuração dos controles (Posicionamento Básico) ---
-
-            this.txtId.Location = new System.Drawing.Point(10, 10);
-            this.txtId.Size = new System.Drawing.Size(50, 48);
-            this.txtId.Text = "ID";
-            this.txtId.ReadOnly = true;
-            this.txtId.Visible = false;
-
-            this.txtDataConsulta.Location = new System.Drawing.Point(70, 50);
-            this.txtDataConsulta.Size = new System.Drawing.Size(200, 48);
-            this.txtDataConsulta.Text = "Data da Consulta (DD/MM/AAAA)";
-
-            this.txtHorario.Location = new System.Drawing.Point(300, 50);
-            this.txtHorario.Size = new System.Drawing.Size(150, 48);
-            this.txtHorario.Text = "Horário (HH:MM)";
-
-            this.cboMedico.FormattingEnabled = true;
-            this.cboMedico.Location = new System.Drawing.Point(70, 120);
-            this.cboMedico.Size = new System.Drawing.Size(380, 24);
-
-            this.cboPaciente.FormattingEnabled = true;
-            this.cboPaciente.Location = new System.Drawing.Point(70, 190);
-            this.cboPaciente.Size = new System.Drawing.Size(380, 24);
-
-            // Adicionar os controles
-            this.Controls.Add(this.txtId);
-            this.Controls.Add(this.txtDataConsulta);
-            this.Controls.Add(this.txtHorario);
-            this.Controls.Add(this.cboMedico);
-            this.Controls.Add(this.cboPaciente);
-
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            txtId = new MaterialTextBoxEdit();
+            txtDataConsulta = new MaterialTextBoxEdit();
+            txtHorario = new MaterialTextBoxEdit();
+            cboMedico = new ComboBox();
+            cboPaciente = new ComboBox();
+            tabControlRegister.SuspendLayout();
+            tabPage1.SuspendLayout();
+            SuspendLayout();
+            // 
+            // tabPage1
+            // 
+            tabPage1.Controls.Add(txtHorario);
+            tabPage1.Controls.Add(txtDataConsulta);
+            tabPage1.Controls.Add(txtId);
+            tabPage1.Controls.SetChildIndex(txtId, 0);
+            tabPage1.Controls.SetChildIndex(txtDataConsulta, 0);
+            tabPage1.Controls.SetChildIndex(txtHorario, 0);
+            // 
+            // txtId
+            // 
+            txtId.AnimateReadOnly = false;
+            txtId.AutoCompleteMode = AutoCompleteMode.None;
+            txtId.AutoCompleteSource = AutoCompleteSource.None;
+            txtId.BackgroundImageLayout = ImageLayout.None;
+            txtId.CharacterCasing = CharacterCasing.Normal;
+            txtId.Depth = 0;
+            txtId.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtId.HideSelection = true;
+            txtId.LeadingIcon = null;
+            txtId.Location = new Point(7, 7);
+            txtId.MaxLength = 32767;
+            txtId.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            txtId.Name = "txtId";
+            txtId.PasswordChar = '\0';
+            txtId.PrefixSuffixText = null;
+            txtId.ReadOnly = true;
+            txtId.RightToLeft = RightToLeft.No;
+            txtId.SelectedText = "";
+            txtId.SelectionLength = 0;
+            txtId.SelectionStart = 0;
+            txtId.ShortcutsEnabled = true;
+            txtId.Size = new Size(50, 48);
+            txtId.TabIndex = 1;
+            txtId.TabStop = false;
+            txtId.Text = "ID";
+            txtId.TextAlign = HorizontalAlignment.Left;
+            txtId.TrailingIcon = null;
+            txtId.UseSystemPasswordChar = false;
+            txtId.Visible = false;
+            // 
+            // txtDataConsulta
+            // 
+            txtDataConsulta.AnimateReadOnly = false;
+            txtDataConsulta.AutoCompleteMode = AutoCompleteMode.None;
+            txtDataConsulta.AutoCompleteSource = AutoCompleteSource.None;
+            txtDataConsulta.BackgroundImageLayout = ImageLayout.None;
+            txtDataConsulta.CharacterCasing = CharacterCasing.Normal;
+            txtDataConsulta.Depth = 0;
+            txtDataConsulta.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtDataConsulta.HideSelection = true;
+            txtDataConsulta.LeadingIcon = null;
+            txtDataConsulta.Location = new Point(63, 7);
+            txtDataConsulta.MaxLength = 32767;
+            txtDataConsulta.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            txtDataConsulta.Name = "txtDataConsulta";
+            txtDataConsulta.PasswordChar = '\0';
+            txtDataConsulta.PrefixSuffixText = null;
+            txtDataConsulta.ReadOnly = false;
+            txtDataConsulta.RightToLeft = RightToLeft.No;
+            txtDataConsulta.SelectedText = "";
+            txtDataConsulta.SelectionLength = 0;
+            txtDataConsulta.SelectionStart = 0;
+            txtDataConsulta.ShortcutsEnabled = true;
+            txtDataConsulta.Size = new Size(200, 48);
+            txtDataConsulta.TabIndex = 2;
+            txtDataConsulta.TabStop = false;
+            txtDataConsulta.Text = "Data da Consulta (DD/MM/AAAA)";
+            txtDataConsulta.TextAlign = HorizontalAlignment.Left;
+            txtDataConsulta.TrailingIcon = null;
+            txtDataConsulta.UseSystemPasswordChar = false;
+            // 
+            // txtHorario
+            // 
+            txtHorario.AnimateReadOnly = false;
+            txtHorario.AutoCompleteMode = AutoCompleteMode.None;
+            txtHorario.AutoCompleteSource = AutoCompleteSource.None;
+            txtHorario.BackgroundImageLayout = ImageLayout.None;
+            txtHorario.CharacterCasing = CharacterCasing.Normal;
+            txtHorario.Depth = 0;
+            txtHorario.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtHorario.HideSelection = true;
+            txtHorario.LeadingIcon = null;
+            txtHorario.Location = new Point(280, 7);
+            txtHorario.MaxLength = 32767;
+            txtHorario.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            txtHorario.Name = "txtHorario";
+            txtHorario.PasswordChar = '\0';
+            txtHorario.PrefixSuffixText = null;
+            txtHorario.ReadOnly = false;
+            txtHorario.RightToLeft = RightToLeft.No;
+            txtHorario.SelectedText = "";
+            txtHorario.SelectionLength = 0;
+            txtHorario.SelectionStart = 0;
+            txtHorario.ShortcutsEnabled = true;
+            txtHorario.Size = new Size(150, 48);
+            txtHorario.TabIndex = 3;
+            txtHorario.TabStop = false;
+            txtHorario.Text = "Horário (HH:MM)";
+            txtHorario.TextAlign = HorizontalAlignment.Left;
+            txtHorario.TrailingIcon = null;
+            txtHorario.UseSystemPasswordChar = false;
+            // 
+            // cboMedico
+            // 
+            cboMedico.FormattingEnabled = true;
+            cboMedico.Location = new Point(70, 120);
+            cboMedico.Name = "cboMedico";
+            cboMedico.Size = new Size(380, 28);
+            cboMedico.TabIndex = 4;
+            // 
+            // cboPaciente
+            // 
+            cboPaciente.FormattingEnabled = true;
+            cboPaciente.Location = new Point(70, 190);
+            cboPaciente.Name = "cboPaciente";
+            cboPaciente.Size = new Size(380, 28);
+            cboPaciente.TabIndex = 5;
+            // 
+            // ConsultaForm
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(900, 720);
+            Controls.Add(cboMedico);
+            Controls.Add(cboPaciente);
+            Location = new Point(0, 0);
+            Name = "ConsultaForm";
+            Text = "Agendamento de Consulta";
+            Controls.SetChildIndex(cboPaciente, 0);
+            Controls.SetChildIndex(cboMedico, 0);
+            Controls.SetChildIndex(tabControlRegister, 0);
+            tabControlRegister.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

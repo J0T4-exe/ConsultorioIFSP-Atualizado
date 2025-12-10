@@ -16,7 +16,7 @@ namespace ConsultorioIFSP.App.Base
         #region Eventos form
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(@"Are you sure cancel?", @"IFSP Store",
+            if (MessageBox.Show(@"Are you sure cancel?", @"Consultorio IFSP",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 ClearFields();

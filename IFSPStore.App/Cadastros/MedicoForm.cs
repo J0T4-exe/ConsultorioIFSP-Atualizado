@@ -1,104 +1,110 @@
-﻿using ConsultaIFSP.App.Base;
-using ConsultorioIFSP.App.Models; // Para MedicoModel
+﻿using ConsultorioIFSP.App.Base;
+using ConsultorioIFSP.App.Models;
 using ConsultorioIFSP.Domain.Base;
 using ConsultorioIFSP.Domain.Entities;
 using ConsultorioIFSP.Domain.Validators;
 
-
 namespace ConsultorioIFSP.App.Cadastros
 {
-    // Herda a classe base não genérica
+    // Renomeado para MedicoForm e herda de BaseForm
     public partial class MedicoForm : BaseForm
     {
-        // 1. Serviço e Lista específicos injetados
         private readonly IBaseService<Medico> _medicoService;
-        private List<MedicoModel>? medicos; // Usa MedicoModel para o grid
-
-        // 2. Construtor para Injeção de Dependência
-        public MedicoForm(IBaseService<Medico> medicoService) : base()
+        private List<MedicoModel>? medicos;
+        public MedicoForm(IBaseService<Medico> medicoService)
         {
             _medicoService = medicoService;
             InitializeComponent();
+
+            txtRegistrationDate.Text = DateTime.Now.ToString("g");
         }
 
-        // Método auxiliar para mapear UI -> Objeto
-        private void PreencheObjeto(Medico medico)
+        private void PreencheObjetoEntidade(Medico medico)
         {
-            // Mapeamento dos campos da UI para a entidade Medico
-            medico.Nome = txtNome.Text;
+            medico.Nome = txtName.Text;
+            medico.Crm = txtEmail.Text;
             medico.Login = txtLogin.Text;
             medico.Password = txtPassword.Text;
-            medico.Especialidade = txtEspecialidade.Text;
-            medico.Crm = txtCrm.Text;
-            medico.Telefone = txtTelefone.Text;
+
         }
 
-        // --- Implementação dos Métodos Virtuais de CRUD ---
-
-        protected override void Salvar()
+        protected override void Save()
         {
             try
             {
-                if (IsEditMode) 
+                if (IsEditMode)
                 {
-                    // Update
                     if (int.TryParse(txtId.Text, out var id))
                     {
                         var medico = _medicoService.GetById<Medico>(id);
-                        PreencheObjeto(medico);
-                        // Chama o serviço de Update com o MedicoValidator
-                        medico = _medicoService.Update<Medico, Medico, MedicoValidator>(medico);
+                        if (medico != null)
+                        {
+                            PreencheObjetoEntidade(medico);
+                            medico = _medicoService.Update<Medico, Medico, MedicoValidator>(medico);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Médico não encontrado no banco de dados.");
+                        }
                     }
                 }
                 else
                 {
-                    // Add
                     var medico = new Medico();
-                    PreencheObjeto(medico);
-                    // Chama o serviço de Add com o MedicoValidator
-                    medico = _medicoService.Add<Medico, Medico, MedicoValidator>(medico);
+                    PreencheObjetoEntidade(medico);
+                    _medicoService.Add<Medico, Medico, MedicoValidator>(medico);
                 }
 
-                tabControlRegister.SelectedIndex = 1;
                 CarregaGrid();
-                MessageBox.Show("Registro salvo com sucesso!", @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                tabControlRegister.SelectedIndex = 1;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"IFSP Store", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        protected override void Deletar(int id)
+        protected override void Delete(int id)
         {
             try
             {
-                _medicoService.Delete(id);
-                MessageBox.Show("Registro excluído com sucesso!", @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                _medicoService.Delete(id); // Usa o serviço de Medico
+                CarregaGrid();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"IFSP Store", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         protected override void CarregaGrid()
         {
-            try
-            {
-                // Carrega MedicoModel para exibição (depende do AutoMapper)
-                medicos = _medicoService.Get<MedicoModel>().ToList();
-                dataGridViewList.DataSource = medicos;
+            // Busca MedicoModel
+            medicos = _medicoService.Get<MedicoModel>().ToList();
+            dataGridViewList.DataSource = medicos;
+            dataGridViewList.Columns["Password"]!.Visible = false;
+            dataGridViewList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+        }
 
-                // Ajuste de coluna (assumindo dataGridViewConsulta)
-                dataGridViewList.Columns["Nome"]!.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+        protected override void loadList(DataGridViewRow? linha)
+        {
+            // Este método carrega os campos na UI.
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            txtId.Text = linha?.Cells["Id"].Value?.ToString() ?? string.Empty;
+            txtName.Text = linha?.Cells["Name"].Value?.ToString() ?? string.Empty;
+            txtEmail.Text = linha?.Cells["Email"].Value?.ToString() ?? string.Empty;
+            txtLogin.Text = linha?.Cells["Login"].Value?.ToString() ?? string.Empty;
+            txtPassword.Text = linha?.Cells["Password"].Value?.ToString() ?? string.Empty;
+
+            // Campos de Data
+            txtRegistrationDate.Text = DateTime.TryParse(linha?.Cells["RegisterDate"].Value?.ToString(), out var dataC)
+                ? dataC.ToString("g")
+                : string.Empty;
+
+            txtLastLogin.Text = DateTime.TryParse(linha?.Cells["LoginDate"].Value?.ToString(), out var dataL)
+                ? dataL.ToString("g")
+                : string.Empty;
+
         }
     }
 }

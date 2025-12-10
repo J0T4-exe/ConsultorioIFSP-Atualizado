@@ -1,11 +1,11 @@
 using ConsultorioIFSP.App.Cadastros;
 using ConsultorioIFSP.App.Infra;
+using ConsultorioIFSP.App.Outros;
 using ConsultorioIFSP.Domain.Entities;
-using IFSPStore.App.Outros;
 using Microsoft.Extensions.DependencyInjection;
 using ReaLTaiizor.Forms;
 
-namespace IFSPStore.App
+namespace ConsultorioIFSP.App
 {
     public partial class MainForm : MaterialForm
     {

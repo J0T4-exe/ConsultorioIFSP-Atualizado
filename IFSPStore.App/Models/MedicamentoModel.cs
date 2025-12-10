@@ -8,6 +8,6 @@ namespace ConsultorioIFSP.App.Models
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public object Nome_Generico { get; set; }
+        public string Nome_Generico { get; set; }
     }
 }

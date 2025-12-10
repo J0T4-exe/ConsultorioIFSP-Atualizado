@@ -30,44 +30,128 @@ namespace ConsultorioIFSP.App.Cadastros
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            // Declaração e Inicialização dos componentes necessários para a Receita
-            this.txtId = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            this.txtPeriodo = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            this.txtQuantidade = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "ReceitaForm";
-
-            // txtId 
-            this.txtId.Location = new System.Drawing.Point(10, 10);
-            this.txtId.Size = new System.Drawing.Size(50, 48);
-            this.txtId.Text = "ID";
-            this.txtId.ReadOnly = true;
-            this.txtId.Visible = false;
-
+            txtId = new MaterialTextBoxEdit();
+            txtPeriodo = new MaterialTextBoxEdit();
+            txtQuantidade = new MaterialTextBoxEdit();
+            tabControlRegister.SuspendLayout();
+            tabPage1.SuspendLayout();
+            SuspendLayout();
+            // 
+            // tabPage1
+            // 
+            tabPage1.Controls.Add(txtPeriodo);
+            tabPage1.Controls.Add(txtId);
+            tabPage1.Controls.SetChildIndex(txtId, 0);
+            tabPage1.Controls.SetChildIndex(txtPeriodo, 0);
+            // 
+            // txtId
+            // 
+            txtId.AnimateReadOnly = false;
+            txtId.AutoCompleteMode = AutoCompleteMode.None;
+            txtId.AutoCompleteSource = AutoCompleteSource.None;
+            txtId.BackgroundImageLayout = ImageLayout.None;
+            txtId.CharacterCasing = CharacterCasing.Normal;
+            txtId.Depth = 0;
+            txtId.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtId.HideSelection = true;
+            txtId.LeadingIcon = null;
+            txtId.Location = new Point(7, 7);
+            txtId.MaxLength = 32767;
+            txtId.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            txtId.Name = "txtId";
+            txtId.PasswordChar = '\0';
+            txtId.PrefixSuffixText = null;
+            txtId.ReadOnly = true;
+            txtId.RightToLeft = RightToLeft.No;
+            txtId.SelectedText = "";
+            txtId.SelectionLength = 0;
+            txtId.SelectionStart = 0;
+            txtId.ShortcutsEnabled = true;
+            txtId.Size = new Size(50, 48);
+            txtId.TabIndex = 1;
+            txtId.TabStop = false;
+            txtId.Text = "ID";
+            txtId.TextAlign = HorizontalAlignment.Left;
+            txtId.TrailingIcon = null;
+            txtId.UseSystemPasswordChar = false;
+            txtId.Visible = false;
+            // 
             // txtPeriodo
-            this.txtPeriodo.Location = new System.Drawing.Point(70, 50);
-            this.txtPeriodo.Size = new System.Drawing.Size(250, 48);
-            this.txtPeriodo.Text = "Período da Receita";
-
+            // 
+            txtPeriodo.AnimateReadOnly = false;
+            txtPeriodo.AutoCompleteMode = AutoCompleteMode.None;
+            txtPeriodo.AutoCompleteSource = AutoCompleteSource.None;
+            txtPeriodo.BackgroundImageLayout = ImageLayout.None;
+            txtPeriodo.CharacterCasing = CharacterCasing.Normal;
+            txtPeriodo.Depth = 0;
+            txtPeriodo.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtPeriodo.HideSelection = true;
+            txtPeriodo.LeadingIcon = null;
+            txtPeriodo.Location = new Point(63, 7);
+            txtPeriodo.MaxLength = 32767;
+            txtPeriodo.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            txtPeriodo.Name = "txtPeriodo";
+            txtPeriodo.PasswordChar = '\0';
+            txtPeriodo.PrefixSuffixText = null;
+            txtPeriodo.ReadOnly = false;
+            txtPeriodo.RightToLeft = RightToLeft.No;
+            txtPeriodo.SelectedText = "";
+            txtPeriodo.SelectionLength = 0;
+            txtPeriodo.SelectionStart = 0;
+            txtPeriodo.ShortcutsEnabled = true;
+            txtPeriodo.Size = new Size(250, 48);
+            txtPeriodo.TabIndex = 2;
+            txtPeriodo.TabStop = false;
+            txtPeriodo.Text = "Período da Receita";
+            txtPeriodo.TextAlign = HorizontalAlignment.Left;
+            txtPeriodo.TrailingIcon = null;
+            txtPeriodo.UseSystemPasswordChar = false;
+            // 
             // txtQuantidade
-            this.txtQuantidade.Location = new System.Drawing.Point(70, 120);
-            this.txtQuantidade.Size = new System.Drawing.Size(250, 48);
-            this.txtQuantidade.Text = "Quantidade (dias/doses)";
-
-            // Adicionar os controles ao formulário.
-            // Para garantir que o BaseForm os encontre, eles devem ser adicionados
-            // a um container que o BaseForm possa iterar (geralmente o TabPage de Cadastro).
-            // Se o BaseForm não expõe o TabPage, adicione diretamente ao ClientSize.
-
-            this.Controls.Add(this.txtId);
-            this.Controls.Add(this.txtPeriodo);
-            this.Controls.Add(this.txtQuantidade);
-
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 
+            txtQuantidade.AnimateReadOnly = false;
+            txtQuantidade.AutoCompleteMode = AutoCompleteMode.None;
+            txtQuantidade.AutoCompleteSource = AutoCompleteSource.None;
+            txtQuantidade.BackgroundImageLayout = ImageLayout.None;
+            txtQuantidade.CharacterCasing = CharacterCasing.Normal;
+            txtQuantidade.Depth = 0;
+            txtQuantidade.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtQuantidade.HideSelection = true;
+            txtQuantidade.LeadingIcon = null;
+            txtQuantidade.Location = new Point(70, 120);
+            txtQuantidade.MaxLength = 32767;
+            txtQuantidade.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            txtQuantidade.Name = "txtQuantidade";
+            txtQuantidade.PasswordChar = '\0';
+            txtQuantidade.PrefixSuffixText = null;
+            txtQuantidade.ReadOnly = false;
+            txtQuantidade.RightToLeft = RightToLeft.No;
+            txtQuantidade.SelectedText = "";
+            txtQuantidade.SelectionLength = 0;
+            txtQuantidade.SelectionStart = 0;
+            txtQuantidade.ShortcutsEnabled = true;
+            txtQuantidade.Size = new Size(250, 48);
+            txtQuantidade.TabIndex = 3;
+            txtQuantidade.TabStop = false;
+            txtQuantidade.Text = "Quantidade (dias/doses)";
+            txtQuantidade.TextAlign = HorizontalAlignment.Left;
+            txtQuantidade.TrailingIcon = null;
+            txtQuantidade.UseSystemPasswordChar = false;
+            // 
+            // ReceitaForm
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(927, 724);
+            Controls.Add(txtQuantidade);
+            Location = new Point(0, 0);
+            Name = "ReceitaForm";
+            Text = "ReceitaForm";
+            Controls.SetChildIndex(txtQuantidade, 0);
+            Controls.SetChildIndex(tabControlRegister, 0);
+            tabControlRegister.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

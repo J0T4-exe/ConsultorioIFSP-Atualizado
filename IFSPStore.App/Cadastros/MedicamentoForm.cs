@@ -1,4 +1,4 @@
-﻿using ConsultaIFSP.App.Base;
+﻿using ConsultorioIFSP.App.Base;
 using ConsultorioIFSP.App.Models;
 using ConsultorioIFSP.Domain.Base;
 using ConsultorioIFSP.Domain.Entities; // Importa a entidade Medicamento

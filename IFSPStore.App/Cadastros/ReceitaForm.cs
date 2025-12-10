@@ -1,4 +1,5 @@
-﻿using ConsultaIFSP.App.Base;
+﻿
+using ConsultorioIFSP.App.Base;
 using ConsultorioIFSP.App.Models;
 using ConsultorioIFSP.Domain.Base;
 using ConsultorioIFSP.Domain.Entities;
@@ -64,7 +65,7 @@ namespace ConsultorioIFSP.App.Cadastros
             }
         }
 
-        protected override void CarregaRegistro(DataGridViewRow? linha)
+        protected override void loadList(DataGridViewRow? linha)
         {
             // Mapeia os dados da linha selecionada para os campos do formulário para o modo "Editar"
             txtId.Text = linha?.Cells["Id"].Value.ToString();

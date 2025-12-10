@@ -1,4 +1,4 @@
-﻿namespace IFSPStore.App.Outros
+﻿namespace ConsultorioIFSP.App.Outros
 {
     partial class Login
     {

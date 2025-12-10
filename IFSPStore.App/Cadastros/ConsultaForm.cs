@@ -1,4 +1,4 @@
-﻿using ConsultaIFSP.App.Base;
+﻿using ConsultorioIFSP.App.Base;
 using ConsultorioIFSP.App.Models;
 using ConsultorioIFSP.Domain.Base;
 using ConsultorioIFSP.Domain.Entities;
@@ -77,7 +77,7 @@ namespace ConsultorioIFSP.App.Cadastros
             consulta.Paciente = pacienteId;
         }
 
-        protected override void Salvar()
+        protected override void Save()
         {
             try
             {
@@ -108,7 +108,7 @@ namespace ConsultorioIFSP.App.Cadastros
             }
         }
 
-        protected override void Deletar(int id)
+        protected override void Delete(int id)
         {
             try
             {
@@ -137,7 +137,7 @@ namespace ConsultorioIFSP.App.Cadastros
             }
         }
 
-        protected override void CarregaRegistro(DataGridViewRow? linha)
+        protected override void loadList(DataGridViewRow? linha)
         {
             txtId.Text = linha?.Cells["Id"].Value.ToString();
             txtDataConsulta.Text = linha?.Cells["DataConsulta"].Value.ToString();

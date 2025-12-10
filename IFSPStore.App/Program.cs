@@ -1,6 +1,7 @@
-using IFSPStore.App.Infra;
 
-namespace IFSPStore.App
+using ConsultorioIFSP.App.Infra;
+
+namespace ConsultorioIFSP.App
 {
     internal static class Program
     {

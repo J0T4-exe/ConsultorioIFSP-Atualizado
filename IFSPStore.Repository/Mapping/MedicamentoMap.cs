@@ -11,13 +11,11 @@ namespace ConsultorioIFSP.Repository.Mapping
             builder.ToTable("Medicamento");
             builder.HasKey(prop => prop.Id); // Id da BaseEntity
 
-            // Nome
             builder.Property(prop => prop.Nome)
                 .IsRequired()
                 .HasColumnName("Nome")
                 .HasMaxLength(100);
 
-            // Nome_Generico
             builder.Property(prop => prop.Nome_Generico)
                 .IsRequired()
                 .HasColumnName("Nome_Generico")

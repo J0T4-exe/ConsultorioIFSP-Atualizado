@@ -9,7 +9,7 @@ using ConsultorioIFSP.Domain.Entities;
 using ConsultorioIFSP.Service.Service;
 using ConsultorioIFSP.App.Models;
 using ConsultorioIFSP.App.Cadastros;
-using IFSPStore.App.Outros;
+using ConsultorioIFSP.App.Outros;
 
 
 namespace ConsultorioIFSP.App.Infra
