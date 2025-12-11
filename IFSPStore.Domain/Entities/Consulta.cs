@@ -15,7 +15,7 @@ namespace ConsultorioIFSP.Domain.Entities
 
         }
 
-        public DateTime DataConsulta { get; set; }
+        public DateTime? DataConsulta { get; set; }
         public TimeOnly Horario { get; set; }
         public int Paciente { get; set; }
         public int MedicoId { get; set; }
