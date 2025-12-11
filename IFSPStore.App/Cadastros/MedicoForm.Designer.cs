@@ -44,7 +44,7 @@
             // 
             tabPage2.Margin = new Padding(3, 5, 3, 5);
             tabPage2.Padding = new Padding(3, 5, 3, 5);
-            tabPage2.Size = new Size(1034, 828);
+            tabPage2.Size = new Size(902, 543);
             // 
             // tabControlRegister
             // 
@@ -306,7 +306,7 @@
             Name = "MedicoForm";
             Padding = new Padding(3, 113, 3, 5);
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Medical registration";
+            Text = "Cadastro Médico";
             tabControlRegister.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             ResumeLayout(false);

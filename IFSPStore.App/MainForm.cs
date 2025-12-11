@@ -34,7 +34,7 @@ namespace ConsultorioIFSP.App
         {
             showForm<ConsultaForm>();
         }
-        void productToolStripMenuItem_Click(object sender, EventArgs e)
+        private void productToolStripMenuItem_Click(object sender, EventArgs e)
         {
             showForm<MedicamentoForm>();
         }

@@ -42,7 +42,7 @@ namespace ConsultorioIFSP.App.Base
         {
             if (dataGridViewList.SelectedRows.Count > 0)
             {
-                if (MessageBox.Show(@"Are you sure want delete?", @"IFSP Store",
+                if (MessageBox.Show(@"Are you sure want delete?", @"Consultorio IFSP",
                     MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     int id = (int)dataGridViewList.SelectedRows[0].Cells["Id"].Value;
@@ -52,7 +52,7 @@ namespace ConsultorioIFSP.App.Base
             }
             else
             {
-                MessageBox.Show(@"Please, select any row!", @"IFSP Store",
+                MessageBox.Show(@"Please, select any row!", @"Consultorio IFSP",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
@@ -103,7 +103,7 @@ namespace ConsultorioIFSP.App.Base
             }
             else
             {
-                MessageBox.Show(@"Please, select any row", @"IFSP Store",
+                MessageBox.Show(@"Please, select any row", @"Consultorio IFSP",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 

@@ -17,5 +17,7 @@ namespace ConsultorioIFSP.Domain.Entities
         }
         public DateTime Periodo { get; set; }
         public int Quantidade { get; set; }
+        public int MedicoId { get; set; }
+        public int PacienteId { get; set; }
     }
 }

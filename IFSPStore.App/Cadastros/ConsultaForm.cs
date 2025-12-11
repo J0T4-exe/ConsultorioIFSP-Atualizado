@@ -159,5 +159,10 @@ namespace ConsultorioIFSP.App.Cadastros
             cboMedico.SelectedValue = linha?.Cells["MedicoId"].Value;
             cboPaciente.SelectedValue = linha?.Cells["PacienteId"].Value;
         }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

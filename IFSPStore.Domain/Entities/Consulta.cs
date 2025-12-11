@@ -19,5 +19,6 @@ namespace ConsultorioIFSP.Domain.Entities
         public TimeOnly Horario { get; set; }
         public int Paciente { get; set; }
         public int MedicoId { get; set; }
+        public int PacienteId { get; set; }
     }
 }

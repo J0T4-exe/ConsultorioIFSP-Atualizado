@@ -15,11 +15,11 @@ namespace ConsultorioIFSP.Domain.Validators
             RuleFor(r => r.Quantidade)
                 .GreaterThan(0).WithMessage("A Quantidade deve ser maior que zero.");
 
-            /* RuleFor(r => r.PacienteId)
+            RuleFor(r => r.PacienteId)
                  .GreaterThan(0).WithMessage("O ID do Paciente é obrigatório na Receita.");
 
-             RuleFor(r => r.MedicoId)
-                 .GreaterThan(0).WithMessage("O ID do Médico é obrigatório na Receita."); */
+            RuleFor(c => c.MedicoId)
+               .GreaterThan(0).WithMessage("O ID do Médico é obrigatório.");
         }
     }
 }

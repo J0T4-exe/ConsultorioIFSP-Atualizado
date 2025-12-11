@@ -21,16 +21,17 @@ namespace ConsultorioIFSP.Repository.Mapping
                 .IsRequired()
                 .HasColumnType("int");
 
-            /* builder.HasOne(receita => receita.Medico) // Uma Receita tem Um Medico
-                    .WithMany() // O Medico pode ter Muitas Receitas
-                    .IsRequired()
-                    .OnDelete(DeleteBehavior.Restrict); 
+            builder.HasOne<Medico>()
+                .WithMany()   
+                .HasForeignKey(receita => receita.MedicoId) 
+               .IsRequired()
+               .OnDelete(DeleteBehavior.Restrict);
 
-             // Relação com Paciente: Uma Receita pertence a um Paciente
-             builder.HasOne(receita => receita.Paciente) // Uma Receita tem Um Paciente
-                    .WithMany() // O Paciente pode ter Muitas Receitas 
-                    .IsRequired()
-                    .OnDelete(DeleteBehavior.Restrict); */
+            builder.HasOne<Paciente>() // Configura o relacionamento com a Entidade Paciente
+               .WithMany()         // O Paciente pode ter muitas Receitas
+               .HasForeignKey(receita => receita.PacienteId) // Define qual campo INT é a FK
+               .IsRequired()
+               .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

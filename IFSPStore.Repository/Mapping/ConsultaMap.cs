@@ -26,22 +26,22 @@ namespace ConsultorioIFSP.Repository.Mapping
                    .IsRequired();
 
 
-            /*builder.HasOne(c => c.Paciente) // Uma Consulta tem Um Paciente
-                   .WithMany() // O Paciente pode ter Muitas Consultas
-                   .HasForeignKey(c => c.PacienteId)
-                   .IsRequired()
-                   .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne<Medico>()
+                .WithMany()
+                .HasForeignKey(receita => receita.MedicoId)
+               .IsRequired()
+               .OnDelete(DeleteBehavior.Restrict);
 
             // Relação com Medico
-            builder.HasOne(c => c.Medico) // Uma Consulta tem Um Médico
-                   .WithMany() // O Médico pode ter Muitas Consultas
-                   .HasForeignKey(c => c.MedicoId)
-                   .IsRequired()
-                   .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne<Paciente>()
+               .WithMany() 
+               .HasForeignKey(receita => receita.PacienteId)
+               .IsRequired()
+               .OnDelete(DeleteBehavior.Restrict);
 
             //Uma restrição para garantir que um médico só possa ter uma consulta com um paciente em um horário específico.
             builder.HasIndex(c => new { c.MedicoId, c.DataConsulta, c.Horario })
-                   .IsUnique();*/
+                   .IsUnique();
         }
     }
 }
