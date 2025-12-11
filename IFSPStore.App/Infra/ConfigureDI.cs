@@ -25,6 +25,7 @@ namespace ConsultorioIFSP.App.Infra
             var strCon = File.ReadAllText(dbConfigFile);
 
             services = new ServiceCollection();
+
             services.AddDbContext<MySqlContext>(
                 options =>
                 {
@@ -32,27 +33,18 @@ namespace ConsultorioIFSP.App.Infra
                     options.UseMySQL(strCon);
                 });
 
-            services.AddScoped<IBaseRepository<Medico>, BaseRepository<Medico>>();
-            services.AddScoped<IBaseRepository<Paciente>, BaseRepository<Paciente>>();
-            services.AddScoped<IBaseRepository<Consulta>, BaseRepository<Consulta>>();
-            services.AddScoped<IBaseRepository<Medicamento>, BaseRepository<Medicamento>>();
-            services.AddScoped<IBaseRepository<Receita>, BaseRepository<Receita>>();
-
-            services.AddScoped<IBaseService<Medico>, BaseService<Medico>>();
-            services.AddScoped<IBaseService<Paciente>, BaseService<Paciente>>();
-            services.AddScoped<IBaseService<Consulta>, BaseService<Consulta>>();
-            services.AddScoped<IBaseService<Medicamento>, BaseService<Medicamento>>();
-            services.AddScoped<IBaseService<Receita>, BaseService<Receita>>();
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
 
             services.AddTransient<Login, Login>();
             services.AddTransient<ReceitaForm, ReceitaForm>();
             services.AddTransient<MedicoForm, MedicoForm>();
             services.AddTransient<MedicamentoForm, MedicamentoForm>();
             services.AddTransient<PacienteForm, PacienteForm>();
+            services.AddTransient<ConsultaForm, ConsultaForm>(); 
 
             services.AddSingleton(
                 new MapperConfiguration(config => {
-
                     config.CreateMap<Medico, MedicoModel>();
                     config.CreateMap<Paciente, PacienteModel>();
                     config.CreateMap<Medicamento, MedicamentoModel>();
@@ -66,6 +58,7 @@ namespace ConsultorioIFSP.App.Infra
                     config.CreateMap<Consulta, Consulta>();
                 },
                 NullLoggerFactory.Instance).CreateMapper());
+
             serviceProvider = services.BuildServiceProvider();
         }
     }
