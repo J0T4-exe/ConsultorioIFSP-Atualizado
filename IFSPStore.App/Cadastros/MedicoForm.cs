@@ -1,5 +1,4 @@
 ﻿using ConsultorioIFSP.App.Base;
-using ConsultorioIFSP.App.Models; // Mantido, mas não será usado para a lista
 using ConsultorioIFSP.Domain.Base;
 using ConsultorioIFSP.Domain.Entities;
 using ConsultorioIFSP.Domain.Validators;
@@ -9,10 +8,7 @@ namespace ConsultorioIFSP.App.Cadastros
     public partial class MedicoForm : BaseForm
     {
         private readonly IBaseService<Medico> _medicoService;
-
-        // CORREÇÃO: Variável da lista alterada de MedicoModel para a entidade Medico
-        // (Isso resolve o erro "medicos não existe")
-        private List<Medico>? medicos;
+        private List<Medico> medicos;
 
         public MedicoForm(IBaseService<Medico> medicoService)
         {
@@ -23,9 +19,11 @@ namespace ConsultorioIFSP.App.Cadastros
         private void PreencheObjetoEntidade(Medico medico)
         {
             medico.Nome = txtName.Text;
-            medico.Crm = txtEmail.Text;
+            medico.Crm = txtCrm.Text;
+            medico.Especialidade = txtEspecialidade.Text;
             medico.Login = txtLogin.Text;
             medico.Password = txtPassword.Text;
+            medico.Telefone = txtTelefone.Text;
 
         }
 
@@ -61,7 +59,7 @@ namespace ConsultorioIFSP.App.Cadastros
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, @"IFSP Store", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Consultorio IFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -74,18 +72,15 @@ namespace ConsultorioIFSP.App.Cadastros
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, @"IFSP Store", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Consultorio IFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         protected override void CarregaGrid()
         {
-            // CORREÇÃO: Tipo da busca alterado de MedicoModel para a entidade Medico
             medicos = _medicoService.Get<Medico>().ToList();
 
             dataGridViewList.DataSource = medicos;
-
-            // As colunas devem ser referenciadas pelo nome das propriedades na entidade Medico
             dataGridViewList.Columns["Password"]!.Visible = false;
             dataGridViewList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
@@ -94,9 +89,11 @@ namespace ConsultorioIFSP.App.Cadastros
         {
             txtId.Text = linha?.Cells["Id"].Value?.ToString() ?? string.Empty;
             txtName.Text = linha?.Cells["Name"].Value?.ToString() ?? string.Empty;
-            txtEmail.Text = linha?.Cells["Email"].Value?.ToString() ?? string.Empty;
+            txtCrm.Text = linha?.Cells["Crm"].Value?.ToString() ?? string.Empty;
+            txtTelefone.Text = linha?.Cells["Telefone"].Value?.ToString() ?? string.Empty;
             txtLogin.Text = linha?.Cells["Login"].Value?.ToString() ?? string.Empty;
             txtPassword.Text = linha?.Cells["Password"].Value?.ToString() ?? string.Empty;
+            txtEspecialidade.Text = linha?.Cells["Especialidade"].Value?.ToString() ?? string.Empty;
 
         }
     }
