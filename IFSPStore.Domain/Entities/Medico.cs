@@ -8,7 +8,7 @@ namespace ConsultorioIFSP.Domain.Entities
         {
 
         }
-        public Medico(int id, string nome, string login, string password, string especialidade, string crm, string telefone, string email) : base(id)
+        public Medico(int id, string nome, string login, string password, string especialidade, string crm, string telefone, string? email) : base(id)
         {
             Nome = nome;
             Login = login;
@@ -26,7 +26,7 @@ namespace ConsultorioIFSP.Domain.Entities
         public string Especialidade { get; set; }
         public string Crm { get; set; }
         public string Telefone { get; set; }
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
     }
 }

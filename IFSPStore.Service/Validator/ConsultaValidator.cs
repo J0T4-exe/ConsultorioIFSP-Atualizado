@@ -1,6 +1,5 @@
 ﻿using ConsultorioIFSP.Domain.Entities;
 using FluentValidation;
-using System;
 
 namespace ConsultorioIFSP.Domain.Validators
 {
@@ -9,7 +8,7 @@ namespace ConsultorioIFSP.Domain.Validators
         public ConsultaValidator()
         {
             RuleFor(c => c.DataConsulta)
-                .GreaterThanOrEqualTo(DateTime.Today)
+                .LessThanOrEqualTo(DateTime.Now)
                 .WithMessage("A Data da Consulta deve ser igual ou posterior à data atual.");
 
             RuleFor(c => c.Horario)

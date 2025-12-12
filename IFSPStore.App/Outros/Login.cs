@@ -61,6 +61,7 @@ namespace ConsultorioIFSP.App.Outros
                     Crm = "99999", 
                     Telefone = "11999998888",
                     Especialidade = "Administracao",
+                    Email = "Email@gmail.com"
                 };
 
                 _medicoService.Add<Medico, Medico, MedicoValidator>(medico);

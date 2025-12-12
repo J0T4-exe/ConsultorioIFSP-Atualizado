@@ -8,7 +8,7 @@ namespace ConsultorioIFSP.Domain.Entities
         {
 
         }
-        public Paciente(int id, string nome, string email, DateTime dataNascimento, string sexo, string telefone) : base(id)
+        public Paciente(int id, string nome, string email, DateTime? dataNascimento, string sexo, string telefone) : base(id)
         {
             Nome = nome;
             Email = email;

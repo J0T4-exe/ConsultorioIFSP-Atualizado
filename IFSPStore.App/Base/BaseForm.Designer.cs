@@ -281,16 +281,16 @@ namespace ConsultorioIFSP.App.Base
 
         #endregion
         private ImageList imageList1;
-        private ReaLTaiizor.Controls.MaterialButton btnDelete;
-        private ReaLTaiizor.Controls.MaterialButton btnEdit;
-        private ReaLTaiizor.Controls.MaterialButton btnNew;
-        protected TabPage tabPage2;
-        protected DataGridView dataGridViewList;
+        protected ReaLTaiizor.Controls.MaterialButton btnDelete;
+        protected ReaLTaiizor.Controls.MaterialButton btnEdit;  
+        protected ReaLTaiizor.Controls.MaterialButton btnNew;  
+        protected TabPage tabPage2;     
+        protected DataGridView dataGridViewList;     
         private Panel panel2;
-        public ReaLTaiizor.Controls.MaterialTabControl tabControlRegister;
-        public TabPage tabPage1;
+        protected ReaLTaiizor.Controls.MaterialTabControl tabControlRegister; 
+        protected TabPage tabPage1; 
         private Panel panel1;
-        private ReaLTaiizor.Controls.MaterialButton btnCancel;
-        private ReaLTaiizor.Controls.MaterialButton btnSave;
+        protected ReaLTaiizor.Controls.MaterialButton btnCancel;
+        protected ReaLTaiizor.Controls.MaterialButton btnSave;
     }
 }

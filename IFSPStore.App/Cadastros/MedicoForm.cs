@@ -1,4 +1,5 @@
 ﻿using ConsultorioIFSP.App.Base;
+using ConsultorioIFSP.App.Models;
 using ConsultorioIFSP.Domain.Base;
 using ConsultorioIFSP.Domain.Entities;
 using ConsultorioIFSP.Domain.Validators;
@@ -8,7 +9,7 @@ namespace ConsultorioIFSP.App.Cadastros
     public partial class MedicoForm : BaseForm
     {
         private readonly IBaseService<Medico> _medicoService;
-        private List<Medico> medicos;
+        private List<MedicoModel>? medicos;
 
         public MedicoForm(IBaseService<Medico> medicoService)
         {
@@ -79,7 +80,7 @@ namespace ConsultorioIFSP.App.Cadastros
 
         protected override void CarregaGrid()
         {
-            medicos = _medicoService.Get<Medico>().ToList();
+            medicos = _medicoService.Get<MedicoModel>().ToList();
 
             dataGridViewList.DataSource = medicos;
             dataGridViewList.Columns["Password"]!.Visible = false;

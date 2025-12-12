@@ -1,33 +1,53 @@
 ﻿using ConsultorioIFSP.App.Base;
-using ConsultorioIFSP.App.Models; 
+using ConsultorioIFSP.App.Models;
 using ConsultorioIFSP.Domain.Base;
 using ConsultorioIFSP.Domain.Entities;
 using ConsultorioIFSP.Domain.Validators;
-
 
 namespace ConsultorioIFSP.App.Cadastros
 {
     public partial class ReceitaForm : BaseForm
     {
-
         private readonly IBaseService<Receita> _receitaService;
         private List<ReceitaModel>? receitas;
-        private readonly IBaseService<Medico> _medicoService; 
-        private readonly IBaseService<Paciente> _pacienteService; 
+        private readonly IBaseService<Medico> _medicoService;
+        private readonly IBaseService<Paciente> _pacienteService;
+
+        //private ReaLTaiizor.Controls.MaterialComboBox cboMedico;
+        //private ReaLTaiizor.Controls.MaterialComboBox cboPaciente;
 
         public ReceitaForm(IBaseService<Receita> receitaService
-                            , IBaseService<Medico> medicoService, IBaseService<Paciente> pacienteService ) : base()
+                  , IBaseService<Medico> medicoService, IBaseService<Paciente> pacienteService) : base()
         {
             _receitaService = receitaService;
-             _medicoService = medicoService;
-             _pacienteService = pacienteService;
+            _medicoService = medicoService;
+            _pacienteService = pacienteService;
 
             InitializeComponent();
+            CarregarComboBoxes();
+        }
+
+        private void CarregarComboBoxes()
+        {
+            // Carrega médicos
+            var medicos = _medicoService.Get<MedicoModel>().ToList();
+            cboMedicoId.DataSource = medicos;
+            cboMedicoId.DisplayMember = "Nome";
+            cboMedicoId.ValueMember = "Id";
+            cboMedicoId.SelectedIndex = -1; // Deseleciona
+
+            // Carrega pacientes
+            var pacientes = _pacienteService.Get<PacienteModel>().ToList();
+            cboPacienteId.DataSource = pacientes;
+            cboPacienteId.DisplayMember = "Nome";
+            cboPacienteId.ValueMember = "Id";
+            cboPacienteId.SelectedIndex = -1;
         }
 
         private void PreencheObjeto(Receita receita)
         {
-            if (DateTime.TryParse(txtPeriodo.Text, out DateTime periodo))
+            // Validação e Preenchimento de Periodo
+            if (DateTime.TryParse(txtPeriodo.Text, out DateTime periodo))
             {
                 receita.Periodo = periodo;
             }
@@ -36,7 +56,8 @@ namespace ConsultorioIFSP.App.Cadastros
                 throw new Exception("Data de Período inválida.");
             }
 
-            if (int.TryParse(txtQuantidade.Text, out int quantidade))
+            // Validação e Preenchimento de Quantidade
+            if (int.TryParse(txtQuantidade.Text, out int quantidade))
             {
                 receita.Quantidade = quantidade;
             }
@@ -45,22 +66,27 @@ namespace ConsultorioIFSP.App.Cadastros
                 throw new Exception("Quantidade inválida.");
             }
 
-             if (int.TryParse(cboMedicoId.Text, out int medicoId)) 
-             {
-                 receita.MedicoId = medicoId;
-             }
-             else 
-             { 
-                 throw new Exception("Médico deve ser selecionado."); 
-             }
-             if (int.TryParse(cboPacienteId.Text, out int pacienteId)) 
-             {
-                 receita.PacienteId = pacienteId;
-             } 
-             else 
-            { 
-                 throw new Exception("Paciente deve ser selecionado."); 
-             }
+            // ----------------------------------------------------------------------
+            // CORREÇÃO: Mapeamento de Chaves Estrangeiras (FKs)
+            // ----------------------------------------------------------------------
+
+            int medicoId = Convert.ToInt32(cboMedicoId.SelectedValue);
+            if (medicoId <= 0)
+            {
+                throw new Exception("Selecione um Médico para a consulta.");
+            }
+            receita.MedicoId = medicoId;
+
+
+            // 2. PacienteId
+            int pacienteId = Convert.ToInt32(cboPacienteId.SelectedValue);
+            if (pacienteId <= 0)
+            {
+                throw new Exception("Selecione um Paciente para a consulta.");
+            }
+
+            // CORREÇÃO CRÍTICA: Atribuir à Chave Estrangeira PacienteId
+            receita.PacienteId = pacienteId;
         }
 
         protected override void Save()
@@ -113,11 +139,30 @@ namespace ConsultorioIFSP.App.Cadastros
 
         protected override void loadList(DataGridViewRow? linha)
         {
-            txtId.Text = linha?.Cells["Id"].Value.ToString();
-            txtPeriodo.Text = linha?.Cells["Periodo"].Value.ToString();
-            txtQuantidade.Text = linha?.Cells["Quantidade"].Value.ToString();
-            cboMedicoId.Text = linha?.Cells["MedicoId"].Value.ToString();
-            cboPacienteId.Text = linha?.Cells["PacienteId"].Value.ToString();
+            // Se linha for nula, sai do método
+            if (linha == null) return;
+
+            // 1. Carrega campos de texto
+            txtId.Text = linha.Cells["Id"].Value?.ToString();
+            txtQuantidade.Text = linha.Cells["Quantidade"].Value?.ToString();
+
+            // 2. Carrega a Data do Período
+            var periodoValue = linha.Cells["Periodo"].Value;
+            if (periodoValue is DateTime periodoDate)
+            {
+                // Formata a data de volta para o padrão DD/MM/AAAA
+                txtPeriodo.Text = periodoDate.ToString("dd/MM/yyyy");
+            }
+            else
+            {
+                // Tenta carregar como string
+                txtPeriodo.Text = periodoValue?.ToString();
+            }
+
+            // 3. Carrega os ComboBoxes pelo ValueMember (Id)
+            // Usando os nomes corretos do Designer (cboMedicoId e cboPacienteId)
+            cboMedicoId.SelectedValue = linha.Cells["MedicoId"].Value;
+            cboPacienteId.SelectedValue = linha.Cells["PacienteId"].Value;
         }
 
         protected override void Delete(int id)
@@ -125,6 +170,6 @@ namespace ConsultorioIFSP.App.Cadastros
             _receitaService.Delete(id);
             CarregaGrid();
         }
-        
+
     }
 }

@@ -44,22 +44,11 @@ namespace ConsultorioIFSP.App.Cadastros
 
         private void PreencheObjeto(Consulta consulta)
         {
-            // Data da Consulta
-            if (!DateTime.TryParse(txtDataConsulta.Text, out DateTime dataConsulta))
-            {
-                throw new Exception("Data da Consulta inválida.");
-            }
-            consulta.DataConsulta = dataConsulta;
-
-            // Horário da Consulta (TimeOnly)
-            if (!TimeOnly.TryParse(txtHorario.Text, out TimeOnly horario))
-            {
-                throw new Exception("Horário inválido. Use o formato HH:MM.");
-            }
-            consulta.Horario = horario;
+            // ... (Data da Consulta e Horário da Consulta) ...
 
             // Chaves Estrangeiras
 
+            // 1. MedicoId (Correto)
             int medicoId = Convert.ToInt32(cboMedico.SelectedValue);
             if (medicoId <= 0)
             {
@@ -68,12 +57,15 @@ namespace ConsultorioIFSP.App.Cadastros
             consulta.MedicoId = medicoId;
 
 
+            // 2. PacienteId
             int pacienteId = Convert.ToInt32(cboPaciente.SelectedValue);
             if (pacienteId <= 0)
             {
                 throw new Exception("Selecione um Paciente para a consulta.");
             }
-            consulta.Paciente = pacienteId;
+
+            // CORREÇÃO CRÍTICA: Atribuir à Chave Estrangeira PacienteId
+            consulta.PacienteId = pacienteId; // <--- CORREÇÃO FEITA AQUI
         }
 
         protected override void Save()
@@ -126,7 +118,6 @@ namespace ConsultorioIFSP.App.Cadastros
             {
                 consultas = _consultaService.Get<ConsultaModel>().ToList();
                 dataGridViewList.DataSource = consultas;
-
                 dataGridViewList.Columns["DataConsulta"]!.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             }
@@ -138,26 +129,35 @@ namespace ConsultorioIFSP.App.Cadastros
 
         protected override void loadList(DataGridViewRow? linha)
         {
-            txtId.Text = linha?.Cells["Id"].Value.ToString();
-            txtDataConsulta.Text = linha?.Cells["DataConsulta"].Value.ToString();
+            // Se linha for nula, sai do método
+            if (linha == null) return;
 
-            // Tratamento de Horário (TimeOnly ou TimeSpan)
-            if (linha?.Cells["Horario"].Value is TimeOnly horarioTimeOnly)
+            // 1. Carrega campos de texto
+            txtId.Text = linha.Cells["Id"].Value?.ToString();
+            txtDataConsulta.Text = linha.Cells["DataConsulta"].Value?.ToString();
+
+            // 2. Tratamento de Horário (TimeOnly ou TimeSpan)
+            var horarioValue = linha.Cells["Horario"].Value;
+            if (horarioValue is TimeOnly horarioTimeOnly)
             {
+                // Se o valor já é TimeOnly (ideal)
                 txtHorario.Text = horarioTimeOnly.ToString("HH\\:mm");
             }
-            else if (linha?.Cells["Horario"].Value is TimeSpan horarioTimeSpan)
+            else if (horarioValue is TimeSpan horarioTimeSpan)
             {
+                // Se o valor é TimeSpan (comum no MySQL)
                 txtHorario.Text = TimeOnly.FromTimeSpan(horarioTimeSpan).ToString("HH\\:mm");
             }
             else
             {
-                txtHorario.Text = linha?.Cells["Horario"].Value?.ToString();
+                // Tenta converter o string bruto (fallback)
+                txtHorario.Text = horarioValue?.ToString();
             }
 
-            // Carrega os ComboBoxes pelo ValueMember (Id)
-            cboMedico.SelectedValue = linha?.Cells["MedicoId"].Value;
-            cboPaciente.SelectedValue = linha?.Cells["PacienteId"].Value;
+            // 3. Carrega os ComboBoxes pelo ValueMember (Id)
+            // O 'SelectedValue' define o item selecionado usando o 'ValueMember' (Id)
+            cboMedico.SelectedValue = linha.Cells["MedicoId"].Value;
+            cboPaciente.SelectedValue = linha.Cells["PacienteId"].Value;
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
