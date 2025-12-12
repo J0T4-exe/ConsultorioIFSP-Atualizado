@@ -24,6 +24,7 @@ namespace ConsultorioIFSP.App.Cadastros
             medico.Login = txtLogin.Text;
             medico.Password = txtPassword.Text;
             medico.Telefone = txtTelefone.Text;
+            medico.Email = txtEmail.Text;
 
         }
 
@@ -94,7 +95,9 @@ namespace ConsultorioIFSP.App.Cadastros
             txtLogin.Text = linha?.Cells["Login"].Value?.ToString() ?? string.Empty;
             txtPassword.Text = linha?.Cells["Password"].Value?.ToString() ?? string.Empty;
             txtEspecialidade.Text = linha?.Cells["Especialidade"].Value?.ToString() ?? string.Empty;
-
+            txtEmail.Text = linha?.Cells["Email"].Value?.ToString() ?? string.Empty;
         }
+
+
     }
 }

@@ -45,7 +45,7 @@ namespace ConsultorioIFSP.App.Cadastros
                 throw new Exception("Quantidade inválida.");
             }
 
-             if (int.TryParse(txtMedicoId.Text, out int medicoId)) 
+             if (int.TryParse(cboMedicoId.Text, out int medicoId)) 
              {
                  receita.MedicoId = medicoId;
              }
@@ -53,7 +53,7 @@ namespace ConsultorioIFSP.App.Cadastros
              { 
                  throw new Exception("Médico deve ser selecionado."); 
              }
-             if (int.TryParse(txtPacienteId.Text, out int pacienteId)) 
+             if (int.TryParse(cboPacienteId.Text, out int pacienteId)) 
              {
                  receita.PacienteId = pacienteId;
              } 
@@ -116,8 +116,8 @@ namespace ConsultorioIFSP.App.Cadastros
             txtId.Text = linha?.Cells["Id"].Value.ToString();
             txtPeriodo.Text = linha?.Cells["Periodo"].Value.ToString();
             txtQuantidade.Text = linha?.Cells["Quantidade"].Value.ToString();
-            txtMedicoId.Text = linha?.Cells["MedicoId"].Value.ToString();
-            txtPacienteId.Text = linha?.Cells["PacienteId"].Value.ToString();
+            cboMedicoId.Text = linha?.Cells["MedicoId"].Value.ToString();
+            cboPacienteId.Text = linha?.Cells["PacienteId"].Value.ToString();
         }
 
         protected override void Delete(int id)

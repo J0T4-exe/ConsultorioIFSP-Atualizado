@@ -8,30 +8,34 @@ namespace ConsultorioIFSP.Repository.Mapping
     {
         public void Configure(EntityTypeBuilder<Receita> builder)
         {
-            builder.ToTable("Receita");
+            // CORREÇÃO 1: Usar nome minúsculo no ToTable para evitar problemas de case-sensitivity no MySQL.
+            builder.ToTable("receita");
             builder.HasKey(prop => prop.Id);
 
             // Periodo
             builder.Property(prop => prop.Periodo)
                 .IsRequired()
-                .HasColumnType("datetime2");
+                // CORREÇÃO 2: Usar tipo compatível com MySQL/MariaDB
+                .HasColumnType("datetime");
 
             // Quantidade
             builder.Property(prop => prop.Quantidade)
                 .IsRequired()
                 .HasColumnType("int");
 
+            // Relacionamento com Medico
             builder.HasOne<Medico>()
-                .WithMany()   
-                .HasForeignKey(receita => receita.MedicoId) 
-               .IsRequired()
-               .OnDelete(DeleteBehavior.Restrict);
+                .WithMany()
+                .HasForeignKey(receita => receita.MedicoId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne<Paciente>() // Configura o relacionamento com a Entidade Paciente
-               .WithMany()         // O Paciente pode ter muitas Receitas
-               .HasForeignKey(receita => receita.PacienteId) // Define qual campo INT é a FK
-               .IsRequired()
-               .OnDelete(DeleteBehavior.Restrict);
+            // Relacionamento com Paciente
+            builder.HasOne<Paciente>()
+                .WithMany()
+                .HasForeignKey(receita => receita.PacienteId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

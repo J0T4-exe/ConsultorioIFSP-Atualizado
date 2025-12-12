@@ -44,6 +44,11 @@ namespace ConsultorioIFSP.Repository.Mapping
                 .IsRequired()
                 .HasColumnName("Telefone")
                 .HasMaxLength(20);
+
+            builder.Property(prop => prop.Email)
+                .IsRequired()
+                .HasColumnName("Email")
+                .HasMaxLength(20);
         }
     }
 }

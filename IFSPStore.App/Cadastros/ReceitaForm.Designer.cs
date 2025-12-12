@@ -30,9 +30,9 @@
         {
             txtPeriodo = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
             txtQuantidade = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            txtMedicoId = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
-            txtPacienteId = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
             txtId = new ReaLTaiizor.Controls.MaterialTextBoxEdit();
+            cboMedicoId = new ReaLTaiizor.Controls.MaterialComboBox();
+            cboPacienteId = new ReaLTaiizor.Controls.MaterialComboBox();
             tabControlRegister.SuspendLayout();
             tabPage1.SuspendLayout();
             SuspendLayout();
@@ -41,7 +41,7 @@
             // 
             tabPage2.Margin = new Padding(3, 5, 3, 5);
             tabPage2.Padding = new Padding(3, 5, 3, 5);
-            tabPage2.Size = new Size(1034, 828);
+            tabPage2.Size = new Size(995, 466);
             // 
             // tabControlRegister
             // 
@@ -51,8 +51,8 @@
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(txtPacienteId);
-            tabPage1.Controls.Add(txtMedicoId);
+            tabPage1.Controls.Add(cboPacienteId);
+            tabPage1.Controls.Add(cboMedicoId);
             tabPage1.Controls.Add(txtQuantidade);
             tabPage1.Controls.Add(txtPeriodo);
             tabPage1.Controls.Add(txtId);
@@ -62,8 +62,8 @@
             tabPage1.Controls.SetChildIndex(txtId, 0);
             tabPage1.Controls.SetChildIndex(txtPeriodo, 0);
             tabPage1.Controls.SetChildIndex(txtQuantidade, 0);
-            tabPage1.Controls.SetChildIndex(txtMedicoId, 0);
-            tabPage1.Controls.SetChildIndex(txtPacienteId, 0);
+            tabPage1.Controls.SetChildIndex(cboMedicoId, 0);
+            tabPage1.Controls.SetChildIndex(cboPacienteId, 0);
             // 
             // txtPeriodo
             // 
@@ -73,11 +73,11 @@
             txtPeriodo.BackgroundImageLayout = ImageLayout.None;
             txtPeriodo.CharacterCasing = CharacterCasing.Normal;
             txtPeriodo.Depth = 0;
-            txtPeriodo.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtPeriodo.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtPeriodo.HideSelection = true;
             txtPeriodo.Hint = "Período (dd/mm/aaaa)";
             txtPeriodo.LeadingIcon = null;
-            txtPeriodo.Location = new Point(7, 8);
+            txtPeriodo.Location = new Point(8, 26);
             txtPeriodo.Margin = new Padding(3, 4, 3, 4);
             txtPeriodo.MaxLength = 32767;
             txtPeriodo.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
@@ -105,11 +105,11 @@
             txtQuantidade.BackgroundImageLayout = ImageLayout.None;
             txtQuantidade.CharacterCasing = CharacterCasing.Normal;
             txtQuantidade.Depth = 0;
-            txtQuantidade.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtQuantidade.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtQuantidade.HideSelection = true;
             txtQuantidade.Hint = "Quantidade";
             txtQuantidade.LeadingIcon = null;
-            txtQuantidade.Location = new Point(357, 8);
+            txtQuantidade.Location = new Point(362, 26);
             txtQuantidade.Margin = new Padding(3, 4, 3, 4);
             txtQuantidade.MaxLength = 32767;
             txtQuantidade.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
@@ -129,70 +129,6 @@
             txtQuantidade.TrailingIcon = null;
             txtQuantidade.UseSystemPasswordChar = false;
             // 
-            // txtMedicoId
-            // 
-            txtMedicoId.AnimateReadOnly = false;
-            txtMedicoId.AutoCompleteMode = AutoCompleteMode.None;
-            txtMedicoId.AutoCompleteSource = AutoCompleteSource.None;
-            txtMedicoId.BackgroundImageLayout = ImageLayout.None;
-            txtMedicoId.CharacterCasing = CharacterCasing.Normal;
-            txtMedicoId.Depth = 0;
-            txtMedicoId.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            txtMedicoId.HideSelection = true;
-            txtMedicoId.Hint = "ID do Médico";
-            txtMedicoId.LeadingIcon = null;
-            txtMedicoId.Location = new Point(7, 80);
-            txtMedicoId.Margin = new Padding(3, 4, 3, 4);
-            txtMedicoId.MaxLength = 32767;
-            txtMedicoId.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
-            txtMedicoId.Name = "txtMedicoId";
-            txtMedicoId.PasswordChar = '\0';
-            txtMedicoId.PrefixSuffixText = null;
-            txtMedicoId.ReadOnly = false;
-            txtMedicoId.RightToLeft = RightToLeft.No;
-            txtMedicoId.SelectedText = "";
-            txtMedicoId.SelectionLength = 0;
-            txtMedicoId.SelectionStart = 0;
-            txtMedicoId.ShortcutsEnabled = true;
-            txtMedicoId.Size = new Size(343, 48);
-            txtMedicoId.TabIndex = 4;
-            txtMedicoId.TabStop = false;
-            txtMedicoId.TextAlign = HorizontalAlignment.Left;
-            txtMedicoId.TrailingIcon = null;
-            txtMedicoId.UseSystemPasswordChar = false;
-            // 
-            // txtPacienteId
-            // 
-            txtPacienteId.AnimateReadOnly = false;
-            txtPacienteId.AutoCompleteMode = AutoCompleteMode.None;
-            txtPacienteId.AutoCompleteSource = AutoCompleteSource.None;
-            txtPacienteId.BackgroundImageLayout = ImageLayout.None;
-            txtPacienteId.CharacterCasing = CharacterCasing.Normal;
-            txtPacienteId.Depth = 0;
-            txtPacienteId.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            txtPacienteId.HideSelection = true;
-            txtPacienteId.Hint = "ID do Paciente";
-            txtPacienteId.LeadingIcon = null;
-            txtPacienteId.Location = new Point(357, 80);
-            txtPacienteId.Margin = new Padding(3, 4, 3, 4);
-            txtPacienteId.MaxLength = 32767;
-            txtPacienteId.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
-            txtPacienteId.Name = "txtPacienteId";
-            txtPacienteId.PasswordChar = '\0';
-            txtPacienteId.PrefixSuffixText = null;
-            txtPacienteId.ReadOnly = false;
-            txtPacienteId.RightToLeft = RightToLeft.No;
-            txtPacienteId.SelectedText = "";
-            txtPacienteId.SelectionLength = 0;
-            txtPacienteId.SelectionStart = 0;
-            txtPacienteId.ShortcutsEnabled = true;
-            txtPacienteId.Size = new Size(343, 48);
-            txtPacienteId.TabIndex = 5;
-            txtPacienteId.TabStop = false;
-            txtPacienteId.TextAlign = HorizontalAlignment.Left;
-            txtPacienteId.TrailingIcon = null;
-            txtPacienteId.UseSystemPasswordChar = false;
-            // 
             // txtId
             // 
             txtId.AnimateReadOnly = false;
@@ -201,11 +137,11 @@
             txtId.BackgroundImageLayout = ImageLayout.None;
             txtId.CharacterCasing = CharacterCasing.Normal;
             txtId.Depth = 0;
-            txtId.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtId.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             txtId.HideSelection = true;
             txtId.Hint = "ID";
             txtId.LeadingIcon = null;
-            txtId.Location = new Point(711, 8);
+            txtId.Location = new Point(725, 26);
             txtId.Margin = new Padding(3, 4, 3, 4);
             txtId.MaxLength = 32767;
             txtId.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
@@ -224,6 +160,52 @@
             txtId.TextAlign = HorizontalAlignment.Left;
             txtId.TrailingIcon = null;
             txtId.UseSystemPasswordChar = false;
+            // 
+            // cboMedicoId
+            // 
+            cboMedicoId.AutoResize = false;
+            cboMedicoId.BackColor = Color.FromArgb(255, 255, 255);
+            cboMedicoId.Depth = 0;
+            cboMedicoId.DrawMode = DrawMode.OwnerDrawVariable;
+            cboMedicoId.DropDownHeight = 174;
+            cboMedicoId.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboMedicoId.DropDownWidth = 121;
+            cboMedicoId.Font = new Font("Roboto Medium", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+            cboMedicoId.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            cboMedicoId.FormattingEnabled = true;
+            cboMedicoId.Hint = "Médico";
+            cboMedicoId.IntegralHeight = false;
+            cboMedicoId.ItemHeight = 43;
+            cboMedicoId.Location = new Point(8, 109);
+            cboMedicoId.MaxDropDownItems = 4;
+            cboMedicoId.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            cboMedicoId.Name = "cboMedicoId";
+            cboMedicoId.Size = new Size(343, 49);
+            cboMedicoId.StartIndex = 0;
+            cboMedicoId.TabIndex = 6;
+            // 
+            // cboPacienteId
+            // 
+            cboPacienteId.AutoResize = false;
+            cboPacienteId.BackColor = Color.FromArgb(255, 255, 255);
+            cboPacienteId.Depth = 0;
+            cboPacienteId.DrawMode = DrawMode.OwnerDrawVariable;
+            cboPacienteId.DropDownHeight = 174;
+            cboPacienteId.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboPacienteId.DropDownWidth = 121;
+            cboPacienteId.Font = new Font("Microsoft Sans Serif", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+            cboPacienteId.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            cboPacienteId.FormattingEnabled = true;
+            cboPacienteId.Hint = "Paciente";
+            cboPacienteId.IntegralHeight = false;
+            cboPacienteId.ItemHeight = 43;
+            cboPacienteId.Location = new Point(362, 108);
+            cboPacienteId.MaxDropDownItems = 4;
+            cboPacienteId.MouseState = ReaLTaiizor.Helper.MaterialDrawHelper.MaterialMouseState.OUT;
+            cboPacienteId.Name = "cboPacienteId";
+            cboPacienteId.Size = new Size(343, 49);
+            cboPacienteId.StartIndex = 0;
+            cboPacienteId.TabIndex = 7;
             // 
             // ReceitaForm
             // 
@@ -247,8 +229,8 @@
         // ----------------------------------------------------------------------
         private ReaLTaiizor.Controls.MaterialTextBoxEdit txtPeriodo;
         private ReaLTaiizor.Controls.MaterialTextBoxEdit txtQuantidade;
-        private ReaLTaiizor.Controls.MaterialTextBoxEdit txtMedicoId;
-        private ReaLTaiizor.Controls.MaterialTextBoxEdit txtPacienteId;
         private ReaLTaiizor.Controls.MaterialTextBoxEdit txtId; // Necessário para acessar o Id na classe .cs
+        private ReaLTaiizor.Controls.MaterialComboBox cboPacienteId;
+        private ReaLTaiizor.Controls.MaterialComboBox cboMedicoId;
     }
 }
