@@ -10,5 +10,6 @@ namespace ConsultorioIFSP.App.Models
         public string Crm { get; set; }
         public string Telefone { get; set; }
         public string Email { get; set; }
+        public string Password { get; set; }
     }
 }

@@ -72,6 +72,11 @@ namespace ConsultorioIFSP.App
 
         }
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void showForm<TFormulario>() where TFormulario : MaterialForm
         {
             //fecha todos os forms abertos dentro do mdi

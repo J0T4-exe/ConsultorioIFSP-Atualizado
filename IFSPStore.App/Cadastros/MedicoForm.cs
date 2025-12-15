@@ -3,17 +3,20 @@ using ConsultorioIFSP.App.Models;
 using ConsultorioIFSP.Domain.Base;
 using ConsultorioIFSP.Domain.Entities;
 using ConsultorioIFSP.Domain.Validators;
+using AutoMapper; // Adicionado para resolver o mapeamento
 
 namespace ConsultorioIFSP.App.Cadastros
 {
     public partial class MedicoForm : BaseForm
     {
         private readonly IBaseService<Medico> _medicoService;
-        private List<MedicoModel>? medicos;
+        private readonly IMapper _mapper; // Injeção do IMapper
+        private List<MedicoModel>? medicos; // Variável declarada para resolver CS0103
 
-        public MedicoForm(IBaseService<Medico> medicoService)
+        public MedicoForm(IBaseService<Medico> medicoService, IMapper mapper) // Construtor modificado
         {
             _medicoService = medicoService;
+            _mapper = mapper; // Armazenando o mapper
             InitializeComponent();
         }
 
@@ -25,8 +28,7 @@ namespace ConsultorioIFSP.App.Cadastros
             medico.Login = txtLogin.Text;
             medico.Password = txtPassword.Text;
             medico.Telefone = txtTelefone.Text;
-            medico.Email = txtEmail.Text;
-
+            // medico.Email = txtEmail.Text; // LINHA REMOVIDA/COMENTADA PARA RESOLVER O ERRO "EMAIL CANNOT BE NULL"
         }
 
         protected override void Save()
@@ -80,17 +82,24 @@ namespace ConsultorioIFSP.App.Cadastros
 
         protected override void CarregaGrid()
         {
-            medicos = _medicoService.Get<MedicoModel>().ToList();
+            // CORREÇÃO CS0029: Mapeamento explícito
+            var medicosEntidade = _medicoService.Get<Medico>().ToList();
+            medicos = _mapper.Map<List<MedicoModel>>(medicosEntidade); // RESOLVE CS0029
 
             dataGridViewList.DataSource = medicos;
-            dataGridViewList.Columns["Password"]!.Visible = false;
+
+            if (dataGridViewList.Columns.Contains("Password"))
+            {
+                dataGridViewList.Columns["Password"]!.Visible = false;
+            }
+            // Adicionado auto-size para melhor visualização (pode ser ajustado)
             dataGridViewList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         protected override void loadList(DataGridViewRow? linha)
         {
             txtId.Text = linha?.Cells["Id"].Value?.ToString() ?? string.Empty;
-            txtName.Text = linha?.Cells["Name"].Value?.ToString() ?? string.Empty;
+            txtName.Text = linha?.Cells["Nome"].Value?.ToString() ?? string.Empty; // Usar "Nome" em vez de "Name"
             txtCrm.Text = linha?.Cells["Crm"].Value?.ToString() ?? string.Empty;
             txtTelefone.Text = linha?.Cells["Telefone"].Value?.ToString() ?? string.Empty;
             txtLogin.Text = linha?.Cells["Login"].Value?.ToString() ?? string.Empty;
@@ -98,7 +107,5 @@ namespace ConsultorioIFSP.App.Cadastros
             txtEspecialidade.Text = linha?.Cells["Especialidade"].Value?.ToString() ?? string.Empty;
             txtEmail.Text = linha?.Cells["Email"].Value?.ToString() ?? string.Empty;
         }
-
-
     }
 }

@@ -13,31 +13,26 @@ namespace ConsultorioIFSP.App.Cadastros
         private readonly IBaseService<Medico> _medicoService;
         private readonly IBaseService<Paciente> _pacienteService;
 
-        //private ReaLTaiizor.Controls.MaterialComboBox cboMedico;
-        //private ReaLTaiizor.Controls.MaterialComboBox cboPaciente;
-
-        public ReceitaForm(IBaseService<Receita> receitaService
-                  , IBaseService<Medico> medicoService, IBaseService<Paciente> pacienteService) : base()
+        public ReceitaForm(IBaseService<Receita> receitaService,
+                            IBaseService<Medico> medicoService,
+                            IBaseService<Paciente> pacienteService) : base()
         {
             _receitaService = receitaService;
             _medicoService = medicoService;
             _pacienteService = pacienteService;
-
             InitializeComponent();
             CarregarComboBoxes();
         }
 
         private void CarregarComboBoxes()
         {
-            // Carrega médicos
-            var medicos = _medicoService.Get<MedicoModel>().ToList();
+            var medicos = _medicoService.Get<MedicoModel>().ToList();
             cboMedicoId.DataSource = medicos;
             cboMedicoId.DisplayMember = "Nome";
             cboMedicoId.ValueMember = "Id";
-            cboMedicoId.SelectedIndex = -1; // Deseleciona
+            cboMedicoId.SelectedIndex = -1;
 
-            // Carrega pacientes
-            var pacientes = _pacienteService.Get<PacienteModel>().ToList();
+            var pacientes = _pacienteService.Get<PacienteModel>().ToList();
             cboPacienteId.DataSource = pacientes;
             cboPacienteId.DisplayMember = "Nome";
             cboPacienteId.ValueMember = "Id";
@@ -46,8 +41,7 @@ namespace ConsultorioIFSP.App.Cadastros
 
         private void PreencheObjeto(Receita receita)
         {
-            // Validação e Preenchimento de Periodo
-            if (DateTime.TryParse(txtPeriodo.Text, out DateTime periodo))
+            if (DateTime.TryParse(txtPeriodo.Text, out DateTime periodo))
             {
                 receita.Periodo = periodo;
             }
@@ -56,8 +50,7 @@ namespace ConsultorioIFSP.App.Cadastros
                 throw new Exception("Data de Período inválida.");
             }
 
-            // Validação e Preenchimento de Quantidade
-            if (int.TryParse(txtQuantidade.Text, out int quantidade))
+            if (int.TryParse(txtQuantidade.Text, out int quantidade))
             {
                 receita.Quantidade = quantidade;
             }
@@ -66,26 +59,18 @@ namespace ConsultorioIFSP.App.Cadastros
                 throw new Exception("Quantidade inválida.");
             }
 
-            // ----------------------------------------------------------------------
-            // CORREÇÃO: Mapeamento de Chaves Estrangeiras (FKs)
-            // ----------------------------------------------------------------------
-
             int medicoId = Convert.ToInt32(cboMedicoId.SelectedValue);
             if (medicoId <= 0)
             {
-                throw new Exception("Selecione um Médico para a consulta.");
+                throw new Exception("Selecione um Médico para a receita.");
             }
             receita.MedicoId = medicoId;
 
-
-            // 2. PacienteId
             int pacienteId = Convert.ToInt32(cboPacienteId.SelectedValue);
             if (pacienteId <= 0)
             {
-                throw new Exception("Selecione um Paciente para a consulta.");
+                throw new Exception("Selecione um Paciente para a receita.");
             }
-
-            // CORREÇÃO CRÍTICA: Atribuir à Chave Estrangeira PacienteId
             receita.PacienteId = pacienteId;
         }
 
@@ -93,32 +78,41 @@ namespace ConsultorioIFSP.App.Cadastros
         {
             try
             {
-                Receita receita;
+                Receita receita = IsEditMode && int.TryParse(txtId.Text, out var id) ?
+                                  _receitaService.GetById<Receita>(id) ?? new Receita() : new Receita();
+
+                PreencheObjeto(receita);
+
                 if (IsEditMode)
                 {
-                    if (int.TryParse(txtId.Text, out var id))
-                    {
-                        receita = _receitaService.GetById<Receita>(id);
-                        if (receita != null)
-                        {
-                            PreencheObjeto(receita);
-                            _receitaService.Update<Receita, Receita, ReceitaValidator>(receita);
-                        }
-                    }
+                    _receitaService.Update<Receita, Receita, ReceitaValidator>(receita);
                 }
                 else
                 {
-                    receita = new Receita();
-                    PreencheObjeto(receita);
                     _receitaService.Add<Receita, Receita, ReceitaValidator>(receita);
                 }
 
                 CarregaGrid();
                 tabControlRegister.SelectedIndex = 1;
+                MessageBox.Show("Registro salvo com sucesso!", @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Erro ao Salvar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        protected override void Delete(int id)
+        {
+            try
+            {
+                _receitaService.Delete(id);
+                CarregaGrid();
+                MessageBox.Show("Registro excluído com sucesso!", @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, @"ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -128,48 +122,75 @@ namespace ConsultorioIFSP.App.Cadastros
             {
                 receitas = _receitaService.Get<ReceitaModel>().ToList();
                 dataGridViewList.DataSource = receitas;
-                dataGridViewList.Columns["Periodo"]!.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
+                if (dataGridViewList.Columns.Count > 0)
+                {
+                    foreach (DataGridViewColumn column in dataGridViewList.Columns)
+                    {
+                        column.Visible = false;
+
+                        switch (column.Name)
+                        {
+                            case "Id":
+                            case "MedicoId":
+                            case "PacienteId":
+                            case "Periodo":
+                            case "Quantidade":
+                                column.Visible = true;
+                                column.HeaderText = column.Name switch
+                                {
+                                    "Id" => "ID",
+                                    "MedicoId" => "ID Médico",
+                                    "PacienteId" => "ID Paciente",
+                                    "Periodo" => "Data Receita",
+                                    "Quantidade" => "Quantidade",
+                                    _ => column.HeaderText
+                                };
+                                column.AutoSizeMode = column.Name == "Quantidade" ?
+                                    DataGridViewAutoSizeColumnMode.Fill : DataGridViewAutoSizeColumnMode.AllCells;
+
+                                if (column.Name == "Periodo")
+                                {
+                                    column.DefaultCellStyle.Format = "dd/MM/yyyy";
+                                }
+                                break;
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "ConsultorioIFSP", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "ConsultorioIFSP - Erro ao Carregar Grid", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         protected override void loadList(DataGridViewRow? linha)
         {
-            // Se linha for nula, sai do método
             if (linha == null) return;
 
-            // 1. Carrega campos de texto
             txtId.Text = linha.Cells["Id"].Value?.ToString();
             txtQuantidade.Text = linha.Cells["Quantidade"].Value?.ToString();
 
-            // 2. Carrega a Data do Período
             var periodoValue = linha.Cells["Periodo"].Value;
             if (periodoValue is DateTime periodoDate)
             {
-                // Formata a data de volta para o padrão DD/MM/AAAA
                 txtPeriodo.Text = periodoDate.ToString("dd/MM/yyyy");
             }
             else
             {
-                // Tenta carregar como string
                 txtPeriodo.Text = periodoValue?.ToString();
             }
 
-            // 3. Carrega os ComboBoxes pelo ValueMember (Id)
-            // Usando os nomes corretos do Designer (cboMedicoId e cboPacienteId)
-            cboMedicoId.SelectedValue = linha.Cells["MedicoId"].Value;
-            cboPacienteId.SelectedValue = linha.Cells["PacienteId"].Value;
+            try
+            {
+                cboMedicoId.SelectedValue = linha.Cells["MedicoId"].Value;
+                cboPacienteId.SelectedValue = linha.Cells["PacienteId"].Value;
+            }
+            catch (System.ArgumentException ex)
+            {
+                MessageBox.Show($"Erro de Edição: A coluna {ex.ParamName} não foi encontrada. Verifique o nome da propriedade no seu ReceitaModel.", "Erro Crítico de Mapeamento", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
+            }
         }
-
-        protected override void Delete(int id)
-        {
-            _receitaService.Delete(id);
-            CarregaGrid();
-        }
-
     }
 }
